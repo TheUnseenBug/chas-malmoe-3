@@ -3,6 +3,8 @@
   grid-template-columns: repeat(4, 1fr);
   gap: 1px;
   max-width: 500px;
+  background-color: var(--secondBright);
+  border-radius: 1rem;
 }
 .output {
   grid-column: 1/5;
