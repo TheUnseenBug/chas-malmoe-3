@@ -7,9 +7,7 @@ function appendToDisplay(value) {
 function clearDisplay() {
   document.getElementById("display").value = "";
 }
-
-//Black magic dont touch
-//Omvandlar strängar till nummer och operatörer. Så tex "ett plus två" omvandlas till "1 + 2".
+//calc skapar en ny funktion som har inputs return och kallar den, den nya funktionen har då värdet return + value som nu t.ex. är return 5 + 5.
 function calc(value) {
   return new Function("return " + value)();
 }
