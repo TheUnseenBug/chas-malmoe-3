@@ -2,6 +2,7 @@
 function appendToDisplay(value) {
   document.getElementById("display").value += value;
 }
+
 //Sätter värdet i display till en tom sträng
 function clearDisplay() {
   document.getElementById("display").value = "";
@@ -10,6 +11,7 @@ function clearDisplay() {
 function calc(value) {
   return new Function("return " + value)();
 }
+
 //Räknar ut svaret med hjälp av calc funktionen
 function calculate() {
   try {
@@ -20,6 +22,7 @@ function calculate() {
     document.getElementById("display").value = "Error";
   }
 }
+
 //Tar bort sista värdet i string
 function backspace() {
   document.getElementById("display").value = document
