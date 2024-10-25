@@ -17,7 +17,7 @@
 }
 .span-button {
   grid-column: 4;
-  grid-row: 4 / span 3;
+  grid-row: 5 / span 3;
 }
 
 .calculator-grid button {
