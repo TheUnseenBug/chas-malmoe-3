@@ -1,10 +1,21 @@
+let operator = "";
+let numbers = "0";
+function setOperator(value) {
+  document.getElementById("display").value += value;
+  operator = value;
+}
+
 //Visar värdet i display och adderar strängar genom +=
 function appendToDisplay(value) {
   document.getElementById("display").value += value;
+  numbers = document.getElementById("display").value;
 }
+console.log(document.getElementById("display").value.at(-1));
 
 //Tar bort sista värdet i string
 function backspace() {
+  if (document.getElementById("display").value.at(-1)) {
+  }
   document.getElementById("display").value = document
     .getElementById("display")
     .value.slice(0, -1);
