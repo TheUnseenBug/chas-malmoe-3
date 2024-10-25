@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="utils.css" />
   </head>
   <body>
-    <h1>Calculator</h1>
     <div class="calculator-grid">
       <input
         class="output"
@@ -17,31 +16,35 @@
         readonly
         aria-label="Calculator display"
       />
-      <button onclick="onOff()">On/Off</button>
-      <button onclick="setOperator('+')">&plus;</button>
-      <button onclick="setOperator('-')">&minus;</button>
-      <button onclick="setOperator('*')">&times;</button>
-      <button onclick="setOperator('/')">&divide;</button>
-      <button onclick="setOperator('%')">%</button>
-      <button onclick="setOperator('**')">^</button>
-      <button onclick="setOperator('Math.sqrt()')">&#8730;</button>
-      <button onclick="appendToDisplay('7')">7</button>
-      <button onclick="appendToDisplay('8')">8</button>
-      <button onclick="appendToDisplay('9')">9</button>
-      <button onclick="backspace()">⌫</button>
-      <button onclick="appendToDisplay('4')">4</button>
-      <button onclick="appendToDisplay('5')">5</button>
-      <button onclick="appendToDisplay('6')">6</button>
-      <button onclick="appendToDisplay('1')">1</button>
-      <button onclick="appendToDisplay('2')">2</button>
-      <button onclick="appendToDisplay('3')">3</button>
-      <button onclick="appendToDisplay('0')">0</button>
-      <button onclick="appendToDisplay('.')">.</button>
-      <button onclick="clearDisplay()">AC</button>
-      <button onclick="calculate()" class="span-button">&equals;</button>
+      <button class="color3" onclick="onOff()">On/Off</button>
+      <button class="color2" onclick="setOperator('%')">%</button>
+      <button class="color2" onclick="setOperator('**')">^</button>
+      <button class="color2" onclick="setOperator('Math.sqrt()')">
+        &#8730;
+      </button>
+      <button class="color2" onclick="setOperator('+')">&plus;</button>
+      <button class="color2" onclick="setOperator('-')">&minus;</button>
+      <button class="color2" onclick="setOperator('*')">&times;</button>
+      <button class="color2" onclick="setOperator('/')">&divide;</button>
+      <button class="color1" onclick="appendToDisplay('7')">7</button>
+      <button class="color1" onclick="appendToDisplay('8')">8</button>
+      <button class="color1" onclick="appendToDisplay('9')">9</button>
+      <button class="color2" onclick="backspace()">⌫</button>
+      <button class="color1" onclick="appendToDisplay('4')">4</button>
+      <button class="color1" onclick="appendToDisplay('5')">5</button>
+      <button class="color1" onclick="appendToDisplay('6')">6</button>
+      <button class="color1" onclick="appendToDisplay('1')">1</button>
+      <button class="color1" onclick="appendToDisplay('2')">2</button>
+      <button class="color1" onclick="appendToDisplay('3')">3</button>
+      <button class="button0 color1" onclick="appendToDisplay('0')">0</button>
+      <button class="color1" onclick="appendToDisplay('.')">.</button>
+      <button class="color2" onclick="clearDisplay()">AC</button>
+      <button onclick="calculate()" class="buttonEquals color3">
+        &equals;
+      </button>
     </div>
   </body>
   <script src="index.js"></script>
 </html>
 
-//Math. sqrt()
+<!-- //Math. sqrt() -->
