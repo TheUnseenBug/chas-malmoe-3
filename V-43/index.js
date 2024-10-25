@@ -28,11 +28,8 @@ function calculator() {
         break;
       //Här har vi en if sats för att garantera att användaren inte dividerar med 0
       case "/":
-        if (num2 === 0) {
-          result = "Det går ej att dividera med 0";
-        } else {
-          result = num1 / num2;
-        }
+          result = num2 === 0 ? "Det går ej att dividera med 0"
+          : result = num1 / num2
         break;
 
       case "%":
@@ -57,5 +54,7 @@ function calculator() {
   );
   return result;
 }
-//Kallar funktionen så den faktiskt körs
-calculator();
+//Kallar på funktionen om man klickar på "ON" knappen
+while (on = true) {
+  calculator();
+}
