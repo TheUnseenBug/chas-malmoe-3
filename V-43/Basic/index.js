@@ -18,7 +18,7 @@ function calculator() {
       continueCalulating = confirm(
         "Du angav ett ogiltigt nummer. Vill du försöka igen?"
       );
-      return;
+      continue;
     } else {
       switch (operator) {
         case "+":
@@ -65,7 +65,6 @@ function calculator() {
         `${num1} ${operator} ${num2} = ${result}. \nVill du fortsätta räkna kul och spännande uträkningar?`
       );
     }
-    return result;
   }
 }
 
