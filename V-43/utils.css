@@ -1,0 +1,18 @@
+:root {
+  --mainBright: #fff;
+  --secondBright: #c6c6c6;
+  --mainDark: #000000;
+  --secondDark: #242424;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+}
