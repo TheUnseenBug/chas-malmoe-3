@@ -1,4 +1,5 @@
 let on = false;
+let history = [];
 function onOff(value) {
   on = value;
   console.log(on);
@@ -22,9 +23,17 @@ function calculator(appendToDisplay) {
   //Räknar ut svaret med hjälp av calc funktionen
   function calculate() {
     try {
-      document.getElementById("display").value = calc(
-        document.getElementById("display").value
-      );
+      const expression = document.getElementById("display").value;
+      const result = calc(expression);
+      document.getElementById("display").value = result;
+      
+      // Save the calculation to history
+      history.push(`${expression} = ${result}`);
+
+      // Limit history to last 10 calculations (optional)
+      if (history.length > 10) {
+        history.shift();
+      }
     } catch (error) {
       document.getElementById("display").value = "Error";
     }
