@@ -1,18 +1,35 @@
+//Visar värdet i display och adderar strängar genom +=
+function appendToDisplay(value) {
+  document.getElementById("display").value += value;
+}
+
+//Tar bort sista värdet i string
+function backspace() {
+  document.getElementById("display").value = document
+    .getElementById("display")
+    .value.slice(0, -1);
+}
+
+//Sätter värdet i display till en tom sträng
+function clearDisplay() {
+  document.getElementById("display").value = "";
+}
+
 function calculator() {
   // här skapar vi variabeln result som vi sparar resultaten av uträkningarna i.
   let result;
-  // //Vi samlar in data num1, num2, och vilken operatör som ska användas från användaren genom prompt och använder Number() funktionen för att datan från propmt ska omvandlas till typen Number.
+  //Vi samlar in data num1, num2, och vilken operatör som ska användas från användaren genom prompt och använder Number() funktionen för att datan från propmt ska omvandlas till typen Number.
   // const num1 = Number(window.prompt("Ange ett nummer", ""));
   // const operator = window.prompt(
   //   "Vilken operator vill du använda? Du kan använda +, -, *, /, %, (^)",
   //   ""
   // );
   // const num2 = Number(window.prompt("Ange ytterligare ett nummer", ""));
-  // //Har kollar vi så att num1 och num2 verkligen är nummer om de inte är det stoppar funktionen och användaren får en alert. Om dem är det körs en switch case med operatorn som väljer vilket case.
+  //Har kollar vi så att num1 och num2 verkligen är nummer om de inte är det stoppar funktionen och användaren får en alert. Om dem är det körs en switch case med operatorn som väljer vilket case.
   if (isNaN(num1) || isNaN(num2)) {
-    window.alert(
-      "Du angav ej ett giltigt nummer, ladda om sidan och påbörja på nytt."
-    );
+    // window.alert(
+    //  "Du angav ej ett giltigt nummer, ladda om sidan och påbörja på nytt."
+    //;
     return;
   } else {
     switch (operator) {
