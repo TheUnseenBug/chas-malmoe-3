@@ -8,12 +8,37 @@
   </head>
   <body>
     <h1>Calculator</h1>
-
-    <h2>
-      <a href="advanced-calculator.html"
-        >Klicka här för att se annan sorts miniräknare.</a
-      >
-    </h2>
+    <div class="calculator-grid">
+      <input
+        class="output"
+        type="text"
+        id="display"
+        readonly
+        aria-label="Calculator display"
+      />
+      <button onclick="onOff('+')">On/Off</button>
+      <button onclick="appendToDisplay('+')">&plus;</button>
+      <button onclick="appendToDisplay('-')">&minus;</button>
+      <button onclick="appendToDisplay('*')">&times;</button>
+      <button onclick="appendToDisplay('/')">&divide;</button>
+      <button onclick="appendToDisplay('%')">%</button>
+      <button onclick="appendToDisplay('**')">^</button>
+      <button onclick="appendToDisplay('Math.sqrt()')">&#8730;</button>
+      <button onclick="appendToDisplay('7')">7</button>
+      <button onclick="appendToDisplay('8')">8</button>
+      <button onclick="appendToDisplay('9')">9</button>
+      <button onclick="backspace()">⌫</button>
+      <button onclick="appendToDisplay('4')">4</button>
+      <button onclick="appendToDisplay('5')">5</button>
+      <button onclick="appendToDisplay('6')">6</button>
+      <button onclick="appendToDisplay('1')">1</button>
+      <button onclick="appendToDisplay('2')">2</button>
+      <button onclick="appendToDisplay('3')">3</button>
+      <button onclick="appendToDisplay('0')">0</button>
+      <button onclick="appendToDisplay('.')">.</button>
+      <button onclick="clearDisplay()">AC</button>
+      <button onclick="calculate()" class="span-button">&equals;</button>
+    </div>
   </body>
   <script src="index.js"></script>
 </html>
