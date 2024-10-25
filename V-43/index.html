@@ -14,17 +14,18 @@
         class="output"
         type="text"
         id="display"
+        placeholder="0"
         readonly
         aria-label="Calculator display"
       />
-      <button onclick="onOff('+')">On/Off</button>
-      <button onclick="appendToDisplay('+')">&plus;</button>
-      <button onclick="appendToDisplay('-')">&minus;</button>
-      <button onclick="appendToDisplay('*')">&times;</button>
-      <button onclick="appendToDisplay('/')">&divide;</button>
-      <button onclick="appendToDisplay('%')">%</button>
-      <button onclick="appendToDisplay('**')">^</button>
-      <button onclick="appendToDisplay('Math.sqrt()')">&#8730;</button>
+      <button onclick="onOff()">On/Off</button>
+      <button onclick="setOperator('+')">&plus;</button>
+      <button onclick="setOperator('-')">&minus;</button>
+      <button onclick="setOperator('*')">&times;</button>
+      <button onclick="setOperator('/')">&divide;</button>
+      <button onclick="setOperator('%')">%</button>
+      <button onclick="setOperator('**')">^</button>
+      <button onclick="setOperator('Math.sqrt()')">&#8730;</button>
       <button onclick="appendToDisplay('7')">7</button>
       <button onclick="appendToDisplay('8')">8</button>
       <button onclick="appendToDisplay('9')">9</button>
