@@ -24,3 +24,7 @@ Fredag 25/10-2024 - 13.00-17.00
 
 Retro måndag 28/10 kl. 10.00
 - Vi pratade om hur det gick i fredags, vad vi gjorde bra och vad vi kan göra bättre och vad vi tar med oss till nästa projekt.
+- Det var bra att vi kunde dela upp oss i mindre grupper när vi fick problem och växla mellan par och mobprogrammering
+- Vi fick vara väldigt agila - sista halvtimmen lyckades vi fokusera om och lösa hela uppgiften på nytt
+- Utvecklingspotential: bli bättre på att först fokusera på att uppfylla kritererna - sedan utveckla till något svårare, snyggare etc
+- Nästa boiler room ska vi planera lite mer i början för att få en gemensam överblick och bestämma vilka olika komponenter vi ska bygga och vad deras uppgift är för att sedan kunna bryta ner projektet i mindre uppgifter ryta ner det innan detaljerna innan för att få med alla delar. Vilket kommer göra oss effektivare och enklare att dela upp arbetet samt att alla är med på vad vi ska göra.
