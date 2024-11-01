@@ -54,7 +54,7 @@ while (toDoApp) {
       alert("Det finns inget att visa ännu, lägg till uppgifter först.");
     } else {
       alert(
-        toDoList.map((item) => `${item.id}. ${item.description} \n`).join("")
+        toDoList.map((item) => `\n ${item.id}. ${item.description}`).join("")
       );
     }
   }
@@ -104,14 +104,15 @@ while (toDoApp) {
           )
         );
         if (selectedTask >= toDoList.length) {
-          alert("Skriv den tillhörande siffran.");
+          alert("Skriv den tillhörande siffran för uppgiften du vill ta bort.");
         } else {
-          confirm(
-            `Är du säker på att du vill ta bort ${toDoList[selectedTask].description}?`
-          );
-          if ((confirm = true)) {
+          if (
+            confirm(
+              `Är du säker på att du vill ta bort ${toDoList[selectedTask].description}?`
+            )
+          ) {
             delete toDoList[selectedTask];
-            // taskRemover = false;
+            taskRemover = false;
           } else {
             taskRemover = false;
           }
