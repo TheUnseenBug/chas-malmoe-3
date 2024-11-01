@@ -50,29 +50,38 @@ while (toDoApp) {
 
   // Variabel till showlist för alert ELLER prompt
   function showList() {
-    alert(
-      toDoList.map((item) => `${item.id}. ${item.description} \n`).join("")
-    );
+    if (toDoList < 1) {
+      alert("Det finns inget att visa ännu, lägg till uppgifter först.");
+    } else {
+      alert(
+        toDoList.map((item) => `${item.id}. ${item.description} \n`).join("")
+      );
+    }
   }
 
   function completeTask() {
     let taskCompleted = true;
     while (taskCompleted) {
-      const selectedTask = Number(
-        prompt(
-          `Vilken uppgift är du klar med?
+      if (toDoList.length < 1) {
+        alert("Det finns inget att klarmarkera, lägg till uppgifter först.");
+        taskCompleted = false;
+      } else {
+        const selectedTask = Number(
+          prompt(
+            `Vilken uppgift är du klar med?
         ${toDoList
           .map((item) => `\n ${item.id}. ${item.description}`)
           .join("")}`
-        )
-      );
+          )
+        );
 
-      if (selectedTask >= toDoList.length) {
-        alert("Skriv den tillhörande siffran.");
-      } else {
-        toDoList[selectedTask].done = true;
-        alert(`${toDoList[selectedTask].description} är nu klarmarkerade.`);
-        taskCompleted = false;
+        if (selectedTask >= toDoList.length) {
+          alert("Skriv den tillhörande siffran.");
+        } else {
+          toDoList[selectedTask].done = true;
+          alert(`${toDoList[selectedTask].description} är nu klarmarkerade.`);
+          taskCompleted = false;
+        }
       }
     }
   }
@@ -83,7 +92,7 @@ while (toDoApp) {
     let taskRemover = true;
     while (taskRemover) {
       if (toDoList.length < 1) {
-        alert("Det finns inget att ta bort.");
+        alert("Det finns inget att ta bort, lägg till uppgifter först.");
         taskRemover = false;
       } else {
         const selectedTask = Number(
