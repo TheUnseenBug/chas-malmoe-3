@@ -54,7 +54,9 @@ while (toDoApp) {
       alert("Det finns inget att visa ännu, lägg till uppgifter först.");
     } else {
       alert(
-        toDoList.map((item) => `\n ${item.id}. ${item.description}`).join("")
+        toDoList
+          .map((item) => `\n ${item.id + 1}. ${item.description}`)
+          .join("")
       );
     }
   }
@@ -70,16 +72,19 @@ while (toDoApp) {
           prompt(
             `Vilken uppgift är du klar med?
         ${toDoList
-          .map((item) => `\n ${item.id}. ${item.description}`)
+          .map((item) => `\n ${item.id + 1}. ${item.description}`)
           .join("")}`
           )
         );
-
-        if (selectedTask >= toDoList.length) {
+        if (!selectedTask) {
+          taskCompleted = false;
+        } else if (selectedTask >= toDoList.length) {
           alert("Skriv den tillhörande siffran.");
         } else {
-          toDoList[selectedTask].done = true;
-          alert(`${toDoList[selectedTask].description} är nu klarmarkerade.`);
+          toDoList[selectedTask - 1].done = true;
+          alert(
+            `${toDoList[selectedTask - 1].description} är nu klarmarkerade.`
+          );
           taskCompleted = false;
         }
       }
@@ -99,20 +104,25 @@ while (toDoApp) {
           prompt(
             `Vilken uppgift vill du ta bort?
         ${toDoList
-          .map((item) => `\n ${item.id}. ${item.description}`)
+          .map((item) => `\n ${item.id + 1}. ${item.description}`)
           .join("")}`
           )
         );
-        if (selectedTask >= toDoList.length) {
+
+        if (!selectedTask) {
+          taskRemover = false;
+        } else if (selectedTask >= toDoList.length + 1) {
           alert("Skriv den tillhörande siffran för uppgiften du vill ta bort.");
         } else {
           if (
             confirm(
-              `Är du säker på att du vill ta bort ${toDoList[selectedTask].description}?`
+              `Är du säker på att du vill ta bort ${
+                toDoList[selectedTask - 1].description
+              }?`
             )
           ) {
-            delete toDoList[selectedTask];
-            taskRemover = false;
+            delete toDoList[selectedTask - 1];
+            // taskRemover = false;
           } else {
             taskRemover = false;
           }
