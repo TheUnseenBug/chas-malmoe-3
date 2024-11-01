@@ -31,9 +31,10 @@ while (toDoApp) {
   function addTask() {
     let taskInput = true;
     while (taskInput) {
-      let userInput = String(prompt("Lägg till en ny uppgift:"));
-
-      if (userInput.length < 1) {
+      let userInput = prompt("Lägg till en ny uppgift:");
+      if (userInput === null) {
+        taskInput = false;
+      } else if (userInput.length < 1) {
         alert("Uppgiften får inte vara tom, försök igen.");
       } else {
         const toDo = {
@@ -52,7 +53,6 @@ while (toDoApp) {
     alert(
       toDoList.map((item) => `${item.id}. ${item.description} \n`).join("")
     );
-    console.log(toDoList);
   }
 
   function completeTask() {
@@ -73,7 +73,6 @@ while (toDoApp) {
         toDoList[selectedTask].done = true;
         alert(`${toDoList[selectedTask].description} är nu klarmarkerade.`);
         taskCompleted = false;
-        console.log(toDoList);
       }
     }
   }
@@ -112,5 +111,6 @@ while (toDoApp) {
     }
   }
 
-  console.log(toDoList);
+  // console.log(toDoList);
 }
+console.log(toDoList);
