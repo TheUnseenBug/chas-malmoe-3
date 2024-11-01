@@ -78,7 +78,7 @@ while (toDoApp) {
     }
   }
 
-  //Lös det(loopar även när den arrayen är tom)
+  //Lös det I DIN EGNA BRANCH (loopar även när den arrayen är tom)
 
   function removeTask() {
     let taskRemover = true;
