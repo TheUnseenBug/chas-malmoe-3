@@ -3,7 +3,7 @@ let toDoApp = true;
 while (toDoApp) {
   let menu = Number(
     prompt(
-      "1. Lägg till uppgift. \n2. Visa din lista. \n3. Klarmarkera en uppgift. \n4. Ta bort en uppgift. \n5. Avsluta programmet. "
+      "Vad vill du göra idag? Skriv en siffra mellan 1-5 \n1. Lägg till en uppgift i din att göra-lista. \n2. Visa din att göra -lista. \n3. Klarmarkera en uppgift. \n4. Ta bort en uppgift. \n5. Avsluta programmet. "
     )
   );
 
@@ -21,11 +21,11 @@ while (toDoApp) {
       removeTask();
       break;
     case 5:
-      alert("Tack för att du gjort en ToDo-lista :)");
+      alert("Tack för idag - välkommen tillbaka till ToDo :)");
       toDoApp = false;
       break;
     default:
-      alert("Gör rätt, skriv en siffra mellan 1-5");
+      alert("Gör om, gör rätt; skriv en siffra mellan 1-5");
   }
 
   //Funktion som frågar användare om uppgift sen skapar objekt och lägger in informationen som beskriving i objektet.
@@ -36,7 +36,7 @@ while (toDoApp) {
       if (userInput === null) {
         taskInput = false;
       } else if (userInput.length < 1) {
-        alert("Uppgiften får inte vara tom, försök igen.");
+        alert("Du måste skriva någonting, försök igen.");
       } else {
         const toDo = {
           description: userInput,
@@ -44,7 +44,7 @@ while (toDoApp) {
           done: false,
         };
         toDoList.push(toDo);
-        taskInput = confirm("Vill du fortsätta?");
+        taskInput = confirm("Vill du lägga till ytterligare en uppgift?");
       }
     }
   }
@@ -52,7 +52,7 @@ while (toDoApp) {
   //Funktion som har en if om ingen uppgift alert, annars alert som mappar ut todolist
   function showList() {
     if (toDoList < 1) {
-      alert("Det finns inget att visa ännu, lägg till uppgifter först.");
+      alert("Du har ingen att göra -lista än, lägg till uppgifter först.");
     } else {
       alert(
         toDoList
@@ -80,7 +80,7 @@ while (toDoApp) {
         if (!selectedTask) {
           taskCompleted = false;
         } else if (selectedTask >= toDoList.length) {
-          alert("Skriv den tillhörande siffran.");
+          alert("Skriv in siffran som tillhör uppgiften du vill klarmarkera.");
         } else {
           toDoList[selectedTask - 1].done = true;
           alert(
@@ -98,7 +98,7 @@ while (toDoApp) {
     let taskRemover = true;
     while (taskRemover) {
       if (toDoList.length < 1) {
-        alert("Det finns inget att ta bort, lägg till uppgifter först.");
+        alert("Det finns ingen uppgift att ta bort, lägg till uppgifter först.");
         taskRemover = false;
       } else {
         const selectedTask = Number(
@@ -113,7 +113,7 @@ while (toDoApp) {
         if (!selectedTask) {
           taskRemover = false;
         } else if (selectedTask >= toDoList.length + 1) {
-          alert("Skriv den tillhörande siffran för uppgiften du vill ta bort.");
+          alert("Skriv in den tillhörande siffran för uppgiften du vill ta bort.");
         } else {
           if (
             confirm(
