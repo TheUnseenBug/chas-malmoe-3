@@ -28,6 +28,7 @@ while (toDoApp) {
       alert("Gör rätt, skriv en siffra mellan 1-5");
   }
 
+  //Funktion som frågar användare om uppgift sen skapar objekt och lägger in informationen som beskriving i objektet.
   function addTask() {
     let taskInput = true;
     while (taskInput) {
@@ -48,7 +49,7 @@ while (toDoApp) {
     }
   }
 
-  // Variabel till showlist för alert ELLER prompt
+  //Funktion som har en if om ingen uppgift alert, annars alert som mappar ut todolist
   function showList() {
     if (toDoList < 1) {
       alert("Det finns inget att visa ännu, lägg till uppgifter först.");
