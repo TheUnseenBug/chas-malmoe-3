@@ -1,0 +1,125 @@
+:root {
+  --mainBright: rgb(255, 255, 255);
+  --secondBright: rgb(211, 211, 211);
+  --mainDark: black;
+  --secondDark: rgb(50, 50, 50);
+  --accent1: #22223b;
+  --accent2: #4a4e69;
+}
+
+*,
+::placeholder,
+button {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Courier New", Courier, monospace;
+}
+
+body {
+  min-height: 100vh;
+  background: linear-gradient(var(--accent1), var(--accent2));
+  color: var(--mainDark);
+}
+
+.wrapper {
+  width: 70%;
+  max-width: 980px;
+  margin: auto;
+  padding-top: 100px;
+}
+
+.input-container {
+  position: relative;
+  width: 100%;
+}
+
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.container-field {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.container-field input {
+  padding: 1rem;
+  font-size: 1.3rem;
+  flex: 1;
+  border-radius: 999rem;
+  border: 1px solid var(--secondDark);
+  padding-right: 60px;
+}
+
+.container-field button {
+  position: absolute;
+  right: 1px;
+  height: 97%;
+  border-radius: 999rem;
+  border: none;
+  background-color: var(--secondBright);
+  opacity: 0.8;
+  cursor: pointer;
+  padding: 1rem;
+}
+
+.container-field button:hover {
+  opacity: 1;
+}
+
+.container-task {
+  margin-top: 75px;
+  font-size: 1.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.task-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(231, 231, 231);
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.task {
+  flex: 1;
+  padding: 0 10px;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+.check,
+.delete {
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.check {
+  color: green;
+  opacity: 0.8;
+}
+
+.check:hover {
+  opacity: 1;
+}
+
+.delete {
+  color: red;
+  opacity: 0.8;
+}
+
+.delete:hover {
+  opacity: 1;
+}
+
+.checked-task {
+  text-decoration: line-through;
+  color: rgba(0, 0, 0, 0.521);
+}
