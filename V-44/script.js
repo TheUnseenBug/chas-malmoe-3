@@ -52,7 +52,7 @@ while (toDoApp) {
   //Funktion som har en if om ingen uppgift alert, annars alert som mappar ut todolist
   function showList() {
     if (toDoList < 1) {
-      alert("Du har ingen att göra -lista än, lägg till uppgifter först.");
+      alert("Du har ingen att att-göra-lista än, lägg till uppgifter först.");
     } else {
       alert(
         toDoList
@@ -92,13 +92,15 @@ while (toDoApp) {
     }
   }
 
-  //Lös det I DIN EGNA BRANCH (loopar även när den arrayen är tom)
+  //Function för att ta bort uppgifter.
 
   function removeTask() {
     let taskRemover = true;
     while (taskRemover) {
       if (toDoList.length < 1) {
-        alert("Det finns ingen uppgift att ta bort, lägg till uppgifter först.");
+        alert(
+          "Det finns ingen uppgift att ta bort, lägg till uppgifter först."
+        );
         taskRemover = false;
       } else {
         const selectedTask = Number(
@@ -113,7 +115,9 @@ while (toDoApp) {
         if (!selectedTask) {
           taskRemover = false;
         } else if (selectedTask >= toDoList.length + 1) {
-          alert("Skriv in den tillhörande siffran för uppgiften du vill ta bort.");
+          alert(
+            "Skriv in den tillhörande siffran för uppgiften du vill ta bort."
+          );
         } else {
           if (
             confirm(
