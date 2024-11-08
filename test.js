@@ -40,4 +40,23 @@ function removeTask(index) {
     rendertasks();
 }
 
+function filtereraTask() {
+    let input, filter, ul, li, i, txtValue;
+    input = document.getElementById("taskfilter");
+    filter = input.value.toUpperCase();
+    ul = document.getElementById("todoList");
+    li = ul.getElementsByTagName('li');
+
+    for (i = 0; i < li.length; i++) {
+        // Hämta textinnehållet direkt från <li>-elementet
+        txtValue = li[i].textContent || li[i].innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            li[i].style.display = "";
+        } else {
+            li[i].style.display = "none";
+        }
+    }
+}
+
+
 document.getElementById('addTaskBtn').onclick = addTask;
