@@ -26,19 +26,38 @@ function addTask() {
   taskInputElement.value = ""; // Reset input, så en kan skriva nytt
 }
 
-// Funktion för att klona templete från HTML. Tar text-input från form och sätter in den i container-diven för nya uppgifter
-function displayTask(toDoItem) {
-  // Hämtar div-container från html
+function displayTask(task) {
   const container = document.querySelector(".container-task");
 
-  // Hämtar template-elementet med id "task-item-template" och klonar dess innehåll. Black magic, typ.
-  const taskItem = document
-    .getElementById("task-item-template")
-    .content.cloneNode(true);
+  const taskItem = document.createElement("div");
+  taskItem.className = "task-item";
 
-  // Sätter textinnehållet i .task från form-inputen till beskrivningen av uppgiften. Dvs det en skriver.
-  taskItem.querySelector(".task").textContent = toDoItem.description;
+  const checkIcon = document.createElement("i");
+  checkIcon.className = "fa-solid fa-square-check check";
 
-  // Lägger till hela klonade paketet i containern
+  const taskDescription = document.createElement("p");
+  taskDescription.className = "task";
+  taskDescription.textContent = task.description;
+
+  const iconsDiv = document.createElement("div");
+  iconsDiv.className = "icons";
+
+  const deleteIcon = document.createElement("i");
+  deleteIcon.className = "fa-solid fa-trash-can delete";
+
+  iconsDiv.appendChild(deleteIcon);
+
+  taskItem.appendChild(checkIcon);
+  taskItem.appendChild(taskDescription);
+  taskItem.appendChild(iconsDiv);
+
+  deleteIcon.addEventListener("click", () => {
+    container.removeChild(taskItem);
+  });
+
+  checkIcon.addEventListener("click", () => {
+    //  Här vill vi ändra boolean värdet till true och uppdatera stylen till .line-through
+  });
+
   container.appendChild(taskItem);
 }
