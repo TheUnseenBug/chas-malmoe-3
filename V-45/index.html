@@ -13,6 +13,7 @@
   </head>
   <body>
     <div class="wrapper">
+      <h1>ToDoList</h1>
       <div class="input-container">
         <form class="container-field">
           <div class="input-wrapper">
@@ -22,14 +23,19 @@
               class="task-input"
               placeholder="Vad vill du göra?"
             />
-            
 
             <button id="addBtn" type="submit">Lägg till</button>
           </div>
         </form>
-        <input type="text" id="taskfilter" placeholder="Sök efter task" oninput="filtereraTask()">
       </div>
-
+      <div class="input-container filter-container">
+        <input
+          type="text"
+          id="taskfilter"
+          placeholder="Sök efter task"
+          oninput="filtereraTask()"
+        />
+      </div>
       <div class="container-task">
         <h2>Att göra</h2>
         <!-- Test start -->
@@ -45,7 +51,7 @@
         <!-- Test slut -->
       </div>
 
-<!-- Slutförda uppgifter-->
+      <!-- Slutförda uppgifter-->
       <div class="completed-task">
         <h2>Slutförda uppgifter</h2>
       </div>
