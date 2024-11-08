@@ -26,6 +26,7 @@ function addTask() {
   taskInputElement.value = ""; // Reset input, så en kan skriva nytt
 }
 
+// Function för att skapa element från userinput som visas på skärmen
 function displayTask(task) {
   const container = document.querySelector(".container-task");
 
@@ -46,7 +47,6 @@ function displayTask(task) {
   deleteIcon.className = "fa-solid fa-trash-can delete";
 
   iconsDiv.appendChild(deleteIcon);
-
   taskItem.appendChild(checkIcon);
   taskItem.appendChild(taskDescription);
   taskItem.appendChild(iconsDiv);
@@ -59,7 +59,9 @@ function displayTask(task) {
     }
   });
 
+  //Tar bort både det visuella och uppgiften i arrayen
   deleteIcon.addEventListener("click", () => {
+    toDoList = toDoList.filter((item) => item.id !== task.id); // Filtrerar bort uppgiften med matchande id från toDoList-array
     container.removeChild(taskItem);
   });
 
