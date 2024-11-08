@@ -29,6 +29,9 @@ function addTask() {
 // Function för att skapa element från userinput som visas på skärmen
 function displayTask(task) {
   const container = document.querySelector(".container-task");
+  
+  // Lägg till en referens till container för slutförda uppgifter
+  const completedContainer = document.querySelector(".completed-tasks");
 
   const taskItem = document.createElement("div");
   taskItem.className = "task-item";
@@ -54,8 +57,12 @@ function displayTask(task) {
   checkIcon.addEventListener('click', () => {
     if (checkIcon.style.color === 'green') {
       checkIcon.style.color = 'red';
+      task.done = false;
     } else {
+        task.done = true;
       checkIcon.style.color = 'green';
+      taskItem.style.textDecoration = 'line-through';
+      completedContainer.appendChild(taskItem);
     }
   });
 
