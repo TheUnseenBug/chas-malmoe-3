@@ -116,7 +116,7 @@ body {
 
 .check {
   padding-right: 1rem;
-  color: var(--green);
+  color: var(--red);
   opacity: 0.8;
 }
 
