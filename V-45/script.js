@@ -78,8 +78,6 @@ function displayTask(task) {
     } else {
       task.done = true;
       checkIcon.style.color = "green";
-      taskItem.style.textDecoration = "line-through";
-      completedContainer.appendChild(taskItem);
     }
   });
 
