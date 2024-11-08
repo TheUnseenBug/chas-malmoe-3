@@ -21,10 +21,15 @@ function addTask() {
     id: toDoList.length + 1,
     done: false,
   };
+
+
+
   toDoList.push(toDo);
   displayTask(toDo); // Kallar på displayTask(), så att den nya uppgiften visas direkt
   taskInputElement.value = ""; // Reset input, så en kan skriva nytt
+
 }
+
 
 // Function för att skapa element från userinput som visas på skärmen
 function displayTask(task) {
@@ -54,6 +59,7 @@ function displayTask(task) {
   taskItem.appendChild(taskDescription);
   taskItem.appendChild(iconsDiv);
 
+ 
   checkIcon.addEventListener('click', () => {
     if (checkIcon.style.color === 'green') {
       checkIcon.style.color = 'red';
@@ -64,7 +70,8 @@ function displayTask(task) {
       taskItem.style.textDecoration = 'line-through';
       completedContainer.appendChild(taskItem);
     }
-  });
+  }); 
+
 
   //Tar bort både det visuella och uppgiften i arrayen
   deleteIcon.addEventListener("click", () => {
