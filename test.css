@@ -1,0 +1,22 @@
+body {
+    background-color: azure;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+h1 {
+    font-size: 46px;
+    box-shadow: 10px 5px rgb(0, 0, 0);
+    border: thick double rgb(168, 0, 0);
+    border-radius: 25px;
+    border-style: dashed;
+    box-sizing: content-box;
+    width: 100%;
+    padding: 20px 5px 10px;
+    
+
+}
