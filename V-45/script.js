@@ -51,6 +51,14 @@ function displayTask(task) {
   taskItem.appendChild(taskDescription);
   taskItem.appendChild(iconsDiv);
 
+  checkIcon.addEventListener('click', () => {
+    if (checkIcon.style.color === 'green') {
+      checkIcon.style.color = 'red';
+    } else {
+      checkIcon.style.color = 'green';
+    }
+  });
+
   deleteIcon.addEventListener("click", () => {
     container.removeChild(taskItem);
   });
