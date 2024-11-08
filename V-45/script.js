@@ -23,7 +23,6 @@ function addTask() {
   };
 
 
-
   toDoList.push(toDo);
   displayTask(toDo); // Kallar på displayTask(), så att den nya uppgiften visas direkt
   taskInputElement.value = ""; // Reset input, så en kan skriva nytt
