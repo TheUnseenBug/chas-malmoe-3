@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ToDo-List</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="input-container">
+        <form class="container-field">
+          <div class="input-wrapper">
+            <input
+              type="text"
+              name="task"
+              class="task-input"
+              placeholder="Vad vill du göra?"
+            />
+            <button id="addBtn" type="submit">Lägg till</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="container-task">
+        <!-- Test start -->
+
+        <div class="task-item">
+          <i class="fa-solid fa-square-check check"></i>
+          <p class="task">Detta är en uppgift</p>
+          <div class="icons">
+            <i class="fa-solid fa-trash-can delete"></i>
+          </div>
+        </div>
+
+        <!-- Test slut -->
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
