@@ -10,9 +10,9 @@
 }
 
 h2 {
-  color: var(--mainBright);
-  align-items: 
+  color: var(--secondBright);
 }
+
 *,
 ::placeholder,
 button {
