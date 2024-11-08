@@ -7,6 +7,7 @@ document.getElementById("addBtn").addEventListener("click", (event) => {
   console.log(toDoList);
 });
 
+//Funktion för att lägga till uppgifterna från form
 function addTask() {
   const taskInputElement = document.querySelector(".task-input");
   const userInput = taskInputElement.value;
@@ -16,11 +17,27 @@ function addTask() {
     return;
   }
 
+  //Loopar genom toDoList-arrayen för att kolla om det finns dubbletter
+  for (let i = 0; i < toDoList.length; i++) {
+    if (toDoList[i].description.toLowerCase() === userInput.toLowerCase()) {
+      alert(
+        "Du har redan lagt till" +
+          " " +
+          "'" +
+          userInput +
+          "'" +
+          ", lägg till något annat."
+      );
+      return;
+    }
+  }
+
   const toDo = {
     description: userInput,
     id: toDoList.length + 1,
     done: false,
   };
+
   toDoList.push(toDo);
   displayTask(toDo); // Kallar på displayTask(), så att den nya uppgiften visas direkt
   taskInputElement.value = ""; // Reset input, så en kan skriva nytt
