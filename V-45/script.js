@@ -30,16 +30,22 @@ function toggleModal(title, description, type) {
   }
 }
 
-function editTask() {
+function editTask(task) {
+  console.log(task);
   toggleModal("Justera uppgift", "Här kan du byta beskrivning", "edit");
-  // const taskInputElement = document.querySelector(".modal-input");
-  // const userInput = taskInputElement.value;
+  document.getElementById("editBtn").addEventListener("click", (event) => {
+    event.preventDefault();
+    const taskInputElement = document.getElementById("modal-input");
+    const userInput = taskInputElement.value;
+    toDoList[task.id - 1].description = userInput;
+    displayTask();
+    console.log(toDoList);
+  });
 }
 
 function addTask() {
-  const taskInputElement = document.querySelector(".task-input");
+  const taskInputElement = document.getElementById("task-input");
   const userInput = taskInputElement.value;
-  console.log(taskInputElement.value);
   if (!userInput) {
     toggleModal("Du måste skriva någonting, försök igen.");
     return;
@@ -51,49 +57,51 @@ function addTask() {
     done: false,
   };
   toDoList.push(toDo);
-  displayTask(toDo); // Kallar på displayTask(), så att den nya uppgiften visas direkt
+  displayTask(); // Kallar på displayTask(), så att den nya uppgiften visas direkt
   taskInputElement.value = ""; // Reset input, så en kan skriva nytt
 }
 
-function displayTask(task) {
-  const container = document.querySelector(".container-task");
+function displayTask() {
+  toDoList.forEach((task) => {
+    const container = document.querySelector(".container-task");
 
-  const taskItem = document.createElement("div");
-  taskItem.className = "task-item";
+    const taskItem = document.createElement("div");
+    taskItem.className = "task-item";
 
-  const taskDescription = document.createElement("p");
-  taskDescription.className = "task";
-  taskDescription.textContent = task.description;
+    const taskDescription = document.createElement("p");
+    taskDescription.className = "task";
+    taskDescription.textContent = task.description;
 
-  const iconsDiv = document.createElement("div");
-  //Kolla över
-  iconsDiv.className = "icons";
+    const iconsDiv = document.createElement("div");
+    //Kolla över
+    iconsDiv.className = "icons";
 
-  const editIcon = document.createElement("i");
-  editIcon.className = "fa-solid fa-edit edit";
+    const editIcon = document.createElement("i");
+    editIcon.className = "fa-solid fa-edit edit";
 
-  const checkIcon = document.createElement("i");
-  checkIcon.className = "fa-solid fa-square-check check";
+    const checkIcon = document.createElement("i");
+    checkIcon.className = "fa-solid fa-square-check check";
 
-  const deleteIcon = document.createElement("i");
-  deleteIcon.className = "fa-solid fa-trash-can delete";
+    const deleteIcon = document.createElement("i");
+    deleteIcon.className = "fa-solid fa-trash-can delete";
 
-  iconsDiv.appendChild(deleteIcon);
-  iconsDiv.appendChild(checkIcon);
-  iconsDiv.appendChild(editIcon);
-  taskItem.appendChild(taskDescription);
-  taskItem.appendChild(iconsDiv);
+    iconsDiv.appendChild(deleteIcon);
+    iconsDiv.appendChild(checkIcon);
+    iconsDiv.appendChild(editIcon);
+    taskItem.appendChild(taskDescription);
+    taskItem.appendChild(iconsDiv);
 
-  deleteIcon.addEventListener("click", () => {
-    container.removeChild(taskItem);
-  });
+    deleteIcon.addEventListener("click", () => {
+      container.removeChild(taskItem);
+    });
 
-  checkIcon.addEventListener("click", () => {
-    //  Här vill vi ändra boolean värdet till true och uppdatera stylen till .line-through
-  });
+    checkIcon.addEventListener("click", () => {
+      //  Här vill vi ändra boolean värdet till true och uppdatera stylen till .line-through
+    });
 
-  container.appendChild(taskItem);
-  editIcon.addEventListener("click", () => {
-    editTask();
+    container.appendChild(taskItem);
+    editIcon.addEventListener("click", () => {
+      editTask(task);
+    });
   });
 }
