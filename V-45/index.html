@@ -13,6 +13,20 @@
   </head>
   <body>
     <div class="wrapper">
+      <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-content">
+          <button class="close-button" id="closeButton">&times;</button>
+          <h2 id="modalTitle"></h2>
+          <p id="modalDescription"></p>
+          <input
+            type="text"
+            name="task"
+            class="task-input"
+            placeholder="Vad vill du göra?"
+            id="modal-input"
+          />
+        </div>
+      </div>
       <div class="input-container">
         <form class="container-field">
           <div class="input-wrapper">
@@ -31,9 +45,10 @@
         <!-- Test start -->
 
         <div class="task-item">
-          <i class="fa-solid fa-square-check check"></i>
           <p class="task">Detta är en uppgift</p>
           <div class="icons">
+            <i class="fa-solid fa-square-check check"></i>
+            <i onclick="editTask()" class="fa-solid fa-edit edit"></i>
             <i class="fa-solid fa-trash-can delete"></i>
           </div>
         </div>
