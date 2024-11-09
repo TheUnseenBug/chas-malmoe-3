@@ -87,10 +87,6 @@ function displayTask(task) {
     container.removeChild(taskItem);
   });
 
-  checkIcon.addEventListener("click", () => {
-    //  Här vill vi ändra boolean värdet till true och uppdatera stylen till .line-through
-  });
-
   container.appendChild(taskItem);
 }
 
@@ -99,14 +95,16 @@ function filtereraTask() {
   input = document.getElementById("taskfilter");
   filter = input.value.toUpperCase();
   container = document.getElementsByClassName("container-task")[0];
-  p = container.getElementsByClassName('task-item');
+  p = container.getElementsByClassName("task-item");
 
   for (i = 0; i < p.length; i++) {
-      txtValue = p[i].querySelector(".task").textContent || p[i].querySelector(".task").innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-          p[i].style.display = "";
-      } else {
-          p[i].style.display = "none";
-      }
+    txtValue =
+      p[i].querySelector(".task").textContent ||
+      p[i].querySelector(".task").innerText;
+    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+      p[i].style.display = "";
+    } else {
+      p[i].style.display = "none";
+    }
   }
 }
