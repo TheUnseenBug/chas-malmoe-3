@@ -1,5 +1,10 @@
 let toDoList = [];
 
+// load to-do list from local storage
+window.addEventListener("load", () => {
+  loadTaskFromLocalStorage();
+});
+
 // Hämtar button från HTML, triggar addTask() när den klickas på
 document.getElementById("addBtn").addEventListener("click", (event) => {
   event.preventDefault(); // Tack Mandus
@@ -110,6 +115,8 @@ function addTask() {
   };
 
   toDoList.push(toDo);
+  saveTasksToLocalStorage(); // save updated list to local storage
+  displayTask(toDo); // Kallar på displayTask(), så att den nya uppgiften visas direkt
   displayTask(); // Kallar på displayTask(), så att den nya uppgiften visas direkt
   taskInputElement.value = ""; // Reset input, så en kan skriva nytt
 }
@@ -198,6 +205,7 @@ function displayTask() {
     taskItem.appendChild(taskDescription);
     taskItem.appendChild(iconsDiv);
 
+    // changes colour of check form red to green and vice versa
     checkIcon.addEventListener("click", () => {
       if (checkIcon.style.color === "green") {
         checkIcon.style.color = "red";
@@ -205,8 +213,6 @@ function displayTask() {
       } else {
         task.done = true;
         checkIcon.style.color = "green";
-        taskItem.style.textDecoration = "line-through";
-        completedContainer.appendChild(taskItem);
       }
     });
 
@@ -215,13 +221,9 @@ function displayTask() {
       toDoList = toDoList.filter((item) => item.id !== task.id); // Filtrerar bort uppgiften med matchande id från toDoList-array
       container.removeChild(taskItem);
     });
-    deleteIcon.addEventListener("click", () => {
-      container.removeChild(taskItem);
-    });
 
     checkIcon.addEventListener("click", () => {
-      task.completed = true;
-      taskDescription.style.textDecoration = "line-through";
+      //  Här vill vi ändra boolean värdet till true och uppdatera stylen till .line-through
     });
 
     editIcon.addEventListener("click", () => {
@@ -229,6 +231,36 @@ function displayTask() {
     });
     container.appendChild(taskItem);
   });
+}
+
+// Function converts toDoList into a JSON string and saves it in local storage
+function saveTasksToLocalStorage() {
+  localStorage.setItem("toDoList", JSON.stringify(toDoList));
+}
+
+// function retrieves the list from the browser's local storage, parses it, and assigns it to toDotList
+// it also calls displayTask for each task to display on the page
+function loadTaskFromLocalStorage() {
+  const storedTask = localStorage.getItem("toDoList");
+  if (storedTask) {
+    toDoList = JSON.parse(storedTask); // goes through each task
+    toDoList.forEach((task) => displayTask(task)); // each task is displayed on the screen
+  }
+}
+
+// Function converts toDoList into a JSON string and saves it in local storage
+function saveTasksToLocalStorage() {
+  localStorage.setItem("toDoList", JSON.stringify(toDoList));
+}
+
+// function retrieves the list from the browser's local storage, parses it, and assigns it to toDotList
+// it also calls displayTask for each task to display on the page
+function loadTaskFromLocalStorage() {
+  const storedTask = localStorage.getItem("toDoList");
+  if (storedTask) {
+    toDoList = JSON.parse(storedTask); // goes through each task
+    toDoList.forEach((task) => displayTask(task)); // each task is displayed on the screen
+  }
 }
 
 function filtereraTask() {
