@@ -135,6 +135,7 @@ function displayTask() {
     deleteIcon.addEventListener("click", () => {
       toDoList = toDoList.filter((item) => item.id !== task.id); // Filtrerar bort uppgiften med matchande id från toDoList-array
       container.removeChild(taskItem);
+      saveTasksToLocalStorage(); // saves changes to local storage
     });
 
     checkIcon.addEventListener("click", () => {
