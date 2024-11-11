@@ -52,7 +52,10 @@ function addTask() {
   const taskInputElement = document.getElementById("task-input");
   const userInput = taskInputElement.value;
   if (!userInput) {
-    toggleModal("Du måste skriva någonting, försök igen.");
+    toggleModal(
+      "Du måste skriva någonting, försök igen.",
+      "Tips skriv något i rutan *Blink*"
+    );
     return;
   }
 

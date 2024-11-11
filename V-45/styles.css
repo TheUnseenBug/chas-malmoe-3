@@ -70,6 +70,11 @@ body {
   box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
   position: relative;
 }
+#modalTitle,
+#modalDescription {
+  color: #1b1b1b;
+  font-size: medium;
+}
 
 .close-button {
   cursor: pointer;
