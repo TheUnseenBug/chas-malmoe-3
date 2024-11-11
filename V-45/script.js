@@ -61,10 +61,57 @@ function addTask() {
   taskInputElement.value = ""; // Reset input, så en kan skriva nytt
 }
 
-function displayTask() {
-  toDoList.forEach((task) => {
-    const container = document.querySelector(".container-task");
+// function displayTask() {
+//   toDoList.forEach((task) => {
+//     const container = document.querySelector(".container-task");
 
+//     container.innerHTML = ""; // Clears the container
+
+//     const taskItem = document.createElement("div");
+//     taskItem.className = "task-item";
+
+//     const taskDescription = document.createElement("p");
+//     taskDescription.className = "task";
+//     taskDescription.textContent = task.description;
+
+//     const iconsDiv = document.createElement("div");
+//     //Kolla över
+//     iconsDiv.className = "icons";
+
+//     const editIcon = document.createElement("i");
+//     editIcon.className = "fa-solid fa-edit edit";
+
+//     const checkIcon = document.createElement("i");
+//     checkIcon.className = "fa-solid fa-square-check check";
+
+//     const deleteIcon = document.createElement("i");
+//     deleteIcon.className = "fa-solid fa-trash-can delete";
+
+//     iconsDiv.appendChild(deleteIcon);
+//     iconsDiv.appendChild(checkIcon);
+//     iconsDiv.appendChild(editIcon);
+//     taskItem.appendChild(taskDescription);
+//     taskItem.appendChild(iconsDiv);
+
+//     deleteIcon.addEventListener("click", () => {
+//       container.removeChild(taskItem);
+//     });
+
+//     checkIcon.addEventListener("click", () => {
+//       //  Här vill vi ändra boolean värdet till true och uppdatera stylen till .line-through
+//     });
+
+//     container.appendChild(taskItem);
+//     editIcon.addEventListener("click", () => {
+//       editTask(task);
+//     });
+//   });
+// }
+function displayTask() {
+  const container = document.querySelector(".container-task");
+  container.innerHTML = ""; // Rensar så det inte blir dubbletter
+
+  toDoList.forEach((task) => {
     const taskItem = document.createElement("div");
     taskItem.className = "task-item";
 
@@ -73,7 +120,6 @@ function displayTask() {
     taskDescription.textContent = task.description;
 
     const iconsDiv = document.createElement("div");
-    //Kolla över
     iconsDiv.className = "icons";
 
     const editIcon = document.createElement("i");
@@ -85,9 +131,9 @@ function displayTask() {
     const deleteIcon = document.createElement("i");
     deleteIcon.className = "fa-solid fa-trash-can delete";
 
-    iconsDiv.appendChild(deleteIcon);
     iconsDiv.appendChild(checkIcon);
     iconsDiv.appendChild(editIcon);
+    iconsDiv.appendChild(deleteIcon);
     taskItem.appendChild(taskDescription);
     taskItem.appendChild(iconsDiv);
 
@@ -96,10 +142,12 @@ function displayTask() {
     });
 
     checkIcon.addEventListener("click", () => {
-      //  Här vill vi ändra boolean värdet till true och uppdatera stylen till .line-through
+      task.completed = true;
+      taskDescription.style.textDecoration = "line-through";
     });
 
     container.appendChild(taskItem);
+
     editIcon.addEventListener("click", () => {
       editTask(task);
     });
