@@ -120,6 +120,7 @@ function displayTask() {
     taskItem.appendChild(taskDescription);
     taskItem.appendChild(iconsDiv);
 
+    // checks to see if the task is true or false and will display the green or red depending on the boolean
     checkIcon.style.color = task.done ? "green" : "red";
 
     // changes colour of check form red to green and vice versa and boolean
