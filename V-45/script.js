@@ -82,7 +82,6 @@ function addTask() {
 
   toDoList.push(toDo);
   saveTasksToLocalStorage(); // save updated list to local storage
-  displayTask(toDo); // Kallar på displayTask(), så att den nya uppgiften visas direkt
   displayTask(); // Kallar på displayTask(), så att den nya uppgiften visas direkt
   taskInputElement.value = ""; // Reset input, så en kan skriva nytt
 }
