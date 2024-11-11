@@ -12,6 +12,18 @@ document.getElementById("addBtn").addEventListener("click", (event) => {
   console.log(toDoList);
 });
 
+//Funktion som låter användaren redigera en task, kallar på toggle modalen som har ett textfält tar emot letar igenom listan efter rätt task och ändrar beskrivningen
+function editTask(task) {
+  toggleModal("Justera uppgift", "Här kan du byta beskrivning", "edit");
+  document.getElementById("editBtn").addEventListener("click", (event) => {
+    event.preventDefault();
+    const taskInputElement = document.getElementById("modal-input");
+    const userInput = taskInputElement.value;
+    toDoList[task.id - 1].description = userInput;
+    displayTask();
+  });
+}
+//Funktion som renderar modal där title beskrivning ocg typ kan ändras
 function toggleModal(title, description, type) {
   const modalOverlay = document.getElementById("modalOverlay");
   const modalInput = document.getElementById("modal-input");
@@ -33,55 +45,6 @@ function toggleModal(title, description, type) {
   if (type === "edit") {
     modalInput.style.display = "block";
   }
-}
-
-function editTask(task) {
-  console.log(task);
-  toggleModal("Justera uppgift", "Här kan du byta beskrivning", "edit");
-  document.getElementById("editBtn").addEventListener("click", (event) => {
-    event.preventDefault();
-    const taskInputElement = document.getElementById("modal-input");
-    const userInput = taskInputElement.value;
-    toDoList[task.id - 1].description = userInput;
-    displayTask();
-    console.log(toDoList);
-  });
-}
-
-function toggleModal(title, description, type) {
-  const modalOverlay = document.getElementById("modalOverlay");
-  const modalInput = document.getElementById("modal-input");
-  modalOverlay.style.display = "flex";
-
-  const modalTitle = document.getElementById("modalTitle");
-  modalTitle.textContent = title;
-
-  const modalDescription = document.getElementById("modalDescription");
-  modalDescription.textContent = description;
-
-  closeButton.addEventListener("click", () => {
-    modalOverlay.style.display = "none";
-  });
-
-  if (type !== "edit") {
-    modalInput.style.display = "none";
-  }
-  if (type === "edit") {
-    modalInput.style.display = "block";
-  }
-}
-
-function editTask(task) {
-  console.log(task);
-  toggleModal("Justera uppgift", "Här kan du byta beskrivning", "edit");
-  document.getElementById("editBtn").addEventListener("click", (event) => {
-    event.preventDefault();
-    const taskInputElement = document.getElementById("modal-input");
-    const userInput = taskInputElement.value;
-    toDoList[task.id - 1].description = userInput;
-    displayTask();
-    console.log(toDoList);
-  });
 }
 
 //Funktion för att lägga till uppgifterna från form
@@ -107,7 +70,7 @@ function addTask() {
       return;
     }
   }
-
+  //Skapar Todo objektet
   const toDo = {
     description: userInput,
     id: toDoList.length + 1,
@@ -120,61 +83,14 @@ function addTask() {
   displayTask(); // Kallar på displayTask(), så att den nya uppgiften visas direkt
   taskInputElement.value = ""; // Reset input, så en kan skriva nytt
 }
-
-// Function för att skapa element från userinput som visas på skärmen
-// function displayTask() {
-//   toDoList.forEach((task) => {
-//     const container = document.querySelector(".container-task");
-
-//     container.innerHTML = ""; // Clears the container
-
-//     const taskItem = document.createElement("div");
-//     taskItem.className = "task-item";
-
-//     const taskDescription = document.createElement("p");
-//     taskDescription.className = "task";
-//     taskDescription.textContent = task.description;
-
-//     const iconsDiv = document.createElement("div");
-//     //Kolla över
-//     iconsDiv.className = "icons";
-
-//     const editIcon = document.createElement("i");
-//     editIcon.className = "fa-solid fa-edit edit";
-
-//     const checkIcon = document.createElement("i");
-//     checkIcon.className = "fa-solid fa-square-check check";
-
-//     const deleteIcon = document.createElement("i");
-//     deleteIcon.className = "fa-solid fa-trash-can delete";
-
-//     iconsDiv.appendChild(deleteIcon);
-//     iconsDiv.appendChild(checkIcon);
-//     iconsDiv.appendChild(editIcon);
-//     taskItem.appendChild(taskDescription);
-//     taskItem.appendChild(iconsDiv);
-
-//     deleteIcon.addEventListener("click", () => {
-//       container.removeChild(taskItem);
-//     });
-
-//     checkIcon.addEventListener("click", () => {
-//       //  Här vill vi ändra boolean värdet till true och uppdatera stylen till .line-through
-//     });
-
-//     container.appendChild(taskItem);
-//     editIcon.addEventListener("click", () => {
-//       editTask(task);
-//     });
-//   });
-// }
+//Funktion som renderar listan
 function displayTask() {
   const container = document.querySelector(".container-task");
 
   // Lägg till en referens till container för slutförda uppgifter
   const completedContainer = document.querySelector(".completed-tasks");
   container.innerHTML = ""; // Rensar så det inte blir dubbletter
-
+  //Loopar igenom listan och skapar en task för varje object i listan
   toDoList.forEach((task) => {
     const taskItem = document.createElement("div");
     taskItem.className = "task-item";
@@ -198,10 +114,6 @@ function displayTask() {
     iconsDiv.appendChild(checkIcon);
     iconsDiv.appendChild(editIcon);
     iconsDiv.appendChild(deleteIcon);
-    taskItem.appendChild(taskDescription);
-    taskItem.appendChild(iconsDiv);
-    iconsDiv.appendChild(deleteIcon);
-    taskItem.appendChild(checkIcon);
     taskItem.appendChild(taskDescription);
     taskItem.appendChild(iconsDiv);
 
