@@ -38,7 +38,7 @@ function toggleModal(title, description, type) {
   closeButton.addEventListener("click", () => {
     modalOverlay.style.display = "none";
   });
-
+  console.log(type);
   if (type !== "edit") {
     modalInput.style.display = "none";
   }
@@ -146,21 +146,6 @@ function displayTask() {
     });
     container.appendChild(taskItem);
   });
-}
-
-// Function converts toDoList into a JSON string and saves it in local storage
-function saveTasksToLocalStorage() {
-  localStorage.setItem("toDoList", JSON.stringify(toDoList));
-}
-
-// function retrieves the list from the browser's local storage, parses it, and assigns it to toDotList
-// it also calls displayTask for each task to display on the page
-function loadTaskFromLocalStorage() {
-  const storedTask = localStorage.getItem("toDoList");
-  if (storedTask) {
-    toDoList = JSON.parse(storedTask); // goes through each task
-    toDoList.forEach((task) => displayTask(task)); // each task is displayed on the screen
-  }
 }
 
 // Function converts toDoList into a JSON string and saves it in local storage
