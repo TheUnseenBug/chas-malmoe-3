@@ -13,7 +13,21 @@
   </head>
   <body>
     <div class="wrapper">
-      <h1>ToDoList</h1>
+      <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-content">
+          <button class="close-button" id="closeButton">&times;</button>
+          <h2 id="modalTitle"></h2>
+          <p id="modalDescription"></p>
+          <input
+            type="text"
+            name="text"
+            class="modal-input"
+            id="modal-input"
+            placeholder="Redigera uppgift här"
+          />
+          <button id="editBtn" type="submit">Ändra</button>
+        </div>
+      </div>
       <div class="input-container">
         <form class="container-field">
           <div class="input-wrapper">
@@ -21,6 +35,7 @@
               type="text"
               name="task"
               class="task-input"
+              id="task-input"
               placeholder="Vad vill du göra?"
             />
 
@@ -38,6 +53,18 @@
       </div>
       <div class="container-task">
         <h2>Att göra</h2>
+        <!-- Test start -->
+
+        <div class="task-item">
+          <p class="task">Detta är en uppgift</p>
+          <div class="icons">
+            <i class="fa-solid fa-square-check check"></i>
+            <i onclick="editTask()" class="fa-solid fa-edit edit"></i>
+            <i class="fa-solid fa-trash-can delete"></i>
+          </div>
+        </div>
+
+        <!-- Test slut -->
       </div>
 
       <!-- Slutförda uppgifter-->
