@@ -120,7 +120,10 @@ function displayTask() {
     taskItem.appendChild(taskDescription);
     taskItem.appendChild(iconsDiv);
 
-    // changes colour of check form red to green and vice versa
+    // checks to see if the task is true or false and will display the green or red depending on the boolean
+    checkIcon.style.color = task.done ? "green" : "red";
+
+    // changes colour of check form red to green and vice versa and boolean
     checkIcon.addEventListener("click", () => {
       if (checkIcon.style.color === "green") {
         checkIcon.style.color = "red";
@@ -129,14 +132,17 @@ function displayTask() {
         task.done = true;
         checkIcon.style.color = "green";
       }
+      saveTasksToLocalStorage();
     });
 
+  
     //Tar bort både det visuella och uppgiften i arrayen
     deleteIcon.addEventListener("click", () => {
       toDoList = toDoList.filter((item) => item.id !== task.id); // Filtrerar bort uppgiften med matchande id från toDoList-array
       container.removeChild(taskItem);
       saveTasksToLocalStorage(); // saves changes to local storage
     });
+
 
     editIcon.addEventListener("click", () => {
       editTask(task);
