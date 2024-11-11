@@ -27,6 +27,7 @@ function editTask(task) {
 function toggleModal(title, description, type) {
   const modalOverlay = document.getElementById("modalOverlay");
   const modalInput = document.getElementById("modal-input");
+  const editBtn = document.getElementById("editBtn");
   modalOverlay.style.display = "flex";
 
   const modalTitle = document.getElementById("modalTitle");
@@ -38,9 +39,9 @@ function toggleModal(title, description, type) {
   closeButton.addEventListener("click", () => {
     modalOverlay.style.display = "none";
   });
-  console.log(type);
   if (type !== "edit") {
     modalInput.style.display = "none";
+    editBtn.style.display = "none";
   }
   if (type === "edit") {
     modalInput.style.display = "block";
@@ -134,10 +135,6 @@ function displayTask() {
     deleteIcon.addEventListener("click", () => {
       toDoList = toDoList.filter((item) => item.id !== task.id); // Filtrerar bort uppgiften med matchande id från toDoList-array
       container.removeChild(taskItem);
-    });
-
-    checkIcon.addEventListener("click", () => {
-      //  Här vill vi ändra boolean värdet till true och uppdatera stylen till .line-through
     });
 
     editIcon.addEventListener("click", () => {
