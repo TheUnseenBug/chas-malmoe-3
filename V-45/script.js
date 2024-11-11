@@ -27,6 +27,7 @@ function editTask(task) {
 function toggleModal(title, description, type) {
   const modalOverlay = document.getElementById("modalOverlay");
   const modalInput = document.getElementById("modal-input");
+  const editBtn = document.getElementById("editBtn");
   modalOverlay.style.display = "flex";
 
   const modalTitle = document.getElementById("modalTitle");
@@ -38,9 +39,9 @@ function toggleModal(title, description, type) {
   closeButton.addEventListener("click", () => {
     modalOverlay.style.display = "none";
   });
-
   if (type !== "edit") {
     modalInput.style.display = "none";
+    editBtn.style.display = "none";
   }
   if (type === "edit") {
     modalInput.style.display = "block";
@@ -82,7 +83,6 @@ function addTask() {
 
   toDoList.push(toDo);
   saveTasksToLocalStorage(); // save updated list to local storage
-  displayTask(toDo); // Kallar på displayTask(), så att den nya uppgiften visas direkt
   displayTask(); // Kallar på displayTask(), så att den nya uppgiften visas direkt
   taskInputElement.value = ""; // Reset input, så en kan skriva nytt
 }
@@ -149,21 +149,6 @@ function displayTask() {
     });
     container.appendChild(taskItem);
   });
-}
-
-// Function converts toDoList into a JSON string and saves it in local storage
-function saveTasksToLocalStorage() {
-  localStorage.setItem("toDoList", JSON.stringify(toDoList));
-}
-
-// function retrieves the list from the browser's local storage, parses it, and assigns it to toDotList
-// it also calls displayTask for each task to display on the page
-function loadTaskFromLocalStorage() {
-  const storedTask = localStorage.getItem("toDoList");
-  if (storedTask) {
-    toDoList = JSON.parse(storedTask); // goes through each task
-    toDoList.forEach((task) => displayTask(task)); // each task is displayed on the screen
-  }
 }
 
 // Function converts toDoList into a JSON string and saves it in local storage
