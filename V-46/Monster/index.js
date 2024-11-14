@@ -16,15 +16,21 @@ function renderMonsters() {
 
     const cardNameContainer = document.createElement("div");
     cardNameContainer.className = "card-name";
-    const cardName = document.createElement("div");
-    cardName.textContent = monster.name;
-    cardNameContainer.appendChild(cardName);
+    const cardDescription = document.createElement("div");
+    cardDescription.textContent = monster.name;
+    cardNameContainer.appendChild(cardDescription);
+    // const cardName = document.createElement("div");
+    // cardName.textContent = "Name:";
+    // cardNameContainer.appendChild(cardName);
 
     const cardSpecialtyContainer = document.createElement("div");
     cardSpecialtyContainer.className = "card-specialty";
     const cardSpecialty = document.createElement("div");
     cardSpecialty.textContent = monster.specialty;
     cardSpecialtyContainer.appendChild(cardSpecialty);
+    // const cardSpecs = document.createElement("div");
+    // cardSpecs.textContent = "Specialty:";
+    // cardSpecialtyContainer.appendChild(cardSpecs);
 
     const cardImg = document.createElement("img");
     cardImg.className = "card-img";

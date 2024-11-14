@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Creepster&family=IM+Fell+English+SC&family=Butcherman&family=Nosifer&display=swap");
 :root {
   --dark-midnight: #1b1b2f;
   --haunted-purple: #3d315b;
@@ -7,6 +8,10 @@
   --blood-red: #c0392b;
   --dusty-grey: #7d7d7d;
   --border-radius: 7px;
+  --font-heading: "Creepster", Impact, serif;
+  --font-body: "IM Fell English SC", Georgia, serif;
+  --font-subheading: "Butcherman", Arial Black, sans-serif;
+  --font-accent: "Nosifer", Courier New, monospace;
 }
 * {
   margin: 0;
@@ -43,6 +48,7 @@
 .card-specialty {
   padding: 5px 7px;
   text-align: start;
+  font-family: var(--font-body);
 }
 
 .card-img {
