@@ -16,8 +16,8 @@ function renderMonsters() {
 
     const cardDescription = document.createElement("h4");
     cardDescription.textContent = monster.name;
-    // const cardNameContainer = document.createElement("div");
     cardDescription.className = "card-name";
+    // const cardNameContainer = document.createElement("div");
     // cardNameContainer.appendChild(cardDescription);
     // const cardName = document.createElement("div");
     // cardName.textContent = "Name:";
@@ -42,3 +42,18 @@ function renderMonsters() {
     container.appendChild(card);
   });
 }
+function addMonsterToTeam() {
+  //Glöm inte lägga till localstorage, modal? knappar som kommer fram vid hover?
+}
+
+function removeMonster() {
+  //Glöm inte ta bort localstorage
+}
+
+function addLocalStorage() {}
+
+function removeLocalStorage() {}
+
+function createMonster() {}
+
+function shareGame() {}
