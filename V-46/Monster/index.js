@@ -14,20 +14,20 @@ function renderMonsters() {
     const card = document.createElement("div");
     card.className = "monster-card";
 
-    const cardNameContainer = document.createElement("div");
-    cardNameContainer.className = "card-name";
-    const cardDescription = document.createElement("div");
+    const cardDescription = document.createElement("h4");
     cardDescription.textContent = monster.name;
-    cardNameContainer.appendChild(cardDescription);
+    // const cardNameContainer = document.createElement("div");
+    cardDescription.className = "card-name";
+    // cardNameContainer.appendChild(cardDescription);
     // const cardName = document.createElement("div");
     // cardName.textContent = "Name:";
     // cardNameContainer.appendChild(cardName);
 
-    const cardSpecialtyContainer = document.createElement("div");
-    cardSpecialtyContainer.className = "card-specialty";
-    const cardSpecialty = document.createElement("div");
+    const cardSpecialty = document.createElement("p");
+    cardSpecialty.className = "card-specialty";
     cardSpecialty.textContent = monster.specialty;
-    cardSpecialtyContainer.appendChild(cardSpecialty);
+    // const cardSpecialtyContainer = document.createElement("div");
+    // cardSpecialtyContainer.appendChild(cardSpecialty);
     // const cardSpecs = document.createElement("div");
     // cardSpecs.textContent = "Specialty:";
     // cardSpecialtyContainer.appendChild(cardSpecs);
@@ -36,9 +36,9 @@ function renderMonsters() {
     cardImg.className = "card-img";
     cardImg.src = monster.image;
 
+    card.appendChild(cardDescription);
     card.appendChild(cardImg);
-    card.appendChild(cardNameContainer);
-    card.appendChild(cardSpecialtyContainer);
+    card.appendChild(cardSpecialty);
     container.appendChild(card);
   });
 }

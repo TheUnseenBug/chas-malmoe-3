@@ -7,7 +7,7 @@
   --bone-white: #e0e0e0;
   --blood-red: #c0392b;
   --dusty-grey: #7d7d7d;
-  --border-radius: 7px;
+  --border-radius: 15px;
   --font-heading: "Creepster", Impact, serif;
   --font-body: "IM Fell English SC", Georgia, serif;
   --font-subheading: "Butcherman", Arial Black, sans-serif;
@@ -20,7 +20,7 @@
   color: var(--bone-white);
 }
 .main-container {
-  background-color: var(--dark-midnight);
+  background-color: var(--blood-red);
 }
 
 .monster-cards-container {
@@ -36,19 +36,45 @@
 .monster-card {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  margin: 5px 7px;
-  background-color: var(--blood-red);
+  justify-content: flex-start;
+  align-items: center;
+  margin: 0.8rem;
   color: var(--bone-white);
+  /* border: 3px solid var(--bone-white); */
   border-radius: var(--border-radius);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.05);
+  overflow: hidden;
+}
+
+.monster-card :hover {
+  cursor: pointer;
 }
 
 .card-name,
 .card-specialty {
-  padding: 5px 7px;
-  text-align: start;
+  text-align: center;
   font-family: var(--font-body);
+  width: 100%;
+}
+
+.card-name {
+  /* z-index: 100;
+  text-align: center;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0; */
+  padding: 1rem;
+  background-color: var(--haunted-purple);
+  border-radius: 5px;
+  font-size: 15px;
+  font-family: var(--font-accent);
+}
+
+.card-specialty {
+  padding: 1rem;
 }
 
 .card-img {
@@ -56,6 +82,8 @@
   height: auto;
   object-fit: cover;
   display: block;
+  padding: 1rem;
+  color: var(--bone-white);
 }
 
 .teams-container {
@@ -69,11 +97,11 @@
 }
 
 .team-left {
-  background-color: #3d315b;
+  background-color: var(--ghoulish-green);
   color: white;
 }
 
 .team-right {
-  background-color: #c0392b;
+  background-color: var(--dusty-grey);
   color: white;
 }
