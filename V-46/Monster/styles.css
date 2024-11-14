@@ -1,0 +1,42 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.monster-cards-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-row: repeat(2, 1fr);
+  max-width: 980px;
+  margin: 5rem auto;
+  position: relative;
+  z-index: 1;
+}
+
+.card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: solid 2px red;
+}
+
+.teams-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  z-index: 0;
+}
+
+.team-left {
+  background-color: blue;
+  color: white;
+}
+
+.team-right {
+  background-color: red;
+  color: white;
+}
