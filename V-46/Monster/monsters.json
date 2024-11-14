@@ -2,49 +2,49 @@
   {
     "id": 0,
     "name": "Count Dracula",
-    "speciality": "Sleep, spook, drink blood, repeat",
+    "specialty": "Sleep, spook, drink blood, repeat",
     "image": "images/dracula-svgrepo-com.svg"
   },
   {
     "id": 1,
     "name": "Fast Frankenstein's Monster",
-    "speciality": "Runs faster than you think",
+    "specialty": "Runs faster than you think",
     "image": "images/frankenstein-svgrepo-com.svg"
   },
   {
     "id": 2,
     "name": "Ghost",
-    "speciality": "Rattle some chains",
+    "specialty": "Rattle some chains",
     "image": "images/ghost-halloween-svgrepo-com.svg"
   },
   {
     "id": 3,
     "name": "Jason",
-    "speciality": "What doesn't this psychopath do",
+    "specialty": "What doesn't this psychopath do",
     "image": "images/jason-voorhees-svgrepo-com.svg"
   },
   {
     "id": 4,
     "name": "Samara",
-    "speciality": "She'll weird you out and disturb you every time you watch TV",
+    "specialty": "She'll weird you out and disturb you every time you watch TV",
     "image": "images/samara-the-ring-svgrepo-com.svg"
   },
   {
     "id": 5,
     "name": "Scarecrow",
-    "speciality": "If you have trouble with crows on your crops - this is your man",
+    "specialty": "If you have trouble with crows on your crops - this is your man",
     "image": "images/scarecrow-svgrepo-com.svg"
   },
   {
     "id": 6,
     "name": "Troll",
-    "speciality": "A gentle soul who wants to be your ally (read friend)",
+    "specialty": "A gentle soul who wants to be your ally (read friend)",
     "image": "images/troll-svgrepo-com.svg"
   },
   {
     "id": 7,
     "name": "Witch",
-    "speciality": "She's mostly into animals and love potions",
+    "specialty": "She's mostly into animals and love potions",
     "image": "images/witch-svgrepo-com.svg"
   }
 ]
