@@ -133,19 +133,14 @@
 }
 
 .teams-container {
-  height: 100vh;
+  text-align: center;
+}
+
+.cards-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   margin: 0;
   padding: 0;
   position: relative;
   z-index: 0;
-}
-
-.team-left {
-  background-color: var(--ghoulish-green);
-  color: white;
-}
-
-.team-right {
-  background-color: var(--dusty-grey);
-  color: white;
 }

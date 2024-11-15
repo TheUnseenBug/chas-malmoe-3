@@ -10,7 +10,6 @@ async function fetchMonsters() {
   renderMonsters(".monster-cards-container", monsters, "add");
 }
 fetchMonsters();
-console.log(user.team);
 //Funktion som renderar modal där title beskrivning och typ kan ändras
 function toggleModal(title, description, monster, type) {
   const modalOverlay = document.getElementById("modalOverlay");
@@ -91,34 +90,33 @@ function renderMonsters(container, render, modalType) {
 }
 function addMonsterToTeam(monster) {
   //Glöm inte lägga till localstorage
-  console.log(!user.team.includes(monster));
   if (!user.team.some((member) => member.id === monster.id)) {
-    console.log("first");
     user.team.push(monster);
   } else {
     //FIXME
     //   toggleModal("Error", "Monster already in team");
   }
-  renderMonsters("#team-left", user.team, "remove");
+  renderMonsters(".cards-container", user.team, "remove");
 }
 
 function removeMonster(monster) {
   // Glöm inte ta bort localstorage
   user.team = user.team.filter((item) => item.id !== monster.id);
-  renderMonsters("#team-left", user.team, "remove");
+  renderMonsters(".cards-container", user.team, "remove");
   //FIXME
   //  else {
   //   toggleModal("Error", "Team does not exist");
   // }
 }
+//FIXME
+function createUser() {}
 
 //FIXME
 function addLocalStorage() {}
+
 //FIXME
 function removeLocalStorage() {}
 
 function createMonster() {}
-//FIXME
-function createUser() {}
 
 function shareGame() {}
