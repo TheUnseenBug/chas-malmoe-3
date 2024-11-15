@@ -47,11 +47,20 @@
   position: relative;
 }
 
+.modal-content #close {
+  color: var(--dark-midnight);
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 5px;
+  padding: 2.5px 5px;
+}
+
 .modal-content button {
   color: var(--dark-midnight);
 }
-#modalTitle,
-#modalDescription {
+.modalTitle,
+.modalDescription {
   color: var(--dark-midnight);
   font-size: medium;
 }

@@ -17,22 +17,24 @@ function toggleModal(title, description, monster, type) {
   modalOverlay.style.display = "flex";
 
   const modalContent = document.getElementById("modalContent");
-  const closeButton = document.getElementById("closeButton");
 
   modalContent.innerHTML = "";
-  //FIXME
-  // const modalTitle = document.getElementById("modalTitle");
-  // modalTitle.textContent = title;
-  // const modalDescription = document.getElementById("modalDescription");
-  // modalDescription.textContent = description;
-
+  const closeButton = document.createElement("button");
+  closeButton.id = "close";
+  closeButton.textContent = "X";
+  modalContent.appendChild(closeButton);
   const handleCloseClick = () => {
     modalOverlay.style.display = "none";
   };
-  //FIXME
-  // const newCloseButton = closeButton.cloneNode(true);
-  // closeButton.replaceWith(newCloseButton);
-  // closeButton.addEventListener("click", handleCloseClick);
+  closeButton.addEventListener("click", handleCloseClick);
+  const modalTitle = document.createElement("h4");
+  modalTitle.className = "modalTitle";
+  modalTitle.textContent = title;
+  const modalDescription = document.createElement("p");
+  modalDescription.className = "modalDescription";
+  modalDescription.textContent = description;
+  modalContent.appendChild(modalTitle);
+  modalContent.appendChild(modalDescription);
 
   if (type === "add") {
     const teamButton = document.createElement("button");
@@ -83,7 +85,7 @@ function renderMonsters(container, render, modalType) {
     wrapper.appendChild(card);
 
     card.addEventListener("click", () => {
-      toggleModal("Choose a team", "", monster, modalType);
+      toggleModal("Add monster to team", "", monster, modalType);
     });
   });
 }
