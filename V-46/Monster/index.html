@@ -9,6 +9,15 @@
   </head>
   <body>
     <main class="main-container">
+      <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-content">
+          <button class="close-button" id="closeButton">&times;</button>
+          <h2 id="modalTitle"></h2>
+          <p id="modalDescription"></p>
+          <button id="team1Btn" type="submit">Team 1</button>
+          <button id="team2Btn" type="submit">Team 2</button>
+        </div>
+      </div>
       <section class="new-container">
         <h2>Create new Monster</h2>
         <form>
@@ -21,7 +30,6 @@
         </form>
       </section>
       <div class="monster-cards-container"></div>
-
       <div class="teams-container">
         <div class="team-left">Team 1</div>
         <div class="team-right">Team 2</div>

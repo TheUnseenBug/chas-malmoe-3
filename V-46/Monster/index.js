@@ -1,4 +1,6 @@
 let monsters = [];
+let team1 = [];
+let team2 = [];
 //Async await så datan hinner hämtas innan den uppdateras sen när datan hämtats rendera den
 async function fetchMonsters() {
   const response = await fetch("monsters.json");
@@ -7,6 +9,34 @@ async function fetchMonsters() {
   renderMonsters();
 }
 fetchMonsters();
+
+//Funktion som renderar modal där title beskrivning ocg typ kan ändras
+function toggleModal(title, description, monster) {
+  const modalOverlay = document.getElementById("modalOverlay");
+  const modalInput = document.getElementById("modal-input");
+  modalOverlay.style.display = "flex";
+
+  const team1Button = document.getElementById("team1Btn");
+  const team2Button = document.getElementById("team2Btn");
+
+  const modalTitle = document.getElementById("modalTitle");
+  modalTitle.textContent = title;
+
+  const modalDescription = document.getElementById("modalDescription");
+  modalDescription.textContent = description;
+
+  closeButton.addEventListener("click", () => {
+    modalOverlay.style.display = "none";
+  });
+
+  team1Button.addEventListener("click", () => {
+    addMonsterToTeam(1, monster);
+  });
+  team2Button.addEventListener("click", () => {
+    addMonsterToTeam(2, monster);
+  });
+}
+
 function renderMonsters() {
   const container = document.querySelector(".monster-cards-container");
   container.innerHTML = "";
@@ -40,12 +70,23 @@ function renderMonsters() {
     card.appendChild(cardImg);
     card.appendChild(cardSpecialty);
     container.appendChild(card);
+
+    card.addEventListener("click", () => {
+      toggleModal("Choose a team", "", monster);
+    });
   });
 }
-function addMonsterToTeam() {
-  //Glöm inte lägga till localstorage, modal? knappar som kommer fram vid hover?
+function addMonsterToTeam(team, monster) {
+  //Glöm inte lägga till localstorage
+  console.log("team:", team, "Monster:", monster);
+  team === 1
+    ? team1.push(monster)
+    : team === 2
+    ? team2.push(monster)
+    : toggleModal("Error", "Team does not exist");
+  console.log(team1);
+  console.log(team2);
 }
-
 function removeMonster() {
   //Glöm inte ta bort localstorage
 }
