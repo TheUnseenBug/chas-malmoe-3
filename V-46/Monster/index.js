@@ -9,6 +9,7 @@ async function fetchMonsters() {
   monsters = await response.json();
   renderMonsters(".monster-cards-container", monsters, "add");
 }
+
 fetchMonsters();
 //Funktion som renderar modal där title beskrivning och typ kan ändras
 function toggleModal(title, description, monster, type) {
@@ -88,34 +89,55 @@ function renderMonsters(container, render, modalType) {
     });
   });
 }
+
+//Function för att lägga till monster i sitt lag
 function addMonsterToTeam(monster) {
-  //Glöm inte lägga till localstorage
   if (!user.team.some((member) => member.id === monster.id)) {
     user.team.push(monster);
+    localStorage.setItem("userTeam", JSON.stringify(user.team));
   } else {
     //FIXME
-    //   toggleModal("Error", "Monster already in team");
+    //Får inte modalen att trigga? Kan logga både felmeddelande härifrån och från modalen, som funkar på andra ställen.
+    console.log("ERROR: Monster already in team");
+    toggleModal("Error", "Monster already in team", null, null);
   }
   renderMonsters(".cards-container", user.team, "remove");
 }
 
 function removeMonster(monster) {
-  // Glöm inte ta bort localstorage
   user.team = user.team.filter((item) => item.id !== monster.id);
+  localStorage.setItem("userTeam", JSON.stringify(user.team));
   renderMonsters(".cards-container", user.team, "remove");
   //FIXME
   //  else {
   //   toggleModal("Error", "Team does not exist");
   // }
 }
+
 //FIXME
 function createUser() {}
 
-//FIXME
-function addLocalStorage() {}
+// Funktion för att ladda in korten från localstorage
+function addLocalStorage() {
+  const storedTeam = localStorage.getItem("userTeam");
+  if (storedTeam) {
+    user.team = JSON.parse(storedTeam);
+    // Visar korten från localstorage på hemsidan
+    renderMonsters(".cards-container", user.team, "remove");
+  }
+}
 
-//FIXME
-function removeLocalStorage() {}
+addLocalStorage();
+
+// Funktion för att reseta user team
+document
+  .getElementById("resetButton")
+  .addEventListener("click", removeLocalStorage);
+function removeLocalStorage() {
+  localStorage.removeItem("userTeam");
+  user.team = [];
+  renderMonsters(".cards-container", user.team, "remove");
+}
 
 function createMonster() {}
 
