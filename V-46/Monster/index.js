@@ -44,7 +44,9 @@ function toggleModal(title, description, monster, type) {
 
     teamButton.addEventListener("click", () => {
       addMonsterToTeam(monster);
-      modalOverlay.style.display = "none";
+      if (!user.team.some((member) => member.id === monster.id)) {
+        modalOverlay.style.display = "none";
+      }
     });
   }
 
@@ -96,10 +98,9 @@ function addMonsterToTeam(monster) {
     user.team.push(monster);
     localStorage.setItem("userTeam", JSON.stringify(user.team));
   } else {
-    //FIXME
     //Får inte modalen att trigga? Kan logga både felmeddelande härifrån och från modalen, som funkar på andra ställen.
     console.log("ERROR: Monster already in team");
-    toggleModal("Error", "Monster already in team", null, null);
+    toggleModal("Error", "Monster already in team", monster);
   }
   renderMonsters(".cards-container", user.team, "remove");
 }
@@ -133,6 +134,7 @@ addLocalStorage();
 document
   .getElementById("resetButton")
   .addEventListener("click", removeLocalStorage);
+
 function removeLocalStorage() {
   localStorage.removeItem("userTeam");
   user.team = [];
