@@ -133,12 +133,65 @@ addLocalStorage();
 document
   .getElementById("resetButton")
   .addEventListener("click", removeLocalStorage);
+
 function removeLocalStorage() {
   localStorage.removeItem("userTeam");
   user.team = [];
   renderMonsters(".cards-container", user.team, "remove");
 }
 
-function createMonster() {}
+document.getElementById("createMonster").addEventListener("click", function () {
+  const dropdown = document.getElementById("dropdownContent");
+  dropdown.classList.toggle("show");
+});
+
+function createMonster() {
+  const nameInput = document.querySelector(
+    "#dropdownContent input[type='text']:nth-of-type(1)"
+  );
+  const specialtyInput = document.querySelector(
+    "#dropdownContent input[type='text']:nth-of-type(2)"
+  );
+  const imageInput = document.querySelector(
+    "#dropdownContent input[type='file']"
+  );
+
+  const newMonster = {
+    name: nameInput.value,
+    specialty: specialtyInput.value,
+    image: "",
+  };
+
+  // Convert the image file to a base64 string, blackmagic
+  const file = imageInput.files[0];
+  const reader = new FileReader();
+
+  reader.onloadend = () => {
+    newMonster.image = reader.result; // Set the base64 string as the image
+
+    // Add the new monster to the team and save to local storage
+    addMonsterToTeam(newMonster);
+
+    // Clear the form inputs
+    nameInput.value = "";
+    specialtyInput.value = "";
+    imageInput.value = "";
+  };
+
+  if (file) {
+    reader.readAsDataURL(file); // Read the file as a data URL
+  } else {
+    // If no file is selected, add the monster without an image
+    addMonsterToTeam(newMonster);
+  }
+}
+
+// Add event listener to the form submission
+document
+  .querySelector("#dropdownContent form")
+  .addEventListener("submit", (event) => {
+    event.preventDefault(); // Prevent the default form submission
+    createMonster();
+  });
 
 function shareGame() {}
