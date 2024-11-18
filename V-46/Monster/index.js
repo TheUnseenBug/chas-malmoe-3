@@ -73,21 +73,26 @@ function renderMonsters(container, render, modalType) {
   const wrapper = document.querySelector(container);
   wrapper.innerHTML = "";
   render.forEach((monster) => {
+    //Skapar kort div
     const card = document.createElement("div");
     card.className = "monster-card";
 
+    //Skapar namn
     const cardDescription = document.createElement("h4");
     cardDescription.textContent = monster.name;
     cardDescription.className = "card-name";
 
+    //Skapar beskrivning
     const cardSpecialty = document.createElement("p");
     cardSpecialty.className = "card-specialty";
     cardSpecialty.textContent = monster.specialty;
 
+    //Skapar bilden
     const cardImg = document.createElement("img");
     cardImg.className = "card-img";
     cardImg.src = monster.image;
 
+    //Lägger till komponenterna in i card komponenten som sen är i en wrapper
     card.appendChild(cardDescription);
     card.appendChild(cardImg);
     card.appendChild(cardSpecialty);
