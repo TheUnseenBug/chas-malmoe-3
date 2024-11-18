@@ -19,23 +19,30 @@ function toggleModal(title, description, monster, type) {
   const modalContent = document.getElementById("modalContent");
 
   modalContent.innerHTML = "";
+
+  //Skapar stäng knapp och lägger till eventListener
   const closeButton = document.createElement("button");
   closeButton.id = "close";
   closeButton.textContent = "X";
   modalContent.appendChild(closeButton);
+  closeButton.addEventListener("click", handleCloseClick);
+
   const handleCloseClick = () => {
     modalOverlay.style.display = "none";
   };
-  closeButton.addEventListener("click", handleCloseClick);
+  //Sätter titel till modal
   const modalTitle = document.createElement("h4");
   modalTitle.className = "modalTitle";
   modalTitle.textContent = title;
+  modalContent.appendChild(modalTitle);
+
+  //Sätter beskrivning till modal
   const modalDescription = document.createElement("p");
   modalDescription.className = "modalDescription";
   modalDescription.textContent = description;
-  modalContent.appendChild(modalTitle);
   modalContent.appendChild(modalDescription);
 
+  //Läger till add knapp
   if (type === "add") {
     const teamButton = document.createElement("button");
     teamButton.textContent = "Add to team";
@@ -49,7 +56,7 @@ function toggleModal(title, description, monster, type) {
       }
     });
   }
-
+  //Lägger till ta bort knapp
   if (type === "remove") {
     const removeButton = document.createElement("button");
     removeButton.textContent = "Remove from team";
@@ -61,7 +68,7 @@ function toggleModal(title, description, monster, type) {
     });
   }
 }
-
+//Renderar monsterna
 function renderMonsters(container, render, modalType) {
   const wrapper = document.querySelector(container);
   wrapper.innerHTML = "";
@@ -104,7 +111,7 @@ function addMonsterToTeam(monster) {
   }
   renderMonsters(".cards-container", user.team, "remove");
 }
-
+//Funktion för att ta bort monster från sitt lag
 function removeMonster(monster) {
   user.team = user.team.filter((item) => item.id !== monster.id);
   localStorage.setItem("userTeam", JSON.stringify(user.team));
@@ -137,7 +144,7 @@ document
 
 function removeLocalStorage() {
   localStorage.removeItem("userTeam");
-  user.team = []; 
+  user.team = [];
   renderMonsters(".cards-container", user.team, "remove");
 }
 
