@@ -12,6 +12,7 @@ async function fetchMonsters() {
 
 fetchMonsters();
 //Funktion som renderar modal där title beskrivning och typ kan ändras
+// FIXME ? Ändra type till typeOf
 function toggleModal(title, description, monster, type) {
   const modalOverlay = document.getElementById("modalOverlay");
   modalOverlay.style.display = "flex";
