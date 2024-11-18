@@ -13,15 +13,18 @@
         <div id="modalContent" class="modal-content"></div>
       </div>
       <section class="new-container">
-        <h2>Create new Monster</h2>
-        <form>
-          <h3>Name</h3>
-          <input type="text" />
-          <h3>Specialty</h3>
-          <input type="text" />
-          <h3>Image</h3>
-          <input type="file" accept="image/*" />
-        </form>
+        <h2 id="createMonster" class="dropdown-toggle">Create new Monster</h2>
+        <div id="dropdownContent" class="dropdown-content">
+          <form>
+            <h3>Name</h3>
+            <input type="text" required />
+            <h3>Specialty</h3>
+            <input type="text" required />
+            <h3>Image</h3>
+            <input type="file" accept="image/*" required />
+            <button type="submit">Submit</button>
+          </form>
+        </div>
         <button id="resetButton" class="reset-button">RESET</button>
       </section>
       <div class="monster-cards-container"></div>

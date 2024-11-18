@@ -137,10 +137,72 @@ document
 
 function removeLocalStorage() {
   localStorage.removeItem("userTeam");
-  user.team = [];
+  user.team = []; 
   renderMonsters(".cards-container", user.team, "remove");
 }
 
-function createMonster() {}
+document.getElementById("createMonster").addEventListener("click", function () {
+  const dropdown = document.getElementById("dropdownContent");
+  dropdown.classList.toggle("show");
+});
+
+//Funktion för att lägga till ett eget monster till user team
+function createMonster() {
+  const nameInput = document.querySelector(
+    "#dropdownContent input[type='text']:nth-of-type(1)"
+  );
+  const specialtyInput = document.querySelector(
+    "#dropdownContent input[type='text']:nth-of-type(2)"
+  );
+  const imageInput = document.querySelector(
+    "#dropdownContent input[type='file']"
+  );
+
+  // Skapa unikt id, så att en kan lägga till fler monster
+  function generateUniqueId() {
+    return "monster-" + Date.now() + "-" + Math.floor(Math.random() * 10000);
+  }
+
+  const newMonster = {
+    id: generateUniqueId(),
+    name: nameInput.value,
+    specialty: specialtyInput.value,
+    image: "",
+  };
+
+  // AI black magic starts
+  // Konverterar filen till base64 string, så att det går att spara local
+  const file = imageInput.files[0];
+  const reader = new FileReader();
+
+  reader.onloadend = () => {
+    newMonster.image = reader.result; // Set the base64 string as the image
+
+    // AI black magic ends
+
+    // Skickar den skapade monstret till userTeam
+    addMonsterToTeam(newMonster);
+
+    // Reset form
+    nameInput.value = "";
+    specialtyInput.value = "";
+    imageInput.value = "";
+  };
+
+  //Lite mer AI blackmagic
+  if (file) {
+    reader.readAsDataURL(file);
+  } else {
+    addMonsterToTeam(newMonster);
+  }
+  //Slut på AI blackmagic
+}
+
+document
+  .querySelector("#dropdownContent form")
+  .addEventListener("submit", (event) => {
+    event.preventDefault();
+    createMonster();
+  });
 
 function shareGame() {}
