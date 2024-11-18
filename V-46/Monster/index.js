@@ -25,11 +25,12 @@ function toggleModal(title, description, monster, type) {
   closeButton.id = "close";
   closeButton.textContent = "X";
   modalContent.appendChild(closeButton);
-  closeButton.addEventListener("click", handleCloseClick);
 
   const handleCloseClick = () => {
     modalOverlay.style.display = "none";
   };
+  closeButton.addEventListener("click", handleCloseClick);
+
   //Sätter titel till modal
   const modalTitle = document.createElement("h4");
   modalTitle.className = "modalTitle";
@@ -51,9 +52,9 @@ function toggleModal(title, description, monster, type) {
 
     teamButton.addEventListener("click", () => {
       addMonsterToTeam(monster);
-      if (!user.team.some((member) => member.id === monster.id)) {
-        modalOverlay.style.display = "none";
-      }
+      // if (!user.team.some((member) => member.id === monster.id)) {
+      //   modalOverlay.style.display = "none";
+      // }
     });
   }
   //Lägger till ta bort knapp
