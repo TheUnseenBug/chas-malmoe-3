@@ -66,6 +66,7 @@ function filterNews() {
 
 function categoryNews() {}
 
+
 function handleFavorite(article) {
   if (favoriteNews.includes(article)) {
     favoriteNews.filter((a) => a.id !== article.id);
@@ -74,50 +75,52 @@ function handleFavorite(article) {
   }
 }
 console.log(favoriteNews);
+
+function favoriteNews() {}
+
+const searchInput = document.getElementById('search-input'); 
+searchInput.addEventListener('input', searchNews);
+
 async function searchNews() {
-  const searchTerm = document
-    .getElementById("search-input")
-    .value.toLowerCase();
-  const container = document.getElementById("newsFeed");
+  const searchTerm = document.getElementById('search-input').value.toLowerCase();
+  const container = document.getElementById('newsFeed');
 
   try {
-    const response = await fetch("text.json");
-    const data = await response.json();
-    const articles = data.articles;
+    const response = await fetchNews(1); //page one is default
+    const articles = news.articles; // using global news array
 
-    container.innerHTML = "";
+    container.innerHTML = '';
 
     if (!searchTerm) {
-      displayNews();
+      displayNews(news);
       return;
     }
 
-    const searchedNews = articles.filter(
-      (article) =>
-        article.title.toLowerCase().includes(searchTerm) ||
-        article.description.toLowerCase().includes(searchTerm)
+    const searchedNews = articles.filter(article => 
+      article.title.toLowerCase().includes(searchTerm) ||
+      (article.description && article.description.toLowerCase().includes(searchTerm))
     );
 
     if (searchedNews.length === 0) {
-      container.innerHTML = "<p>Nothing matched your search terms...</p>";
+      container.innerHTML = '<p>Nothing matched your search terms...</p>';
       return;
     }
 
-    searchedNews.forEach((article) => {
-      const articleElement = document.createElement("div");
-      articleElement.classList.add("article");
-      articleElement.innerHTML = `
-        <h3>${article.title}</h3>
-        <p>${article.description}</p>
-        <a href="${article.url}" target="_blank">Read more</a>
-      `;
-      container.appendChild(articleElement);
-      console.log(searchTerm);
+    searchedNews.forEach(article => {
+      console.log(article);
+      // const articleElement = document.createElement('div');
+      // articleElement.classList.add('article');
+      // articleElement.innerHTML = `
+      //   <h3>${article.title}</h3>
+      //   <p>${article.description}</p>
+      //   <a href="${article.url}" target="_blank">Read more</a>
+      // `;
+      // container.appendChild(articleElement);
     });
+
   } catch (error) {
     console.error("Error searching news:", error);
-    container.innerHTML = "<p>Error loading news articles</p>";
+    container.innerHTML = '<p>Error loading news articles</p>';
   }
 }
-
 function pagination() {}
