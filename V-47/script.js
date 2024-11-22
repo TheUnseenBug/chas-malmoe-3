@@ -53,9 +53,13 @@ function displayNews(news) {
     readMore.classList.add("readMore");
     newsArticle.appendChild(readMore); // Lägger till länken i artikeln
 
+    const favoriteButton = document.createElement("button");
+    favoriteButton.textContent = "love love"; // Kort beskrivning
+    newsArticle.appendChild(favoriteButton);
+
     newsFeed.appendChild(newsArticle); // Lägger till artikeln i newsFeed
 
-    favorite.addEventListener("click", () => {
+    newsArticle.addEventListener("click", () => {
       handleFavorite(article);
     });
   });
@@ -67,13 +71,16 @@ function filterNews() {
 function categoryNews() {}
 
 function handleFavorite(article) {
+  console.log(article);
   if (favoriteNews.includes(article)) {
+    console.log("first");
     favoriteNews.filter((a) => a.id !== article.id);
   } else {
+    console.log("second");
     favoriteNews.push(article);
+    console.log(favoriteNews);
   }
 }
-console.log(favoriteNews);
 async function searchNews() {
   const searchTerm = document
     .getElementById("search-input")
