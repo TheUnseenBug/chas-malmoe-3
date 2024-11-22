@@ -133,6 +133,7 @@ function searchNews() {
   // Clear the container
   container.innerHTML = '';
 
+  // While loading 
   if (!news || !news.articles) {
     container.innerHTML = '<p>Please wait for news to load...</p>';
     return;
