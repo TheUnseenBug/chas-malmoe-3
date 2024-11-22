@@ -72,12 +72,11 @@ function displayNews(response) {
     // sourceContainer.appendChild(readMore); // Lägger till länken i artikeln
 
     const favoriteButton = document.createElement("button");
-    favoriteButton.textContent = "love love"; // Kort beskrivning
     sourceContainer.appendChild(favoriteButton);
 
     newsFeed.appendChild(newsArticle); // Lägger till artikeln i newsFeed
 
-    newsArticle.addEventListener("click", () => {
+    imgElement.addEventListener("click", () => {
       window.location.href = `${article.url}`;
     });
 
