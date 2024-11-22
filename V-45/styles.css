@@ -47,6 +47,38 @@ body {
   margin: auto;
   padding-top: 100px;
 }
+.modal-overlay {
+  display: none; /* Hidden by default */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Modal content */
+.modal-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+#modalTitle,
+#modalDescription {
+  color: #1b1b1b;
+  font-size: medium;
+}
+
+.close-button {
+  cursor: pointer;
+}
 
 .input-container {
   position: relative;
@@ -146,9 +178,26 @@ input#taskfilter {
 }
 
 .check,
-.delete {
+.delete,
+.edit {
   font-size: clamp(0.8rem, 2vw + 0.5rem, 1.2rem);
   cursor: pointer;
+}
+
+.icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.edit {
+  padding-right: 1rem;
+  opacity: 0.8;
+}
+
+.edit:hover {
+  opacity: 1;
+  transform: scale(1.1);
 }
 
 .check {
