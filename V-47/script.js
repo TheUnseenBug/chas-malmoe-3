@@ -17,13 +17,22 @@ async function fetchNews(page, category) {
     console.error("Error:", error);
   }
 }
+
 fetchNews();
-function displayNews(news) {
+
+function displayNews(response) {
   const newsFeed = document.getElementById("newsFeed"); // Hämtar newsFeed-elementet
 
-  news.articles.forEach((article) => {
+  response.articles.forEach((article) => {
     const newsArticle = document.createElement("article"); // Skapar ett nytt artikel-element
     newsArticle.classList.add("newsArticle"); // Lägger till klassen "newsArticle"
+    
+    const imgElement = document.createElement("img");
+    imgElement.src = article.urlToImage;
+    imgElement.classList.add("newsImg");
+    imgElement.style.width = "100%";
+    imgElement.style.height = "auto";
+    newsArticle.appendChild(imgElement);
 
     // Skapar och lägger till titeln
     const titleElement = document.createElement("h3");
