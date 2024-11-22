@@ -30,6 +30,14 @@ function displayNews(response) {
     const newsArticle = document.createElement("article"); // Skapar ett nytt artikel-element
     newsArticle.classList.add("newsArticle"); // Lägger till klassen "newsArticle"
 
+    // Skapar och lägger till publiceringsdatum och tid
+    const dateElement = document.createElement("p");
+    const publishedDate = new Date(article.publishedAt); // Skapar ett Date-objekt
+    const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Stockholm' }; // Formatinställningar med svensk tid
+    dateElement.textContent = publishedDate.toLocaleString('en-US', options); // Formaterar datum och tid på engelska
+    dateElement.classList.add("newsDate");
+    newsArticle.appendChild(dateElement);
+
     // Skapar och lägger till titeln
     const titleElement = document.createElement("h3");
     titleElement.textContent = article.title;
@@ -123,6 +131,18 @@ function handleFavorite(article) {
   } else {
     favoriteNews.push(article);
   }
+  updateFavoritesFeed();
+}
+
+// Ny funktion för att uppdatera favoritesFeed
+function updateFavoritesFeed() {
+  const favoritesFeed = document.getElementById('favoritesFeed');
+  favoritesFeed.innerHTML = ''; // Rensa tidigare innehåll
+  favoriteNews.forEach((article) => {
+    const articleElement = document.createElement('div');
+    articleElement.textContent = article; // Anta att article är en sträng
+    favoritesFeed.appendChild(articleElement);
+  });
 }
 
 // search news by title
