@@ -1,4 +1,5 @@
 let favoriteNews = [];
+let news = [];
 async function fetchNews(page, category) {
   try {
     const apiKey = "db6c1d2353eb42528700f136fd8899fb";
@@ -8,8 +9,10 @@ async function fetchNews(page, category) {
     const url = "test.json";
     const data = await fetch(url);
     const response = await data.json();
+    news = response.articles;
     console.log(response);
     displayNews(response);
+    populateSourceFilter();
   } catch (error) {
     console.error("Error:", error);
   }
@@ -64,8 +67,27 @@ function displayNews(news) {
     });
   });
 }
-function filterNews() {
-  //???????
+
+function populateSourceFilter() {
+  const sourceFilter = document.getElementById("sourceFilter");
+  const sources = [...new Set(news.map((article) => article.source.name))]; // Unique sources
+
+  sourceFilter.innerHTML = '<option value="">All Sources</option>'; // Reset options
+  sources.forEach((source) => {
+    const option = document.createElement("option");
+    option.value = source;
+    option.textContent = source;
+    sourceFilter.appendChild(option);
+  });
+}
+
+function filterBySource() {
+  const selectedSource = document.getElementById("sourceFilter").value;
+  const filteredNews = selectedSource
+    ? news.filter((article) => article.source.name === selectedSource)
+    : news; // Show all if no source selected
+
+  displayNews(filteredNews);
 }
 
 function categoryNews() {}
