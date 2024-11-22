@@ -57,17 +57,15 @@ function displayNews(response) {
     authorElement.classList.add("newsAuthor");
     newsArticle.appendChild(authorElement);
 
-    // Skapar och lägger till read full story med länk till nyhetens url
-    const readMore = document.createElement("a");
-    readMore.href = article.url; // Korrekt länk till nyheten
-    readMore.target = "_blank"; // Öppnar länken i en ny flik
-    readMore.textContent = "Read full story"; // Text för länken
-    readMore.classList.add("readMore");
-    newsArticle.appendChild(readMore); // Lägger till länken i artikeln
-
     const favoriteButton = document.createElement("button");
-    favoriteButton.textContent = "love love"; // Kort beskrivning
+    favoriteButton.textContent = "Mark as favorite "; // Kort beskrivning
+    favoriteButton.classList.add("favoriteButton");
     newsArticle.appendChild(favoriteButton);
+
+ // Gör hela artikeln klickbar och leder till den fullständiga artikeln
+    newsArticle.addEventListener("click", () => {
+          window.open(article.url, "_blank"); // Öppnar artikeln i en ny flik
+        });
 
     newsFeed.appendChild(newsArticle); // Lägger till artikeln i newsFeed
 
