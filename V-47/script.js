@@ -158,19 +158,9 @@ function searchNews() {
       return;
   }
   
-  // Display filtered articles
-  filteredArticles.forEach(article => {
-      const articleElement = document.createElement('div');
-      articleElement.classList.add('article');
-      articleElement.innerHTML = `
-          <img src="${article.urlToImage || 'placeholder-image.jpg'}" alt="Article image">
-          <h3>${article.title}</h3>
-          <p>${article.description || 'No description available'}</p>
-          <a href="${article.url}" target="_blank">Read more</a>
-      `;
-      container.appendChild(articleElement);
-  });
-}
+   // Display filtered articles using the existing displayNews function
+   displayNews({ articles: filteredArticles });
+  }
 
 // Add event listener to search input
 document.getElementById('search-input').addEventListener('input', searchNews);
