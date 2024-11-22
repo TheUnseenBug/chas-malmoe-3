@@ -113,6 +113,18 @@ header h1 {
   border-radius: 8px;
 }
 
+.newsArticle img {
+  cursor: pointer;
+}
+
+.newsArticle button {
+  width: 100%;
+  background-image: url(images/heart.svg);
+  /* background-repeat: no-repeat;
+  background-size: cover;
+  background-position: start; */
+}
+
 .newsArticle h3 {
   padding: 7px;
 }
@@ -145,5 +157,10 @@ header h1 {
 .newsAuthor {
 }
 
-.readMore {
+.favoriteButton {
+
+}
+
+#favoriteArticles {
+
 }
