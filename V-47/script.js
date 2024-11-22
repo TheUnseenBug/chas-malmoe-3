@@ -42,6 +42,12 @@ function displayNews(response) {
     imgElement.style.width = "100%";
     imgElement.style.height = "auto";
     newsArticle.appendChild(imgElement);
+
+        // Gör  bilden klickbar och leder till den fullständiga artikeln
+        imgElement.addEventListener("click", (event) => {
+          window.open(article.url, "_blank"); // Öppnar artikeln i en ny flik
+        });
+
     // Skapar och lägger till beskrivningen
     const descriptionElement = document.createElement("p");
     descriptionElement.textContent = article.description; // Kort beskrivning
@@ -67,11 +73,6 @@ function displayNews(response) {
     favoriteButton.textContent = "Mark as favorite "; // Kort beskrivning
     favoriteButton.classList.add("favoriteButton");
     newsArticle.appendChild(favoriteButton);
-
- // Gör hela artikeln klickbar och leder till den fullständiga artikeln
-    newsArticle.addEventListener("click", () => {
-          window.open(article.url, "_blank"); // Öppnar artikeln i en ny flik
-        });
 
     newsFeed.appendChild(newsArticle); // Lägger till artikeln i newsFeed
 
