@@ -5,12 +5,19 @@ let news = [];
 async function fetchNews(page, category) {
   try {
     const apiKey = "db6c1d2353eb42528700f136fd8899fb";
-    // const url = `https://newsapi.org/v2/top-headlines?country=us${
-    //   category ? `&category=${category}` : ""
-    // }&page=${page}&apiKey=${apiKey}`;
-    const url = "test.json";
+    const url = `https://newsapi.org/v2/top-headlines?country=us${
+      category ? `&category=${category}` : ""
+    }&page=${page}&apiKey=${apiKey}`;
+    // const url = "test.json";
     const data = await fetch(url);
     const response = await data.json();
+
+    // Filtrerar bort borttagna artiklar, så att de inte laddas in
+    const filteredArticles = response.articles.filter(
+      (article) => article.source.name !== "[Removed]"
+    );
+    response.articles = filteredArticles;
+
     news = response;
     console.log(response);
     displayNews(response);
@@ -51,10 +58,10 @@ function displayNews(response) {
     imgElement.style.height = "auto";
     newsArticle.appendChild(imgElement);
 
-        // Gör  bilden klickbar och leder till den fullständiga artikeln
-        imgElement.addEventListener("click", (event) => {
-          window.open(article.url, "_blank"); // Öppnar artikeln i en ny flik
-        });
+    // Gör  bilden klickbar och leder till den fullständiga artikeln
+    imgElement.addEventListener("click", (event) => {
+      window.open(article.url, "_blank"); // Öppnar artikeln i en ny flik
+    });
 
     // Skapar och lägger till beskrivningen
     const descriptionElement = document.createElement("p");
@@ -76,7 +83,7 @@ function displayNews(response) {
     authorElement.textContent = "Written by: " + article.author; // Källa
     authorElement.classList.add("newsAuthor");
     sourceContainer.appendChild(authorElement);
-    
+
     const favoriteButton = document.createElement("button");
     favoriteButton.textContent = "Mark as favorite "; // Kort beskrivning
     favoriteButton.classList.add("favoriteButton");
@@ -122,7 +129,17 @@ function filterBySource() {
   displayNews({ articles: filteredNews });
 }
 
-function categoryNews() {}
+// Byter ut URL mot kategorin som användaren klickar på
+function categoryNews(category) {
+  const currentPage = 1;
+  fetchNews(currentPage, category);
+}
+document.querySelectorAll(".categoryButton").forEach((button) => {
+  button.addEventListener("click", (event) => {
+    const category = event.target.dataset.category;
+    categoryNews(category);
+  });
+});
 
 function handleFavorite(article) {
   console.log(article);
@@ -148,42 +165,44 @@ function updateFavoritesFeed() {
 // search news by title
 function searchNews() {
   // retrieves user input
-  const searchInput = document.getElementById('search-input').value.toLowerCase();
+  const searchInput = document
+    .getElementById("search-input")
+    .value.toLowerCase();
   // selects the newsFeed container where the articles are displayed
-  const container = document.getElementById('newsFeed');
-  
+  const container = document.getElementById("newsFeed");
+
   // Clear the container
-  container.innerHTML = '';
+  container.innerHTML = "";
 
   // Checks if the news object or its articles array is undefined or empty
   // displays a loading message if data isn't available
   if (!news || !news.articles) {
-    container.innerHTML = '<p>Please wait for news to load...</p>';
+    container.innerHTML = "<p>Please wait for news to load...</p>";
     return;
-}
-  
-  // If search is empty, show all news
-  if (!searchInput) {
-      displayNews(news);
-      return;
-  }
-  
-  // Filter articles based on title
-  const filteredArticles = news.articles.filter(article => 
-      article.title.toLowerCase().includes(searchInput)
-  );
-  
-  // Display message if no results found
-  if (filteredArticles.length === 0) {
-      container.innerHTML = '<p>No articles found matching that title...</p>';
-      return;
-  }
-  
-   // Display filtered articles using the existing displayNews function
-   displayNews({ articles: filteredArticles });
   }
 
+  // If search is empty, show all news
+  if (!searchInput) {
+    displayNews(news);
+    return;
+  }
+
+  // Filter articles based on title
+  const filteredArticles = news.articles.filter((article) =>
+    article.title.toLowerCase().includes(searchInput)
+  );
+
+  // Display message if no results found
+  if (filteredArticles.length === 0) {
+    container.innerHTML = "<p>No articles found matching that title...</p>";
+    return;
+  }
+
+  // Display filtered articles using the existing displayNews function
+  displayNews({ articles: filteredArticles });
+}
+
 // Add event listener to search input
-document.getElementById('search-input').addEventListener('input', searchNews);
+document.getElementById("search-input").addEventListener("input", searchNews);
 
 function pagination() {}

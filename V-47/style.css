@@ -124,6 +124,17 @@ nav {
   border-radius: 8px;
 }
 
+.category-buttons {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.categoryButton {
+  margin: auto 1rem;
+  padding: 0.3rem;
+}
+
 #newsFeed {
   display: flex;
   justify-content: center;
