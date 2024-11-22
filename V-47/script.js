@@ -1,4 +1,5 @@
 let favoriteNews = [];
+let news = [];
 async function fetchNews(page, category) {
   try {
     const apiKey = "db6c1d2353eb42528700f136fd8899fb";
@@ -8,8 +9,10 @@ async function fetchNews(page, category) {
     const url = "test.json";
     const data = await fetch(url);
     const response = await data.json();
+    news = response.articles;
     console.log(response);
     displayNews(response);
+    populateSourceFilter();
   } catch (error) {
     console.error("Error:", error);
   }
@@ -53,33 +56,69 @@ function displayNews(news) {
     readMore.classList.add("readMore");
     newsArticle.appendChild(readMore); // Lägger till länken i artikeln
 
+    const favoriteButton = document.createElement("button");
+    favoriteButton.textContent = "love love"; // Kort beskrivning
+    newsArticle.appendChild(favoriteButton);
+
     newsFeed.appendChild(newsArticle); // Lägger till artikeln i newsFeed
 
-    favorite.addEventListener("click", () => {
+    newsArticle.addEventListener("click", () => {
       handleFavorite(article);
     });
   });
 }
-function filterNews() {
-  //???????
+
+function populateSourceFilter() {
+  const sourceFilter = document.getElementById("sourceFilter");
+  const sources = [...new Set(news.map((article) => article.source.name))]; // Unique sources
+
+  sourceFilter.innerHTML = '<option value="">All Sources</option>'; // Reset options
+  sources.forEach((source) => {
+    const option = document.createElement("option");
+    option.value = source;
+    option.textContent = source;
+    sourceFilter.appendChild(option);
+  });
+}
+
+function filterBySource() {
+  const selectedSource = document.getElementById("sourceFilter").value;
+  const filteredNews = selectedSource
+    ? news.filter((article) => article.source.name === selectedSource)
+    : news; // Show all if no source selected
+
+  displayNews(filteredNews);
 }
 
 function categoryNews() {}
 
-
 function handleFavorite(article) {
+  console.log(article);
   if (favoriteNews.includes(article)) {
+    console.log("first");
     favoriteNews.filter((a) => a.id !== article.id);
   } else {
+    console.log("second");
     favoriteNews.push(article);
+    console.log(favoriteNews);
   }
 }
 console.log(favoriteNews);
 
-function favoriteNews() {}
+function handleFavorite(article) {
+  console.log(article);
+  if (favoriteNews.includes(article)) {
+    console.log("first");
+    favoriteNews.filter((a) => a.id !== article.id);
+  } else {
+    console.log("second");
+    favoriteNews.push(article);
+    console.log(favoriteNews);
+  }
+}
 
-const searchInput = document.getElementById('search-input'); 
-searchInput.addEventListener('input', searchNews);
+const searchInput = document.getElementById("search-input");
+searchInput.addEventListener("input", searchNews);
 
 function searchNews() {
   const searchTerm = document.getElementById('search-input').value.toLowerCase();
@@ -96,10 +135,11 @@ function searchNews() {
     const searchedNews = news.articles.filter(article => 
       article.title.toLowerCase().includes(searchTerm) ||
       (article.description && article.description.toLowerCase().includes(searchTerm))
+
     );
 
     if (searchedNews.length === 0) {
-      container.innerHTML = '<p>Nothing matched your search terms...</p>';
+      container.innerHTML = "<p>Nothing matched your search terms...</p>";
       return;
     }
 
@@ -112,11 +152,11 @@ function searchNews() {
         <a href="${article.url}" target="_blank">Read more</a>
       `;
       container.appendChild(articleElement);
-    });
 
+    });
   } catch (error) {
     console.error("Error searching news:", error);
-    container.innerHTML = '<p>Error loading news articles</p>';
+    container.innerHTML = "<p>Error loading news articles</p>";
   }
 }
 function pagination() {}
