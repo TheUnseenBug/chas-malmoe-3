@@ -76,10 +76,6 @@ function displayNews(response) {
 
     newsFeed.appendChild(newsArticle); // Lägger till artikeln i newsFeed
 
-    imgElement.addEventListener("click", () => {
-      window.location.href = `${article.url}`;
-    });
-
     favoriteButton.addEventListener("click", () => {
       handleFavorite(article);
     });
