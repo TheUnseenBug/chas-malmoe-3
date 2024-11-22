@@ -1,3 +1,5 @@
+const searchInput = document.getElementById("search-input");
+searchInput.addEventListener("input", searchNews);
 let favoriteNews = [];
 let news = [];
 async function fetchNews(page, category) {
@@ -9,7 +11,7 @@ async function fetchNews(page, category) {
     const url = "test.json";
     const data = await fetch(url);
     const response = await data.json();
-    news = response.articles;
+    news = response;
     console.log(response);
     displayNews(response);
     populateSourceFilter();
@@ -22,17 +24,11 @@ fetchNews();
 
 function displayNews(response) {
   const newsFeed = document.getElementById("newsFeed"); // Hämtar newsFeed-elementet
+  newsFeed.innerHTML = ""; // Tömmer containern innan något läggs till
 
   response.articles.forEach((article) => {
     const newsArticle = document.createElement("article"); // Skapar ett nytt artikel-element
     newsArticle.classList.add("newsArticle"); // Lägger till klassen "newsArticle"
-    
-    const imgElement = document.createElement("img");
-    imgElement.src = article.urlToImage;
-    imgElement.classList.add("newsImg");
-    imgElement.style.width = "100%";
-    imgElement.style.height = "auto";
-    newsArticle.appendChild(imgElement);
 
     // Skapar och lägger till titeln
     const titleElement = document.createElement("h3");
@@ -40,63 +36,87 @@ function displayNews(response) {
     titleElement.classList.add("newsTitle");
     newsArticle.appendChild(titleElement);
 
+    const imgElement = document.createElement("img");
+    imgElement.src = article.urlToImage;
+    imgElement.classList.add("newsImg");
+    imgElement.style.width = "100%";
+    imgElement.style.height = "auto";
+    newsArticle.appendChild(imgElement);
     // Skapar och lägger till beskrivningen
     const descriptionElement = document.createElement("p");
     descriptionElement.textContent = article.description; // Kort beskrivning
     descriptionElement.classList.add("newsDescription");
     newsArticle.appendChild(descriptionElement);
 
+    const sourceContainer = document.createElement("section");
+    sourceContainer.className = "source-container";
+    newsArticle.appendChild(sourceContainer);
+
     // Skapar och lägger till författare
     const sourceElement = document.createElement("p");
     sourceElement.textContent = "Published on: " + article.source.name; // Källa
     sourceElement.classList.add("newsSource");
-    newsArticle.appendChild(sourceElement);
+    sourceContainer.appendChild(sourceElement);
 
     const authorElement = document.createElement("p");
     authorElement.textContent = "Written by: " + article.author; // Källa
     authorElement.classList.add("newsAuthor");
-    newsArticle.appendChild(authorElement);
+    sourceContainer.appendChild(authorElement);
 
-    // Skapar och lägger till read full story med länk till nyhetens url
-    const readMore = document.createElement("a");
-    readMore.href = article.url; // Korrekt länk till nyheten
-    readMore.target = "_blank"; // Öppnar länken i en ny flik
-    readMore.textContent = "Read full story"; // Text för länken
-    readMore.classList.add("readMore");
-    newsArticle.appendChild(readMore); // Lägger till länken i artikeln
+    // // Skapar och lägger till read full story med länk till nyhetens url
+    // const readMore = document.createElement("a");
+    // readMore.href = article.url; // Korrekt länk till nyheten
+    // readMore.target = "_blank"; // Öppnar länken i en ny flik
+    // readMore.textContent = "Read full story"; // Text för länken
+    // readMore.classList.add("readMore");
+    // sourceContainer.appendChild(readMore); // Lägger till länken i artikeln
 
     const favoriteButton = document.createElement("button");
     favoriteButton.textContent = "love love"; // Kort beskrivning
-    newsArticle.appendChild(favoriteButton);
+    sourceContainer.appendChild(favoriteButton);
 
     newsFeed.appendChild(newsArticle); // Lägger till artikeln i newsFeed
 
     newsArticle.addEventListener("click", () => {
+      window.location.href = `${article.url}`;
+    });
+
+    favoriteButton.addEventListener("click", () => {
       handleFavorite(article);
     });
   });
 }
 
+// Funktion för att hämta sources från API och rendera de i dropdown menyn
 function populateSourceFilter() {
   const sourceFilter = document.getElementById("sourceFilter");
-  const sources = [...new Set(news.map((article) => article.source.name))]; // Unique sources
+  const sources = [];
+  news.articles.forEach((article) => {
+    if (!sources.includes(article.source.name)) {
+      sources.push(article.source.name);
+    }
+  });
 
-  sourceFilter.innerHTML = '<option value="">All Sources</option>'; // Reset options
+  // Renderar source till text i menyn
+  sourceFilter.innerHTML = '<option value="">All Sources</option>';
   sources.forEach((source) => {
     const option = document.createElement("option");
     option.value = source;
     option.textContent = source;
     sourceFilter.appendChild(option);
   });
+
+  sourceFilter.addEventListener("change", filterBySource);
 }
 
+// Filtrerar artiklar baserat på källa
 function filterBySource() {
   const selectedSource = document.getElementById("sourceFilter").value;
   const filteredNews = selectedSource
-    ? news.filter((article) => article.source.name === selectedSource)
-    : news; // Show all if no source selected
+    ? news.articles.filter((article) => article.source.name === selectedSource)
+    : news.articles;
 
-  displayNews(filteredNews);
+  displayNews({ articles: filteredNews });
 }
 
 function categoryNews() {}
@@ -104,25 +124,9 @@ function categoryNews() {}
 function handleFavorite(article) {
   console.log(article);
   if (favoriteNews.includes(article)) {
-    console.log("first");
-    favoriteNews.filter((a) => a.id !== article.id);
+    favoriteNews = favoriteNews.filter((a) => a !== article);
   } else {
-    console.log("second");
     favoriteNews.push(article);
-    console.log(favoriteNews);
-  }
-}
-console.log(favoriteNews);
-
-function handleFavorite(article) {
-  console.log(article);
-  if (favoriteNews.includes(article)) {
-    console.log("first");
-    favoriteNews.filter((a) => a.id !== article.id);
-  } else {
-    console.log("second");
-    favoriteNews.push(article);
-    console.log(favoriteNews);
   }
 }
 
