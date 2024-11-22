@@ -117,6 +117,9 @@ header h1 {
   display: flex;
   justify-content: center;
   width: 100%;
+  flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+  gap: 0.5rem; /* Consistent spacing between wrapped items */
+  padding: 0 1rem;
 }
 
 .categoryButton {
