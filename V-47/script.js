@@ -56,70 +56,107 @@ function displayNews(news) {
     readMore.classList.add("readMore");
     newsArticle.appendChild(readMore); // Lägger till länken i artikeln
 
+    const favoriteButton = document.createElement("button");
+    favoriteButton.textContent = "love love"; // Kort beskrivning
+    newsArticle.appendChild(favoriteButton);
+
     newsFeed.appendChild(newsArticle); // Lägger till artikeln i newsFeed
 
-    favorite.addEventListener("click", () => {
+    newsArticle.addEventListener("click", () => {
       handleFavorite(article);
     });
   });
 }
-function filterNews() {
-  //???????
+
+function populateSourceFilter() {
+  const sourceFilter = document.getElementById("sourceFilter");
+  const sources = [...new Set(news.map((article) => article.source.name))]; // Unique sources
+
+  sourceFilter.innerHTML = '<option value="">All Sources</option>'; // Reset options
+  sources.forEach((source) => {
+    const option = document.createElement("option");
+    option.value = source;
+    option.textContent = source;
+    sourceFilter.appendChild(option);
+  });
+}
+
+function filterBySource() {
+  const selectedSource = document.getElementById("sourceFilter").value;
+  const filteredNews = selectedSource
+    ? news.filter((article) => article.source.name === selectedSource)
+    : news; // Show all if no source selected
+
+  displayNews(filteredNews);
 }
 
 function categoryNews() {}
 
-
 function handleFavorite(article) {
+  console.log(article);
   if (favoriteNews.includes(article)) {
+    console.log("first");
     favoriteNews.filter((a) => a.id !== article.id);
   } else {
+    console.log("second");
     favoriteNews.push(article);
+    console.log(favoriteNews);
   }
 }
 console.log(favoriteNews);
 
-function favoriteNews() {}
+function handleFavorite(article) {
+  console.log(article);
+  if (favoriteNews.includes(article)) {
+    console.log("first");
+    favoriteNews.filter((a) => a.id !== article.id);
+  } else {
+    console.log("second");
+    favoriteNews.push(article);
+    console.log(favoriteNews);
+  }
+}
+
+const searchInput = document.getElementById("search-input");
+searchInput.addEventListener("input", searchNews);
 
 function searchNews() {
-  const searchInput = document.getElementById('search-input').value.toLowerCase();
+  const searchTerm = document.getElementById('search-input').value.toLowerCase();
   const container = document.getElementById('newsFeed');
-  
-  // Clear the container
-  container.innerHTML = '';
-  
-  // If search is empty, show all news
-  if (!searchInput) {
+
+  try {
+    container.innerHTML = '';
+
+    if (!searchTerm) {
       displayNews(news);
       return;
-  }
-  
-  // Filter articles based on title
-  const filteredArticles = news.articles.filter(article => 
-      article.title.toLowerCase().includes(searchInput)
-  );
-  
-  // Display message if no results found
-  if (filteredArticles.length === 0) {
-      container.innerHTML = '<p>No articles found matching your search.</p>';
+    }
+
+    const searchedNews = news.articles.filter(article => 
+      article.title.toLowerCase().includes(searchTerm) ||
+      (article.description && article.description.toLowerCase().includes(searchTerm))
+
+    );
+
+    if (searchedNews.length === 0) {
+      container.innerHTML = "<p>Nothing matched your search terms...</p>";
       return;
-  }
-  
-  // Display filtered articles
-  filteredArticles.forEach(article => {
+    }
+
+    searchedNews.forEach(article => {
       const articleElement = document.createElement('div');
       articleElement.classList.add('article');
       articleElement.innerHTML = `
-          <img src="${article.urlToImage || 'placeholder-image.jpg'}" alt="Article image">
-          <h3>${article.title}</h3>
-          <p>${article.description || 'No description available'}</p>
-          <a href="${article.url}" target="_blank">Read more</a>
+        <h3>${article.title}</h3>
+        <p>${article.description}</p>
+        <a href="${article.url}" target="_blank">Read more</a>
       `;
       container.appendChild(articleElement);
-  });
+
+    });
+  } catch (error) {
+    console.error("Error searching news:", error);
+    container.innerHTML = "<p>Error loading news articles</p>";
+  }
 }
-
-// Add event listener to search input
-document.getElementById('search-input').addEventListener('input', searchNews);
-
 function pagination() {}
