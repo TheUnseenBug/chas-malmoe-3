@@ -125,14 +125,18 @@ function handleFavorite(article) {
   }
 }
 
+// search news by title
 function searchNews() {
+  // retrieves user input
   const searchInput = document.getElementById('search-input').value.toLowerCase();
+  // selects the newsFeed container where the articles are displayed
   const container = document.getElementById('newsFeed');
   
   // Clear the container
   container.innerHTML = '';
 
-  // While loading 
+  // Checks if the news object or its articles array is undefined or empty
+  // displays a loading message if data isn't available
   if (!news || !news.articles) {
     container.innerHTML = '<p>Please wait for news to load...</p>';
     return;
@@ -151,7 +155,7 @@ function searchNews() {
   
   // Display message if no results found
   if (filteredArticles.length === 0) {
-      container.innerHTML = '<p>No articles found matching your search.</p>';
+      container.innerHTML = '<p>No articles found matching that title...</p>';
       return;
   }
   
