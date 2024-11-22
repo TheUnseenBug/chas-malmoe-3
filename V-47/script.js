@@ -6,10 +6,12 @@ async function fetchNews(page, category) {
       category ? `&category=${category}` : ""
     }&page=${page}&apiKey=${apiKey}`;
     const response = await fetch(url);
+    displayNews(news);
   } catch (error) {
     console.error("Error:", error);
   }
 }
+
 fetchNews();
 
 function displayNews(news) {
