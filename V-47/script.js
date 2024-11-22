@@ -132,6 +132,7 @@ function handleFavorite(article) {
 function searchNews() {
   // retrieves user input
   const searchInput = document.getElementById('search-input').value.toLowerCase();
+  // const selectedSource = document.getElementById('sourceFilter').value;
   // selects the newsFeed container where the articles are displayed
   const container = document.getElementById('newsFeed');
   
@@ -141,10 +142,23 @@ function searchNews() {
   // Checks if the news object or its articles array is undefined or empty
   // displays a loading message if data isn't available
   if (!news || !news.articles) {
+    const container = document.getElementById('newsFeed');
     container.innerHTML = '<p>Please wait for news to load...</p>';
     return;
 }
   
+  // First filter by source if one is selected
+  // let articlesToSearch = selectedSource
+  // ? news.articles.filter(article => article.source.name === selectedSource)
+  // : news.articles;
+
+  // Then filter by search term if one exists
+  if (searchInput) {
+    articlesToSearch = articlesToSearch.filter(article =>
+      article.title.toLowerCase().includes(searchInput)
+    );
+  }
+
   // If search is empty, show all news
   if (!searchInput) {
       displayNews(news);
