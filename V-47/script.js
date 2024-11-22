@@ -9,7 +9,7 @@ async function fetchNews(page, category) {
     const url = "test.json";
     const data = await fetch(url);
     const response = await data.json();
-    news = response.articles;
+    news = response;
     console.log(response);
     displayNews(response);
     populateSourceFilter();
@@ -22,6 +22,7 @@ fetchNews();
 
 function displayNews(response) {
   const newsFeed = document.getElementById("newsFeed"); // Hämtar newsFeed-elementet
+  newsFeed.innerHTML = ""; // Tömmer containern innan något läggs till
 
   response.articles.forEach((article) => {
     const newsArticle = document.createElement("article"); // Skapar ett nytt artikel-element
@@ -77,26 +78,36 @@ function displayNews(response) {
   });
 }
 
+// Funktion för att hämta sources från API och rendera de i dropdown menyn
 function populateSourceFilter() {
   const sourceFilter = document.getElementById("sourceFilter");
-  const sources = [...new Set(news.map((article) => article.source.name))]; // Unique sources
+  const sources = [];
+  news.articles.forEach((article) => {
+    if (!sources.includes(article.source.name)) {
+      sources.push(article.source.name);
+    }
+  });
 
-  sourceFilter.innerHTML = '<option value="">All Sources</option>'; // Reset options
+  // Renderar source till text i menyn
+  sourceFilter.innerHTML = '<option value="">All Sources</option>';
   sources.forEach((source) => {
     const option = document.createElement("option");
     option.value = source;
     option.textContent = source;
     sourceFilter.appendChild(option);
   });
+
+  sourceFilter.addEventListener("change", filterBySource);
 }
 
+// Filtrerar artiklar baserat på källa
 function filterBySource() {
   const selectedSource = document.getElementById("sourceFilter").value;
   const filteredNews = selectedSource
-    ? news.filter((article) => article.source.name === selectedSource)
-    : news; // Show all if no source selected
+    ? news.articles.filter((article) => article.source.name === selectedSource)
+    : news.articles;
 
-  displayNews(filteredNews);
+  displayNews({ articles: filteredNews });
 }
 
 function categoryNews() {}
