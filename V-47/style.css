@@ -83,6 +83,12 @@ header h1 {
   color: var(--headline-color);
 }
 
+.wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
 .search-container {
   display: flex;
   justify-content: center;
@@ -93,6 +99,15 @@ header h1 {
 .search-input {
   width: 100%;
   margin: 20px auto;
+  border-radius: 8px;
+}
+
+.source-filter {
+  width: 30%;
+  max-width: 800px;
+  min-width: 130px;
+  margin: 20px auto;
+  padding: 0 10px;
   border-radius: 8px;
 }
 
@@ -133,13 +148,6 @@ header h1 {
   padding: 5px;
 }
 
-.source-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-}
-
 .newsImg {
   width: 100%;
   height: auto;
@@ -157,10 +165,5 @@ header h1 {
 .newsAuthor {
 }
 
-.favoriteButton {
-
-}
-
-#favoriteArticles {
-
+.readMore {
 }
