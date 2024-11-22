@@ -1,3 +1,5 @@
+const searchInput = document.getElementById("search-input");
+searchInput.addEventListener("input", searchNews);
 let favoriteNews = [];
 async function fetchNews(page, category) {
   try {
@@ -34,28 +36,32 @@ function displayNews(news) {
     descriptionElement.classList.add("newsDescription");
     newsArticle.appendChild(descriptionElement);
 
+    const sourceContainer = document.createElement("section");
+    sourceContainer.className = "source-container";
+    newsArticle.appendChild(sourceContainer);
+
     // Skapar och lägger till författare
     const sourceElement = document.createElement("p");
     sourceElement.textContent = "Published on: " + article.source.name; // Källa
     sourceElement.classList.add("newsSource");
-    newsArticle.appendChild(sourceElement);
+    sourceContainer.appendChild(sourceElement);
 
     const authorElement = document.createElement("p");
     authorElement.textContent = "Written by: " + article.author; // Källa
     authorElement.classList.add("newsAuthor");
-    newsArticle.appendChild(authorElement);
+    sourceContainer.appendChild(authorElement);
 
-    // Skapar och lägger till read full story med länk till nyhetens url
-    const readMore = document.createElement("a");
-    readMore.href = article.url; // Korrekt länk till nyheten
-    readMore.target = "_blank"; // Öppnar länken i en ny flik
-    readMore.textContent = "Read full story"; // Text för länken
-    readMore.classList.add("readMore");
-    newsArticle.appendChild(readMore); // Lägger till länken i artikeln
+    // // Skapar och lägger till read full story med länk till nyhetens url
+    // const readMore = document.createElement("a");
+    // readMore.href = article.url; // Korrekt länk till nyheten
+    // readMore.target = "_blank"; // Öppnar länken i en ny flik
+    // readMore.textContent = "Read full story"; // Text för länken
+    // readMore.classList.add("readMore");
+    // sourceContainer.appendChild(readMore); // Lägger till länken i artikeln
 
     const favoriteButton = document.createElement("button");
     favoriteButton.textContent = "love love"; // Kort beskrivning
-    newsArticle.appendChild(favoriteButton);
+    sourceContainer.appendChild(favoriteButton);
 
     newsFeed.appendChild(newsArticle); // Lägger till artikeln i newsFeed
 
@@ -73,30 +79,11 @@ function categoryNews() {}
 function handleFavorite(article) {
   console.log(article);
   if (favoriteNews.includes(article)) {
-    console.log("first");
-    favoriteNews.filter((a) => a.id !== article.id);
+    favoriteNews = favoriteNews.filter((a) => a !== article);
   } else {
-    console.log("second");
     favoriteNews.push(article);
-    console.log(favoriteNews);
   }
 }
-console.log(favoriteNews);
-
-function handleFavorite(article) {
-  console.log(article);
-  if (favoriteNews.includes(article)) {
-    console.log("first");
-    favoriteNews.filter((a) => a.id !== article.id);
-  } else {
-    console.log("second");
-    favoriteNews.push(article);
-    console.log(favoriteNews);
-  }
-}
-
-const searchInput = document.getElementById("search-input");
-searchInput.addEventListener("input", searchNews);
 
 async function searchNews() {
   const searchTerm = document
