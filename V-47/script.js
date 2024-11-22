@@ -1,4 +1,5 @@
 let favoriteNews = [];
+let news = [];
 async function fetchNews(page, category) {
   try {
     const apiKey = "db6c1d2353eb42528700f136fd8899fb";
@@ -8,8 +9,10 @@ async function fetchNews(page, category) {
     const url = "test.json";
     const data = await fetch(url);
     const response = await data.json();
+    news = response.articles;
     console.log(response);
     displayNews(response);
+    populateSourceFilter();
   } catch (error) {
     console.error("Error:", error);
   }
@@ -73,8 +76,27 @@ function displayNews(response) {
     });
   });
 }
-function filterNews() {
-  //???????
+
+function populateSourceFilter() {
+  const sourceFilter = document.getElementById("sourceFilter");
+  const sources = [...new Set(news.map((article) => article.source.name))]; // Unique sources
+
+  sourceFilter.innerHTML = '<option value="">All Sources</option>'; // Reset options
+  sources.forEach((source) => {
+    const option = document.createElement("option");
+    option.value = source;
+    option.textContent = source;
+    sourceFilter.appendChild(option);
+  });
+}
+
+function filterBySource() {
+  const selectedSource = document.getElementById("sourceFilter").value;
+  const filteredNews = selectedSource
+    ? news.filter((article) => article.source.name === selectedSource)
+    : news; // Show all if no source selected
+
+  displayNews(filteredNews);
 }
 
 function categoryNews() {}
@@ -107,28 +129,22 @@ function handleFavorite(article) {
 const searchInput = document.getElementById("search-input");
 searchInput.addEventListener("input", searchNews);
 
-async function searchNews() {
-  const searchTerm = document
-    .getElementById("search-input")
-    .value.toLowerCase();
-  const container = document.getElementById("newsFeed");
+function searchNews() {
+  const searchTerm = document.getElementById('search-input').value.toLowerCase();
+  const container = document.getElementById('newsFeed');
 
   try {
-    const response = await fetchNews(1); //page one is default
-    const articles = news.articles; // using global news array
-
-    container.innerHTML = "";
+    container.innerHTML = '';
 
     if (!searchTerm) {
       displayNews(news);
       return;
     }
 
-    const searchedNews = articles.filter(
-      (article) =>
-        article.title.toLowerCase().includes(searchTerm) ||
-        (article.description &&
-          article.description.toLowerCase().includes(searchTerm))
+    const searchedNews = news.articles.filter(article => 
+      article.title.toLowerCase().includes(searchTerm) ||
+      (article.description && article.description.toLowerCase().includes(searchTerm))
+
     );
 
     if (searchedNews.length === 0) {
@@ -136,16 +152,16 @@ async function searchNews() {
       return;
     }
 
-    searchedNews.forEach((article) => {
-      console.log(article);
-      // const articleElement = document.createElement('div');
-      // articleElement.classList.add('article');
-      // articleElement.innerHTML = `
-      //   <h3>${article.title}</h3>
-      //   <p>${article.description}</p>
-      //   <a href="${article.url}" target="_blank">Read more</a>
-      // `;
-      // container.appendChild(articleElement);
+    searchedNews.forEach(article => {
+      const articleElement = document.createElement('div');
+      articleElement.classList.add('article');
+      articleElement.innerHTML = `
+        <h3>${article.title}</h3>
+        <p>${article.description}</p>
+        <a href="${article.url}" target="_blank">Read more</a>
+      `;
+      container.appendChild(articleElement);
+
     });
   } catch (error) {
     console.error("Error searching news:", error);
