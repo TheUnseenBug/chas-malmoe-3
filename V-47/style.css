@@ -87,12 +87,12 @@ header h1 {
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
 }
 
 .search-input {
   width: 100%;
   margin: 20px auto;
-  max-width: 800px;
   border-radius: 8px;
 }
 
@@ -129,9 +129,8 @@ header h1 {
 }
 
 .newsImg {
-    width: 100%;
-    height: auto;
-
+  width: 100%;
+  height: auto;
 }
 
 .newsTitle {

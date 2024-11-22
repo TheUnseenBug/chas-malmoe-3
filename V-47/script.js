@@ -29,13 +29,6 @@ function displayNews(response) {
   response.articles.forEach((article) => {
     const newsArticle = document.createElement("article"); // Skapar ett nytt artikel-element
     newsArticle.classList.add("newsArticle"); // Lägger till klassen "newsArticle"
-    
-    const imgElement = document.createElement("img");
-    imgElement.src = article.urlToImage;
-    imgElement.classList.add("newsImg");
-    imgElement.style.width = "100%";
-    imgElement.style.height = "auto";
-    newsArticle.appendChild(imgElement);
 
     // Skapar och lägger till titeln
     const titleElement = document.createElement("h3");
@@ -43,6 +36,12 @@ function displayNews(response) {
     titleElement.classList.add("newsTitle");
     newsArticle.appendChild(titleElement);
 
+    const imgElement = document.createElement("img");
+    imgElement.src = article.urlToImage;
+    imgElement.classList.add("newsImg");
+    imgElement.style.width = "100%";
+    imgElement.style.height = "auto";
+    newsArticle.appendChild(imgElement);
     // Skapar och lägger till beskrivningen
     const descriptionElement = document.createElement("p");
     descriptionElement.textContent = article.description; // Kort beskrivning
@@ -79,6 +78,10 @@ function displayNews(response) {
     newsFeed.appendChild(newsArticle); // Lägger till artikeln i newsFeed
 
     newsArticle.addEventListener("click", () => {
+      window.location.href = `${article.url}`;
+    });
+
+    favoriteButton.addEventListener("click", () => {
       handleFavorite(article);
     });
   });
@@ -128,21 +131,24 @@ function handleFavorite(article) {
 }
 
 function searchNews() {
-  const searchTerm = document.getElementById('search-input').value.toLowerCase();
-  const container = document.getElementById('newsFeed');
+  const searchTerm = document
+    .getElementById("search-input")
+    .value.toLowerCase();
+  const container = document.getElementById("newsFeed");
 
   try {
-    container.innerHTML = '';
+    container.innerHTML = "";
 
     if (!searchTerm) {
       displayNews(news);
       return;
     }
 
-    const searchedNews = news.articles.filter(article => 
-      article.title.toLowerCase().includes(searchTerm) ||
-      (article.description && article.description.toLowerCase().includes(searchTerm))
-
+    const searchedNews = news.articles.filter(
+      (article) =>
+        article.title.toLowerCase().includes(searchTerm) ||
+        (article.description &&
+          article.description.toLowerCase().includes(searchTerm))
     );
 
     if (searchedNews.length === 0) {
@@ -150,16 +156,15 @@ function searchNews() {
       return;
     }
 
-    searchedNews.forEach(article => {
-      const articleElement = document.createElement('div');
-      articleElement.classList.add('article');
+    searchedNews.forEach((article) => {
+      const articleElement = document.createElement("div");
+      articleElement.classList.add("article");
       articleElement.innerHTML = `
         <h3>${article.title}</h3>
         <p>${article.description}</p>
         <a href="${article.url}" target="_blank">Read more</a>
       `;
       container.appendChild(articleElement);
-
     });
   } catch (error) {
     console.error("Error searching news:", error);
