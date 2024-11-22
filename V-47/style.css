@@ -5,6 +5,8 @@
   /* Typography */
   --font-primary: "Noticia Text", serif;
   --font-size-hero: clamp(3.125rem, 2.454rem + 3.2931vw, 5rem);
+  --font-size-article-title: clamp(1.25rem, 1rem + 1vw, 1.75rem);
+  --font-size-article-text: clamp(0.875rem, 0.8rem + 0.5vw, 1rem);
 
   /* Spacing */
   --spacing-standard: 1rem;
@@ -142,10 +144,14 @@ header h1 {
 
 .newsArticle h3 {
   padding: 7px;
+  font-size: var(--font-size-article-title);
+  line-height: 1.2;
 }
 
 .newsArticle p {
   padding: 5px;
+  font-size: var(--font-size-article-text);
+  line-height: 1.4;
 }
 
 .newsImg {
