@@ -131,44 +131,50 @@ function handleFavorite(article) {
 }
 
 function searchNews() {
-  const searchTerm = document
-    .getElementById("search-input")
-    .value.toLowerCase();
-  const container = document.getElementById("newsFeed");
+  const searchInput = document.getElementById('search-input').value.toLowerCase();
+  const container = document.getElementById('newsFeed');
+  
+  // Clear the container
+  container.innerHTML = '';
 
-  try {
-    container.innerHTML = "";
-
-    if (!searchTerm) {
+  // While loading 
+  if (!news || !news.articles) {
+    container.innerHTML = '<p>Please wait for news to load...</p>';
+    return;
+}
+  
+  // If search is empty, show all news
+  if (!searchInput) {
       displayNews(news);
       return;
-    }
-
-    const searchedNews = news.articles.filter(
-      (article) =>
-        article.title.toLowerCase().includes(searchTerm) ||
-        (article.description &&
-          article.description.toLowerCase().includes(searchTerm))
-    );
-
-    if (searchedNews.length === 0) {
-      container.innerHTML = "<p>Nothing matched your search terms...</p>";
+  }
+  
+  // Filter articles based on title
+  const filteredArticles = news.articles.filter(article => 
+      article.title.toLowerCase().includes(searchInput)
+  );
+  
+  // Display message if no results found
+  if (filteredArticles.length === 0) {
+      container.innerHTML = '<p>No articles found matching your search.</p>';
       return;
-    }
-
-    searchedNews.forEach((article) => {
-      const articleElement = document.createElement("div");
-      articleElement.classList.add("article");
+  }
+  
+  // Display filtered articles
+  filteredArticles.forEach(article => {
+      const articleElement = document.createElement('div');
+      articleElement.classList.add('article');
       articleElement.innerHTML = `
-        <h3>${article.title}</h3>
-        <p>${article.description}</p>
-        <a href="${article.url}" target="_blank">Read more</a>
+          <img src="${article.urlToImage || 'placeholder-image.jpg'}" alt="Article image">
+          <h3>${article.title}</h3>
+          <p>${article.description || 'No description available'}</p>
+          <a href="${article.url}" target="_blank">Read more</a>
       `;
       container.appendChild(articleElement);
-    });
-  } catch (error) {
-    console.error("Error searching news:", error);
-    container.innerHTML = "<p>Error loading news articles</p>";
-  }
+  });
 }
+
+// Add event listener to search input
+document.getElementById('search-input').addEventListener('input', searchNews);
+
 function pagination() {}
