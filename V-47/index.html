@@ -15,6 +15,7 @@
   <body>
     <header>
       <h1>Welcome to your news:</h1>
+
       <nav>
         <button><a href="index.html">Latest news</a></button>
         <button><a href="favorites.html">Favorite news</a></button>
@@ -50,6 +51,27 @@
         <div id="newsFeed"></div>
       </main>
     </div>
+=======
+      <a href=""><img src="images/logo.png" alt="logo" class="logo-image"></a>
+    </header>
+    <section class="search-container">
+      <input
+        type="text"
+        id="search-input"
+        class="search-input"
+        placeholder="Search..."
+      />
+      <select id="sourceFilter" class="source-filter"></select>
+    </section>
+    <main>
+      <div id="newsFeed" class="news-grid"></div>
+    </main>
+    <aside>
+        <div id="favArticles"></div>
+
+    </aside>
+
+    <footer></footer>
     <script src="script.js"></script>
   </body>
 </html>
