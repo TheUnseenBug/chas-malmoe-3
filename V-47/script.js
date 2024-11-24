@@ -5,12 +5,19 @@ let news = [];
 async function fetchNews(page, category) {
   try {
     const apiKey = "db6c1d2353eb42528700f136fd8899fb";
-    // const url = `https://newsapi.org/v2/top-headlines?country=us${
-    //   category ? `&category=${category}` : ""
-    // }&page=${page}&apiKey=${apiKey}`;
-    const url = "test.json";
+    const url = `https://newsapi.org/v2/top-headlines?country=us${
+      category ? `&category=${category}` : ""
+    }&page=${page}&apiKey=${apiKey}`;
+    // const url = "test.json";
     const data = await fetch(url);
     const response = await data.json();
+
+    // Filtrerar bort borttagna artiklar, så att de inte laddas in
+    const filteredArticles = response.articles.filter(
+      (article) => article.source.name !== "[Removed]"
+    );
+    response.articles = filteredArticles;
+
     news = response;
     console.log(response);
     displayNews(response);
@@ -30,6 +37,14 @@ function displayNews(response) {
     const newsArticle = document.createElement("article"); // Skapar ett nytt artikel-element
     newsArticle.classList.add("newsArticle"); // Lägger till klassen "newsArticle"
 
+    // Skapar och lägger till publiceringsdatum och tid
+    const dateElement = document.createElement("p");
+    const publishedDate = new Date(article.publishedAt); // Skapar ett Date-objekt
+    const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Stockholm' }; // Formatinställningar med svensk tid
+    dateElement.textContent = publishedDate.toLocaleString('en-US', options); // Formaterar datum och tid på engelska
+    dateElement.classList.add("newsDate");
+    newsArticle.appendChild(dateElement);
+
     // Skapar och lägger till titeln
     const titleElement = document.createElement("h3");
     titleElement.textContent = article.title;
@@ -42,6 +57,12 @@ function displayNews(response) {
     imgElement.style.width = "100%";
     imgElement.style.height = "auto";
     newsArticle.appendChild(imgElement);
+
+    // Gör  bilden klickbar och leder till den fullständiga artikeln
+    imgElement.addEventListener("click", (event) => {
+      window.open(article.url, "_blank"); // Öppnar artikeln i en ny flik
+    });
+
     // Skapar och lägger till beskrivningen
     const descriptionElement = document.createElement("p");
     descriptionElement.textContent = article.description; // Kort beskrivning
@@ -62,22 +83,13 @@ function displayNews(response) {
     authorElement.textContent = "Written by: " + article.author; // Källa
     authorElement.classList.add("newsAuthor");
     sourceContainer.appendChild(authorElement);
-    
+
     const favoriteButton = document.createElement("button");
     favoriteButton.textContent = "Mark as favorite "; // Kort beskrivning
     favoriteButton.classList.add("favoriteButton");
     newsArticle.appendChild(favoriteButton);
 
- // Gör hela artikeln klickbar och leder till den fullständiga artikeln
-    newsArticle.addEventListener("click", () => {
-          window.open(article.url, "_blank"); // Öppnar artikeln i en ny flik
-        });
-
     newsFeed.appendChild(newsArticle); // Lägger till artikeln i newsFeed
-
-    imgElement.addEventListener("click", () => {
-      window.location.href = `${article.url}`;
-    });
 
     favoriteButton.addEventListener("click", () => {
       handleFavorite(article);
@@ -117,7 +129,17 @@ function filterBySource() {
   displayNews({ articles: filteredNews });
 }
 
-function categoryNews() {}
+// Byter ut URL mot kategorin som användaren klickar på
+function categoryNews(category) {
+  const currentPage = 1;
+  fetchNews(currentPage, category);
+}
+document.querySelectorAll(".categoryButton").forEach((button) => {
+  button.addEventListener("click", (event) => {
+    const category = event.target.dataset.category;
+    categoryNews(category);
+  });
+});
 
 function handleFavorite(article) {
   console.log(article);
@@ -126,53 +148,61 @@ function handleFavorite(article) {
   } else {
     favoriteNews.push(article);
   }
+  updateFavoritesFeed();
 }
 
-function searchNews() {
-  const searchInput = document.getElementById('search-input').value.toLowerCase();
-  const container = document.getElementById('newsFeed');
-  
-  // Clear the container
-  container.innerHTML = '';
-
-  // While loading 
-  if (!news || !news.articles) {
-    container.innerHTML = '<p>Please wait for news to load...</p>';
-    return;
-}
-  
-  // If search is empty, show all news
-  if (!searchInput) {
-      displayNews(news);
-      return;
-  }
-  
-  // Filter articles based on title
-  const filteredArticles = news.articles.filter(article => 
-      article.title.toLowerCase().includes(searchInput)
-  );
-  
-  // Display message if no results found
-  if (filteredArticles.length === 0) {
-      container.innerHTML = '<p>No articles found matching your search.</p>';
-      return;
-  }
-  
-  // Display filtered articles
-  filteredArticles.forEach(article => {
-      const articleElement = document.createElement('div');
-      articleElement.classList.add('article');
-      articleElement.innerHTML = `
-          <img src="${article.urlToImage || 'placeholder-image.jpg'}" alt="Article image">
-          <h3>${article.title}</h3>
-          <p>${article.description || 'No description available'}</p>
-          <a href="${article.url}" target="_blank">Read more</a>
-      `;
-      container.appendChild(articleElement);
+// Ny funktion för att uppdatera favoritesFeed
+function updateFavoritesFeed() {
+  const favoritesFeed = document.getElementById('favoritesFeed');
+  favoritesFeed.innerHTML = ''; // Rensa tidigare innehåll
+  favoriteNews.forEach((article) => {
+    const articleElement = document.createElement('div');
+    articleElement.textContent = article; // Anta att article är en sträng
+    favoritesFeed.appendChild(articleElement);
   });
 }
 
+// search news by title
+function searchNews() {
+  // retrieves user input
+  const searchInput = document
+    .getElementById("search-input")
+    .value.toLowerCase();
+  // selects the newsFeed container where the articles are displayed
+  const container = document.getElementById("newsFeed");
+
+  // Clear the container
+  container.innerHTML = "";
+
+  // Checks if the news object or its articles array is undefined or empty
+  // displays a loading message if data isn't available
+  if (!news || !news.articles) {
+    container.innerHTML = "<p>Please wait for news to load...</p>";
+    return;
+  }
+
+  // If search is empty, show all news
+  if (!searchInput) {
+    displayNews(news);
+    return;
+  }
+
+  // Filter articles based on title
+  const filteredArticles = news.articles.filter((article) =>
+    article.title.toLowerCase().includes(searchInput)
+  );
+
+  // Display message if no results found
+  if (filteredArticles.length === 0) {
+    container.innerHTML = "<p>No articles found matching that title...</p>";
+    return;
+  }
+
+  // Display filtered articles using the existing displayNews function
+  displayNews({ articles: filteredArticles });
+}
+
 // Add event listener to search input
-document.getElementById('search-input').addEventListener('input', searchNews);
+document.getElementById("search-input").addEventListener("input", searchNews);
 
 function pagination() {}
