@@ -172,6 +172,7 @@ function searchNews() {
   
   // Display message if no results found
   if (filteredArticles.length === 0) {
+      console.log('No articles found matching that title...');
       container.innerHTML = '<p>No articles found matching that title...</p>';
       return;
   }
