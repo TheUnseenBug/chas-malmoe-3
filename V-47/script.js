@@ -176,7 +176,11 @@ function searchNews() {
   // displays a loading message if data isn't available
   if (!news || !news.articles) {
     const container = document.getElementById('newsFeed');
-    container.innerHTML = '<p>Please wait for news to load...</p>';
+    container.innerHTML = `
+      <div class="message-container">
+        <h3 class="status-message">Please wait for news to load...</h3>
+      </div>
+    `;
     return;
 }
 
