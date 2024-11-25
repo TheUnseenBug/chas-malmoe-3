@@ -196,7 +196,15 @@ nav {
 .newsAuthor {
 }
 
-.readMore {
+.favoriteButton {
+  background-color: white; /* Gör knappen röd */
+  color: black; /* Ändra textfärgen till vit för kontrast */
+}
+
+
+.favoriteButton.active {
+  background-color: red; /* Gör knappen röd */
+  color: white; /* Ändra textfärgen till vit för kontrast */
 }
 
 /* searchNews Error Message */
