@@ -40,8 +40,15 @@ function displayNews(response) {
     // Skapar och lägger till publiceringsdatum och tid
     const dateElement = document.createElement("p");
     const publishedDate = new Date(article.publishedAt); // Skapar ett Date-objekt
-    const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Stockholm' }; // Formatinställningar med svensk tid
-    dateElement.textContent = publishedDate.toLocaleString('en-US', options); // Formaterar datum och tid på engelska
+    const options = {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      timeZone: "Europe/Stockholm",
+    }; // Formatinställningar med svensk tid
+    dateElement.textContent = publishedDate.toLocaleString("en-US", options); // Formaterar datum och tid på engelska
     dateElement.classList.add("newsDate");
     newsArticle.appendChild(dateElement);
 
@@ -87,7 +94,7 @@ function displayNews(response) {
     const favoriteButton = document.createElement("button");
     favoriteButton.textContent = "Mark as favorite "; // Kort beskrivning
     favoriteButton.classList.add("favoriteButton");
-    favoriteButton.appendChild(heartIcon); // Lägg till ikonen i knappen
+    // favoriteButton.appendChild(heartIcon); // Lägg till ikonen i knappen
 
     newsArticle.appendChild(favoriteButton);
 
@@ -145,7 +152,9 @@ document.querySelectorAll(".categoryButton").forEach((button) => {
 
 function handleFavorite(article) {
   console.log(article);
-  const favoriteButton = document.querySelector(`button.favoriteButton:has(img[alt="Favorite"])`); // Hämta knappen
+  const favoriteButton = document.querySelector(
+    `button.favoriteButton:has(img[alt="Favorite"])`
+  ); // Hämta knappen
   if (favoriteNews.includes(article)) {
     favoriteNews = favoriteNews.filter((a) => a !== article);
     favoriteButton.classList.remove("active"); // Ta bort aktiv klass om den redan är favorit
@@ -160,10 +169,10 @@ function handleFavorite(article) {
 
 // Ny funktion för att uppdatera favoritesFeed
 function updateFavoritesFeed() {
-  const favoritesFeed = document.getElementById('favoritesFeed');
-  favoritesFeed.innerHTML = ''; // Rensa tidigare innehåll
+  const favoritesFeed = document.getElementById("favoritesFeed");
+  favoritesFeed.innerHTML = ""; // Rensa tidigare innehåll
   favoriteNews.forEach((article) => {
-    const articleElement = document.createElement('div');
+    const articleElement = document.createElement("div");
     articleElement.textContent = article; // Anta att article är en sträng
     favoritesFeed.appendChild(articleElement);
   });
@@ -172,7 +181,9 @@ function updateFavoritesFeed() {
 // search news by title
 function searchNews() {
   // retrieves user input
-  const searchInput = document.getElementById('search-input').value.toLowerCase();
+  const searchInput = document
+    .getElementById("search-input")
+    .value.toLowerCase();
   // selects the newsFeed container where the articles are displayed
   const container = document.getElementById("newsFeed");
 
@@ -182,21 +193,20 @@ function searchNews() {
   // Checks if the news object or its articles array is undefined or empty
   // displays a loading message if data isn't available
   if (!news || !news.articles) {
-    const container = document.getElementById('newsFeed');
+    const container = document.getElementById("newsFeed");
     container.innerHTML = `
       <div class="message-container">
         <h3 class="status-message">Please wait for news to load...</h3>
       </div>
     `;
     return;
-}
+  }
 
   // If search is empty, show all news
   if (!searchInput) {
     displayNews(news);
     return;
   }
-
 
   // Filter articles based on title
   const filteredArticles = news.articles.filter((article) =>
@@ -205,23 +215,23 @@ function searchNews() {
 
   // Display message if no results found
   if (filteredArticles.length === 0) {
-      console.log('No articles found matching that title...');
-      container.innerHTML = `
+    console.log("No articles found matching that title...");
+    container.innerHTML = `
       <div class="message-container">
         <h3 class="status-message">No articles found matching that title...</h3>
       </div>
     `;
-      return;
+    return;
   }
-  
+
   // Display filtered articles using the existing displayNews function
   // object literal, the object has one property which is: articles
   // articles is also the key and filteredArticles is its value
-   displayNews({ articles: filteredArticles });
-  }
+  displayNews({ articles: filteredArticles });
+}
 
-// Add event listener to search input, when a user writes in the input 
-// field that triggers the searchNews function 
+// Add event listener to search input, when a user writes in the input
+// field that triggers the searchNews function
 document.getElementById("search-input").addEventListener("input", searchNews);
 
 function pagination() {}
