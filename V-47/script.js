@@ -12,6 +12,8 @@ async function fetchNews(page, category) {
     const data = await fetch(url);
     const response = await data.json();
 
+    console.log("API Response:", response); // Loggar API-svaret
+
     // Filtrerar bort borttagna artiklar, så att de inte laddas in
     const filteredArticles = response.articles.filter(
       (article) => article.source.name !== "[Removed]"
@@ -85,10 +87,8 @@ function displayNews(response) {
     sourceContainer.appendChild(authorElement);
 
     const favoriteButton = document.createElement("button");
-    favoriteButton.textContent = "Mark as favorite "; // Kort beskrivning
+    favoriteButton.textContent = "Mark as favorite"; // Kort beskrivning
     favoriteButton.classList.add("favoriteButton");
-    favoriteButton.appendChild(heartIcon); // Lägg till ikonen i knappen
-
     newsArticle.appendChild(favoriteButton);
 
     newsFeed.appendChild(newsArticle); // Lägger till artikeln i newsFeed
