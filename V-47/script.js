@@ -270,4 +270,3 @@ function searchNews() {
 // Add event listener to search input, when a user writes in the input
 // field that triggers the searchNews function
 document.getElementById("search-input").addEventListener("input", searchNews);
-
