@@ -207,11 +207,14 @@ function searchNews() {
       return;
   }
   
-   // Display filtered articles using the existing displayNews function
+  // Display filtered articles using the existing displayNews function
+  // object literal, the object has one property which is: articles
+  // articles is also the key and filteredArticles is its value
    displayNews({ articles: filteredArticles });
   }
 
-// Add event listener to search input
+// Add event listener to search input, when a user writes in the input 
+// field that triggers the searchNews function 
 document.getElementById("search-input").addEventListener("input", searchNews);
 
 function pagination() {}
