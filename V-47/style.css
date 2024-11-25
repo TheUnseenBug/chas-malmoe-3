@@ -5,6 +5,8 @@
   /* Typography */
   --font-primary: "Noticia Text", serif;
   --font-size-hero: clamp(3.125rem, 2.454rem + 3.2931vw, 5rem);
+  --font-size-article-title: clamp(1.25rem, 1rem + 1vw, 1.75rem);
+  --font-size-article-text: clamp(0.875rem, 0.8rem + 0.5vw, 1rem);
 
   /* Spacing */
   --spacing-standard: 1rem;
@@ -83,6 +85,23 @@ header h1 {
   color: var(--headline-color);
 }
 
+nav {
+  width: 100%;
+  display: grid;
+  position: fixed;
+  bottom: 0;
+  button {
+    width: 100%;
+    height: 2rem;
+  }
+}
+
+.wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
 .search-container {
   display: flex;
   justify-content: center;
@@ -94,6 +113,29 @@ header h1 {
   width: 100%;
   margin: 20px auto;
   border-radius: 8px;
+}
+
+.source-filter {
+  width: 30%;
+  max-width: 800px;
+  min-width: 130px;
+  margin: 20px auto;
+  padding: 0 10px;
+  border-radius: 8px;
+}
+
+.category-buttons {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+  gap: 0.5rem; /* Consistent spacing between wrapped items */
+  padding: 0 1rem;
+}
+
+.categoryButton {
+  margin: auto 1rem;
+  padding: 0.3rem;
 }
 
 #newsFeed {
@@ -127,17 +169,14 @@ header h1 {
 
 .newsArticle h3 {
   padding: 7px;
+  font-size: var(--font-size-article-title);
+  line-height: 1.2;
 }
 
 .newsArticle p {
   padding: 5px;
-}
-
-.source-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
+  font-size: var(--font-size-article-text);
+  line-height: 1.4;
 }
 
 .newsImg {
@@ -157,10 +196,5 @@ header h1 {
 .newsAuthor {
 }
 
-.favoriteButton {
-
-}
-
-#favoriteArticles {
-
+.readMore {
 }
