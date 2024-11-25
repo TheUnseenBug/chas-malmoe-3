@@ -197,13 +197,12 @@ nav {
 }
 
 .favoriteButton {
-  background-color: white; /* Gör knappen röd */
-  color: black; /* Ändra textfärgen till vit för kontrast */
+  background-color: white;
 }
 
 
 .favoriteButton.active {
-  background-color: red; /* Gör knappen röd */
+  background-color: rgb(191, 38, 11); /* Gör knappen röd */
   color: white; /* Ändra textfärgen till vit för kontrast */
 }
 

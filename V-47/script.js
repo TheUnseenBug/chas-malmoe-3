@@ -87,13 +87,6 @@ function displayNews(response) {
     const favoriteButton = document.createElement("button");
     favoriteButton.textContent = "Mark as favorite "; // Kort beskrivning
     favoriteButton.classList.add("favoriteButton");
-
-    // Lägg till hjärtat som en ikon
-    const heartIcon = document.createElement("img");
-    heartIcon.src = "images/heart.svg"; // Sökväg till hjärtikonen
-    heartIcon.alt = "Favorite";
-    heartIcon.style.width = "20px"; // Justera storlek
-    heartIcon.style.height = "20px"; // Justera storlek
     favoriteButton.appendChild(heartIcon); // Lägg till ikonen i knappen
 
     newsArticle.appendChild(favoriteButton);
@@ -156,9 +149,11 @@ function handleFavorite(article) {
   if (favoriteNews.includes(article)) {
     favoriteNews = favoriteNews.filter((a) => a !== article);
     favoriteButton.classList.remove("active"); // Ta bort aktiv klass om den redan är favorit
+    favoriteButton.textContent = "Mark as favorite &#x1F90D;"; // Återställ texten
   } else {
     favoriteNews.push(article);
     favoriteButton.classList.add("active"); // Lägg till aktiv klass
+    favoriteButton.textContent = "Remove from favorites &#x1FE0F"; // Ändra texten
   }
   updateFavoritesFeed();
 }
