@@ -101,7 +101,7 @@ function displayNews(response) {
     sourceContainer.appendChild(authorElement);
 
     const favoriteButton = document.createElement("button");
-    favoriteButton.textContent = "Mark as favorite "; // Kort beskrivning
+    favoriteButton.textContent = "Favorite ❤️"; // Kort beskrivning
     favoriteButton.classList.add("favoriteButton");
     // favoriteButton.appendChild(heartIcon); // Lägg till ikonen i knappen
 
@@ -110,7 +110,7 @@ function displayNews(response) {
     newsFeed.appendChild(newsArticle); // Lägger till artikeln i newsFeed
 
     favoriteButton.addEventListener("click", () => {
-      handleFavorite(article);
+      handleFavorite(article, favoriteButton);
     });
   });
 }
@@ -189,19 +189,17 @@ document.querySelectorAll(".categoryButton").forEach((button) => {
   });
 });
 
-function handleFavorite(article) {
+function handleFavorite(article, favoriteButton) {
   console.log(article);
-  const favoriteButton = document.querySelector(
-    `button.favoriteButton:has(img[alt="Favorite"])`
-  ); // Hämta knappen
+  
   if (favoriteNews.includes(article)) {
     favoriteNews = favoriteNews.filter((a) => a !== article);
     favoriteButton.classList.remove("active"); // Ta bort aktiv klass om den redan är favorit
-    favoriteButton.textContent = "Mark as favorite &#x1F90D;"; // Återställ texten
+    favoriteButton.textContent = "Favorite ❤️"; // Återställ texten
   } else {
     favoriteNews.push(article);
     favoriteButton.classList.add("active"); // Lägg till aktiv klass
-    favoriteButton.textContent = "Remove from favorites &#x1FE0F"; // Ändra texten
+    favoriteButton.textContent = "Remove from favorites ❌"; // Ändra texten
   }
   updateFavoritesFeed();
 }

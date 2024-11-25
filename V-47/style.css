@@ -158,18 +158,18 @@ main {
 }
 
 .favoriteButton {
-  align-self: flex-end;
+  align-self: flex-start;
   padding: 10px 15px;
   font-size: 0.9rem;
   color: #fff;
-  background-color: #ff6600;
+  background-color: #0066cc;
   border: none;
   border-radius: 5px;
   cursor: pointer;
 }
 
 .favoriteButton:hover {
-  background-color: #cc5200;
+  background-color: #004c99;
 }
 
 
@@ -205,7 +205,7 @@ aside {
   padding: 5px 10px;
   font-size: 0.9rem;
   color: #fff;
-  background-color: #cc0000;
+  background-color: #0066cc;
   border: none;
   border-radius: 5px;
   cursor: pointer;
