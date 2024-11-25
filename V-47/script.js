@@ -166,7 +166,6 @@ function updateFavoritesFeed() {
 function searchNews() {
   // retrieves user input
   const searchInput = document.getElementById('search-input').value.toLowerCase();
-  // const selectedSource = document.getElementById('sourceFilter').value;
   // selects the newsFeed container where the articles are displayed
   const container = document.getElementById("newsFeed");
 
@@ -180,24 +179,13 @@ function searchNews() {
     container.innerHTML = '<p>Please wait for news to load...</p>';
     return;
 }
-  
-  // First filter by source if one is selected
-  // let articlesToSearch = selectedSource
-  // ? news.articles.filter(article => article.source.name === selectedSource)
-  // : news.articles;
-
-  // Then filter by search term if one exists
-  if (searchInput) {
-    articlesToSearch = articlesToSearch.filter(article =>
-      article.title.toLowerCase().includes(searchInput)
-    );
-  }
 
   // If search is empty, show all news
   if (!searchInput) {
     displayNews(news);
     return;
   }
+
 
   // Filter articles based on title
   const filteredArticles = news.articles.filter((article) =>
