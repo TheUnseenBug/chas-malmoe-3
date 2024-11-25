@@ -198,3 +198,20 @@ nav {
 
 .readMore {
 }
+
+/* searchNews Error Message */
+.message-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+  width: 100%;
+}
+
+.status-message {
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  text-align: center;
+  color: #6c757d;
+}
