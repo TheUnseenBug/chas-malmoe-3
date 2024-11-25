@@ -7,7 +7,7 @@ const articlesPerPage = 10;
 
 async function fetchNews(page, category) {
   try {
-    const apiKey = "db6c1d2353eb42528700f136fd8899fb";
+    const apiKey = "e1e4efc08e2f4a1dbcd2f0e42102139c"; //db6c1d2353eb42528700f136fd8899fb
     const url = `https://newsapi.org/v2/top-headlines?country=us${
       category ? `&category=${category}` : ""
     }&page=${page}&apiKey=${apiKey}`;
