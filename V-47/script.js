@@ -2,6 +2,9 @@ const searchInput = document.getElementById("search-input");
 searchInput.addEventListener("input", searchNews);
 let favoriteNews = [];
 let news = [];
+let currentPage = 1;
+const articlesPerPage = 10;
+
 async function fetchNews(page, category) {
   try {
     const apiKey = "db6c1d2353eb42528700f136fd8899fb";
@@ -21,6 +24,7 @@ async function fetchNews(page, category) {
     news = response;
     console.log(response);
     displayNews(response);
+    pagination();
     populateSourceFilter();
   } catch (error) {
     console.error("Error:", error);
@@ -33,9 +37,14 @@ function displayNews(response) {
   const newsFeed = document.getElementById("newsFeed"); // Hämtar newsFeed-elementet
   newsFeed.innerHTML = ""; // Tömmer containern innan något läggs till
 
-  response.articles.forEach((article) => {
+  const startIndex = (currentPage - 1) * articlesPerPage;
+  const endIndex = startIndex + articlesPerPage;
+  const responseCurrentArticles = response.articles.slice(startIndex, endIndex);
+
+  responseCurrentArticles.forEach((article) => {
     const newsArticle = document.createElement("article"); // Skapar ett nytt artikel-element
     newsArticle.classList.add("newsArticle"); // Lägger till klassen "newsArticle"
+  
 
     // Skapar och lägger till publiceringsdatum och tid
     const dateElement = document.createElement("p");
@@ -104,6 +113,36 @@ function displayNews(response) {
       handleFavorite(article);
     });
   });
+}
+
+// Abbas -  Skapar en rad sidknappar baserat på antalet artiklar. Varje knapp uppdaterar aktuella sidan och hämtar artiklar för just den sidan. Aktuella sidans knapp inaktiveras för ge visuell feedback.
+function pagination() {
+  const paginationContainer = document.querySelector(".pagination");
+  if (!paginationContainer) {
+    const footer = document.querySelector("footer");
+    const newPaginationContainer = document.createElement("div");
+    newPaginationContainer.classList.add("pagination");
+    footer.appendChild(newPaginationContainer);
+  }
+  const pagination = document.querySelector(".pagination");
+  pagination.innerHTML = "";
+
+  const totalPages = Math.ceil(news.articles.length / articlesPerPage);
+
+  for (let i = 1; i <= totalPages; i++) {
+    const button = document.createElement("button");
+    button.textContent = i;
+    button.classList.add("paginationButton");
+    if (i === currentPage) {
+      button.disabled = true;
+    }
+    button.addEventListener("click", () => {
+      currentPage = i;
+      // displayNews();
+      fetchNews(currentPage);
+    });
+    pagination.appendChild(button);
+  }
 }
 
 // Funktion för att hämta sources från API och rendera de i dropdown menyn
@@ -234,4 +273,3 @@ function searchNews() {
 // field that triggers the searchNews function
 document.getElementById("search-input").addEventListener("input", searchNews);
 
-function pagination() {}
