@@ -195,7 +195,11 @@ function searchNews() {
   // Display message if no results found
   if (filteredArticles.length === 0) {
       console.log('No articles found matching that title...');
-      container.innerHTML = '<p>No articles found matching that title...</p>';
+      container.innerHTML = `
+      <div class="message-container">
+        <h3 class="status-message">No articles found matching that title...</h3>
+      </div>
+    `;
       return;
   }
   
