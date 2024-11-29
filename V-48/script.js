@@ -9,13 +9,22 @@ const articlesPerPage = 10;
 
 async function fetchNews(page, category) {
   try {
-    const apiKey = "e1e4efc08e2f4a1dbcd2f0e42102139c"; //db6c1d2353eb42528700f136fd8899fb
-    const url = `https://newsapi.org/v2/top-headlines?country=us${
-      category ? `&category=${category}` : ""
-    }&page=${page}&apiKey=${apiKey}`;
-    // const url = "test.json";
+    // const apiKey = "e1e4efc08e2f4a1dbcd2f0e42102139c"; // Key 1
+    // const apiKey = "db6c1d2353eb42528700f136fd8899fb"; // Key 2
+    // const url = `https://newsapi.org/v2/top-headlines?country=us${
+    //   category ? `&category=${category}` : ""
+    // }&page=${page}&apiKey=${apiKey}`;
+    const url = "test.json";
     const data = await fetch(url);
     const response = await data.json();
+
+    if (!data.ok) {
+      throw new Error(`API Error: ${data.status} ${data.statusText}`);
+    }
+
+    if (!response.articles || response.articles.length === 0) {
+      throw new Error("No articles found.");
+    }
 
     // Filtrerar bort borttagna artiklar, så att de inte laddas in
     const filteredArticles = response.articles.filter(
@@ -32,7 +41,7 @@ async function fetchNews(page, category) {
     console.error("Error:", error);
     container.innerHTML = `
       <div class="message-container">
-        <h3 class="status-message">No news found, try again later!</h3>
+        <h3 class="status-message">Ops, something went wrong: ${error.message}</h3>
       </div>
     `;
   }
@@ -48,10 +57,19 @@ function displayNews(response) {
   const endIndex = startIndex + articlesPerPage; // Beräknar slutindex för artiklar på aktuell sida
   const responseCurrentArticles = response.articles.slice(startIndex, endIndex); // Skapar en lista med artiklar för aktuell sida
 
-  responseCurrentArticles.forEach((article) => { // Itererar över varje artikel i den aktuella sidan
-    const publishedDate = new Date(article.publishedAt).toLocaleString("en-US", {
-      year: "numeric", month: "long", day: "numeric", hour: "2-digit", minute: "2-digit", timeZone: "Europe/Stockholm"
-    }); // Formaterar publiceringsdatumet för artikeln
+  responseCurrentArticles.forEach((article) => {
+    // Itererar över varje artikel i den aktuella sidan
+    const publishedDate = new Date(article.publishedAt).toLocaleString(
+      "en-US",
+      {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        timeZone: "Europe/Stockholm",
+      }
+    ); // Formaterar publiceringsdatumet för artikeln
 
     const newsArticle = document.createElement("article"); // Skapar ett nytt artikel-element
     newsArticle.classList.add("newsArticle"); // Lägger till en CSS-klass för styling
@@ -67,9 +85,15 @@ function displayNews(response) {
       <button class="favoriteButton">Favorite ❤️</button>
     `;
 
-    newsArticle.querySelector("img").addEventListener("click", () => window.open(article.url, "_blank")); // Lägger till en händelse för att öppna artikeln i en ny flik när bilden klickas
-    newsArticle.querySelector(".favoriteButton").addEventListener("click", () => handleFavorite(article, newsArticle.querySelector(".favoriteButton"))); // Lägger till en händelse för att hantera favoritmarkering
-    
+    newsArticle
+      .querySelector("img")
+      .addEventListener("click", () => window.open(article.url, "_blank")); // Lägger till en händelse för att öppna artikeln i en ny flik när bilden klickas
+    newsArticle
+      .querySelector(".favoriteButton")
+      .addEventListener("click", () =>
+        handleFavorite(article, newsArticle.querySelector(".favoriteButton"))
+      ); // Lägger till en händelse för att hantera favoritmarkering
+
     newsFeed.appendChild(newsArticle); // Lägger till artikel-elementet i nyhetsflödet
   });
 }
