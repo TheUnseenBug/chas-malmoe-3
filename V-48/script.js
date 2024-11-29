@@ -9,13 +9,22 @@ const articlesPerPage = 10;
 
 async function fetchNews(page, category) {
   try {
-    const apiKey = "e1e4efc08e2f4a1dbcd2f0e42102139c"; //db6c1d2353eb42528700f136fd8899fb
-    const url = `https://newsapi.org/v2/top-headlines?country=us${
-      category ? `&category=${category}` : ""
-    }&page=${page}&apiKey=${apiKey}`;
-    // const url = "test.json";
+    // const apiKey = "e1e4efc08e2f4a1dbcd2f0e42102139c"; // Key 1
+    // const apiKey = "db6c1d2353eb42528700f136fd8899fb"; // Key 2
+    // const url = `https://newsapi.org/v2/top-headlines?country=us${
+    //   category ? `&category=${category}` : ""
+    // }&page=${page}&apiKey=${apiKey}`;
+    const url = "test.json";
     const data = await fetch(url);
     const response = await data.json();
+
+    if (!data.ok) {
+      throw new Error(`API Error: ${data.status} ${data.statusText}`);
+    }
+
+    if (!response.articles || response.articles.length === 0) {
+      throw new Error("No articles found.");
+    }
 
     // Filtrerar bort borttagna artiklar, så att de inte laddas in
     const filteredArticles = response.articles.filter(
@@ -32,13 +41,54 @@ async function fetchNews(page, category) {
     console.error("Error:", error);
     container.innerHTML = `
       <div class="message-container">
-        <h3 class="status-message">No news found, try again later!</h3>
+        <h3 class="status-message">Ops, something went wrong: ${error.message}</h3>
       </div>
     `;
   }
 }
 
 fetchNews();
+
+const weatherAPIkey = 'f5d21086c0e96fb934d7912aa22ea60e';
+let weatherData = null;
+
+async function fetchWeather() {
+  try {
+    const position = await getPosition();
+    const { latitude, longitude } = position.coords;
+
+    const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=${weatherAPIkey}`;
+    const response = await fetch(weatherUrl);
+    const data = await response.json();
+    weatherData = data;
+    console.log(weatherData);
+    return data;
+  } catch (error) {
+    console.error('Error fetching weather:', error);
+  }
+}
+
+fetchWeather();
+
+function getPosition() {
+  return new Promise((resolve, reject) => {
+    navigator.geolocation.getCurrentPosition(resolve, reject);
+  });
+}
+
+function displayWeather(weatherData) {
+  if (!weatherData) return;
+   const weatherDisplay = document.getElementById('weatherDisplay');
+   console.log(weatherData);
+   weatherDisplay.innerHTML = `
+    <h3>Current Weather</h3>
+    <p>Temperature: ${Math.round(weatherData.main.temp)}°C</p>
+    <p>Condition: ${weatherData.weather[0].main}</p>
+    <p>Location: ${weatherData.name}</p>
+   `
+}
+
+displayWeather();
 
 function displayNews(response) {
   const newsFeed = document.getElementById("newsFeed"); // Hämtar elementet där nyheterna ska visas
@@ -48,28 +98,43 @@ function displayNews(response) {
   const endIndex = startIndex + articlesPerPage; // Beräknar slutindex för artiklar på aktuell sida
   const responseCurrentArticles = response.articles.slice(startIndex, endIndex); // Skapar en lista med artiklar för aktuell sida
 
-  responseCurrentArticles.forEach((article) => { // Itererar över varje artikel i den aktuella sidan
-    const publishedDate = new Date(article.publishedAt).toLocaleString("en-US", {
-      year: "numeric", month: "long", day: "numeric", hour: "2-digit", minute: "2-digit", timeZone: "Europe/Stockholm"
-    }); // Formaterar publiceringsdatumet för artikeln
+  responseCurrentArticles.forEach((article) => {
+    // Itererar över varje artikel i den aktuella sidan
+    const publishedDate = new Date(article.publishedAt).toLocaleString(
+      "en-US",
+      {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        timeZone: "Europe/Stockholm",
+      }
+    ); // Formaterar publiceringsdatumet för artikeln
 
     const newsArticle = document.createElement("article"); // Skapar ett nytt artikel-element
     newsArticle.classList.add("newsArticle"); // Lägger till en CSS-klass för styling
     newsArticle.innerHTML = `
-      <p class="newsDate">${publishedDate}</p> // Visar publiceringsdatumet
-      <h3 class="newsTitle">${article.title}</h3> // Visar artikelns titel
-      <img src="${article.urlToImage}" class="newsImg" style="width: 100%; height: auto;" /> // Visar artikelns bild
-      <p class="newsDescription">${article.description}</p> // Visar artikelns beskrivning
+      <p class="newsDate">${publishedDate}</p>
+      <h3 class="newsTitle">${article.title}</h3>
+      <img src="${article.urlToImage}" class="newsImg" style="width: 100%; height: auto;" />
+      <p class="newsDescription">${article.description}</p>
       <section class="source-container">
-        <p class="newsSource">Published on: ${article.source.name}</p> // Visar artikelns källa
-        <p class="newsAuthor">Written by: ${article.author}</p> // Visar artikelns författare
+        <p class="newsSource">Published on: ${article.source.name}</p>
+        <p class="newsAuthor">Written by: ${article.author}</p>
       </section>
-      <button class="favoriteButton">Favorite ❤️</button> // Lägger till en knapp för att markera som favorit
+      <button class="favoriteButton">Favorite ❤️</button>
     `;
 
-    newsArticle.querySelector("img").addEventListener("click", () => window.open(article.url, "_blank")); // Lägger till en händelse för att öppna artikeln i en ny flik när bilden klickas
-    newsArticle.querySelector(".favoriteButton").addEventListener("click", () => handleFavorite(article, newsArticle.querySelector(".favoriteButton"))); // Lägger till en händelse för att hantera favoritmarkering
-    
+    newsArticle
+      .querySelector("img")
+      .addEventListener("click", () => window.open(article.url, "_blank")); // Lägger till en händelse för att öppna artikeln i en ny flik när bilden klickas
+    newsArticle
+      .querySelector(".favoriteButton")
+      .addEventListener("click", () =>
+        handleFavorite(article, newsArticle.querySelector(".favoriteButton"))
+      ); // Lägger till en händelse för att hantera favoritmarkering
+
     newsFeed.appendChild(newsArticle); // Lägger till artikel-elementet i nyhetsflödet
   });
 }
