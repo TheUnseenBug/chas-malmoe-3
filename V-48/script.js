@@ -10,11 +10,11 @@ const articlesPerPage = 10;
 async function fetchNews(page, category) {
   try {
     // const apiKey = "e1e4efc08e2f4a1dbcd2f0e42102139c"; // Key 1
-    // const apiKey = "db6c1d2353eb42528700f136fd8899fb"; // Key 2
-    // const url = `https://newsapi.org/v2/top-headlines?country=us${
-    //   category ? `&category=${category}` : ""
-    // }&page=${page}&apiKey=${apiKey}`;
-    const url = "test.json";
+    const apiKey = "db6c1d2353eb42528700f136fd8899fb"; // Key 2
+    const url = `https://newsapi.org/v2/top-headlines?country=us${
+      category ? `&category=${category}` : ""
+    }&page=${page}&apiKey=${apiKey}`;
+    // const url = "test.json";
     const data = await fetch(url);
     const response = await data.json();
 
@@ -47,11 +47,9 @@ async function fetchNews(page, category) {
   }
 }
 
-fetchNews();
-
 // declaring variables
 // weatherData is initialized to null until a successful API call
-const weatherAPIkey = 'f5d21086c0e96fb934d7912aa22ea60e';
+const weatherAPIkey = "f5d21086c0e96fb934d7912aa22ea60e";
 let weatherData = null;
 
 // retrieves user's location
@@ -89,10 +87,21 @@ async function fetchWeather() {
   }
 }
 
-fetchWeather();
+async function fecthAll(page, category) {
+  try {
+    const [newsData, weatherData] = await Promise.all([
+      fetchNews(page, category),
+      fetchWeather(),
+    ]);
+  } catch (error) {
+    console.error("Error", error);
+  }
+}
+
+fecthAll();
 
 // gets users current position if their location is avavilable then the promise is resolved
-// if user doesn't allows access to location then the promise is rejected 
+// if user doesn't allows access to location then the promise is rejected
 function getPosition() {
   return new Promise((resolve, reject) => {
     navigator.geolocation.getCurrentPosition(resolve, reject);
