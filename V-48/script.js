@@ -87,7 +87,7 @@ async function fetchWeather() {
   }
 }
 
-async function fecthAll(page, category) {
+async function fetchAll(page, category) {
   try {
     const [newsData, weatherData] = await Promise.all([
       fetchNews(page, category),
@@ -98,7 +98,7 @@ async function fecthAll(page, category) {
   }
 }
 
-fecthAll();
+fetchAll();
 
 // gets users current position if their location is avavilable then the promise is resolved
 // if user doesn't allows access to location then the promise is rejected
