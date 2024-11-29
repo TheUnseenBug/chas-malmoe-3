@@ -33,6 +33,47 @@ async function fetchNews(page, category) {
 
 fetchNews();
 
+const weatherAPIkey = 'f5d21086c0e96fb934d7912aa22ea60e';
+let weatherData = null;
+
+async function fetchWeather() {
+  try {
+    const position = await getPosition();
+    const { latitude, longitude } = position.coords;
+
+    const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=${weatherAPIkey}`;
+    const response = await fetch(weatherUrl);
+    const data = await response.json();
+    weatherData = data;
+    console.log(weatherData);
+    return data;
+  } catch (error) {
+    console.error('Error fetching weather:', error);
+  }
+}
+
+fetchWeather();
+
+function getPosition() {
+  return new Promise((resolve, reject) => {
+    navigator.geolocation.getCurrentPosition(resolve, reject);
+  });
+}
+
+function displayWeather(weatherData) {
+  if (!weatherData) return;
+   const weatherDisplay = document.getElementById('weatherDisplay');
+   console.log(weatherData);
+   weatherDisplay.innerHTML = `
+    <h3>Current Weather</h3>
+    <p>Temperature: ${Math.round(weatherData.main.temp)}°C</p>
+    <p>Condition: ${weatherData.weather[0].main}</p>
+    <p>Location: ${weatherData.name}</p>
+   `
+}
+
+displayWeather();
+
 function displayNews(response) {
   // Hämtar newsFeed-elementet där artiklarna ska visas
   const newsFeed = document.getElementById("newsFeed"); 
