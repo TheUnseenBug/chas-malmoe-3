@@ -87,7 +87,7 @@ async function fetchWeather() {
     if (!response.ok) {
       throw new Error(`API Error: ${data.status} ${data.statusText}`);
     }
-    console.log(weatherData);
+    displayWeather(data);
     return data;
   } catch (error) {
     console.error("Error fetching weather:", error);
@@ -98,6 +98,8 @@ async function fetchWeather() {
     `;
   }
 }
+
+setInterval(fetchWeather, 120000);
 
 async function fetchAll(page, category) {
   try {
