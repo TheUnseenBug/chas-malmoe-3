@@ -1,4 +1,6 @@
 const searchInput = document.getElementById("search-input");
+const container = document.getElementById("newsFeed");
+
 searchInput.addEventListener("input", searchNews);
 let favoriteNews = [];
 let news = [];
@@ -22,12 +24,17 @@ async function fetchNews(page, category) {
     response.articles = filteredArticles;
 
     news = response;
-    console.log(response);
+    // console.log(response);
     displayNews(response);
     pagination();
     populateSourceFilter();
   } catch (error) {
     console.error("Error:", error);
+    container.innerHTML = `
+      <div class="message-container">
+        <h3 class="status-message">No news found, try again later!</h3>
+      </div>
+    `;
   }
 }
 
@@ -62,7 +69,7 @@ function displayNews(response) {
 
     newsArticle.querySelector("img").addEventListener("click", () => window.open(article.url, "_blank")); // Lägger till en händelse för att öppna artikeln i en ny flik när bilden klickas
     newsArticle.querySelector(".favoriteButton").addEventListener("click", () => handleFavorite(article, newsArticle.querySelector(".favoriteButton"))); // Lägger till en händelse för att hantera favoritmarkering
-
+    
     newsFeed.appendChild(newsArticle); // Lägger till artikel-elementet i nyhetsflödet
   });
 }
@@ -92,6 +99,7 @@ function pagination() {
       currentPage = i;
       // displayNews();
       fetchNews(currentPage);
+      document.documentElement.scrollTop = 0;
     });
     pagination.appendChild(button);
   }
@@ -116,7 +124,10 @@ function populateSourceFilter() {
     sourceFilter.appendChild(option);
   });
 
-  sourceFilter.addEventListener("change", filterBySource);
+  sourceFilter.addEventListener("change", (event) => {
+    searchInput.value = "";
+    filterBySource(event);
+  });
 }
 
 // Filtrerar artiklar baserat på källa
@@ -138,12 +149,14 @@ document.querySelectorAll(".categoryButton").forEach((button) => {
   button.addEventListener("click", (event) => {
     const category = event.target.dataset.category;
     categoryNews(category);
+
+    searchInput.value = "";
   });
 });
 
 function handleFavorite(article, favoriteButton) {
   console.log(article); // Loggar den aktuella artikeln till konsolen för felsökning
-  
+
   // Kontrollerar om artikeln redan finns i listan över favoriter
   if (favoriteNews.includes(article)) {
     // Om artikeln är en favorit, ta bort den från listan
