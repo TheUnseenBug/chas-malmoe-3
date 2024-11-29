@@ -71,11 +71,21 @@ async function fetchWeather() {
     const response = await fetch(weatherUrl);
     // parsing data
     const data = await response.json();
+
     weatherData = data;
+
+    if (!response.ok) {
+      throw new Error(`API Error: ${data.status} ${data.statusText}`);
+    }
     console.log(weatherData);
     return data;
   } catch (error) {
-    console.error('Error fetching weather:', error);
+    console.error("Error fetching weather:", error);
+    weatherDisplay.innerHTML = `
+      <div class="message-container">
+        <h3 class="status-message">Ops, something went wrong: ${error.message}</h3>
+      </div>
+    `;
   }
 }
 
@@ -91,14 +101,14 @@ function getPosition() {
 
 function displayWeather(weatherData) {
   if (!weatherData) return;
-   const weatherDisplay = document.getElementById('weatherDisplay');
-   console.log(weatherData);
-   weatherDisplay.innerHTML = `
+  const weatherDisplay = document.getElementById("weatherDisplay");
+  console.log(weatherData);
+  weatherDisplay.innerHTML = `
     <h3>Current Weather</h3>
     <p>Temperature: ${Math.round(weatherData.main.temp)}°C</p>
     <p>Condition: ${weatherData.weather[0].main}</p>
     <p>Location: ${weatherData.name}</p>
-   `
+   `;
 }
 
 displayWeather();
