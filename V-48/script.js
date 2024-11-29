@@ -101,7 +101,7 @@ async function fetchAll(page, category) {
 fetchAll();
 
 // gets users current position if their location is avavilable then the promise is resolved
-// if user doesn't allows access to location then the promise is rejected
+// if user doesn't allows access to location then the promise is rejected 
 function getPosition() {
   return new Promise((resolve, reject) => {
     navigator.geolocation.getCurrentPosition(resolve, reject);
