@@ -91,7 +91,7 @@ async function fetchWeather() {
 
 fetchWeather();
 
-// gets users current position if their location is avavilable then the promise is resolved
+// gets users current position if their location is available then the promise is resolved
 // if user doesn't allows access to location then the promise is rejected 
 function getPosition() {
   return new Promise((resolve, reject) => {
