@@ -1,4 +1,6 @@
 const searchInput = document.getElementById("search-input");
+const container = document.getElementById("newsFeed");
+
 searchInput.addEventListener("input", searchNews);
 let favoriteNews = [];
 let news = [];
@@ -22,12 +24,17 @@ async function fetchNews(page, category) {
     response.articles = filteredArticles;
 
     news = response;
-    console.log(response);
+    // console.log(response);
     displayNews(response);
     pagination();
     populateSourceFilter();
   } catch (error) {
     console.error("Error:", error);
+    container.innerHTML = `
+      <div class="message-container">
+        <h3 class="status-message">No news found, try again later!</h3>
+      </div>
+    `;
   }
 }
 
@@ -35,9 +42,9 @@ fetchNews();
 
 function displayNews(response) {
   // Hämtar newsFeed-elementet där artiklarna ska visas
-  const newsFeed = document.getElementById("newsFeed"); 
+  const newsFeed = document.getElementById("newsFeed");
   // Tömmer containern innan några artiklar läggs till
-  newsFeed.innerHTML = ""; 
+  newsFeed.innerHTML = "";
 
   // Beräknar start- och slutindex för att hämta rätt artiklar baserat på aktuell sida
   const startIndex = (currentPage - 1) * articlesPerPage;
@@ -48,14 +55,14 @@ function displayNews(response) {
   // Loopar igenom varje artikel i den aktuella artikellistan
   responseCurrentArticles.forEach((article) => {
     // Skapar ett nytt artikel-element
-    const newsArticle = document.createElement("article"); 
+    const newsArticle = document.createElement("article");
     // Lägger till klassen "newsArticle" för styling
-    newsArticle.classList.add("newsArticle"); 
+    newsArticle.classList.add("newsArticle");
 
     // Skapar och lägger till publiceringsdatum och tid
     const dateElement = document.createElement("p");
     // Skapar ett Date-objekt från publiceringsdatumet
-    const publishedDate = new Date(article.publishedAt); 
+    const publishedDate = new Date(article.publishedAt);
     // Definierar formatinställningar för datum och tid
     const options = {
       year: "numeric",
@@ -64,9 +71,9 @@ function displayNews(response) {
       hour: "2-digit",
       minute: "2-digit",
       timeZone: "Europe/Stockholm",
-    }; 
+    };
     // Formaterar datum och tid på engelska och sätter textinnehållet
-    dateElement.textContent = publishedDate.toLocaleString("en-US", options); 
+    dateElement.textContent = publishedDate.toLocaleString("en-US", options);
     // Lägger till klassen "newsDate" för styling
     dateElement.classList.add("newsDate");
     // Lägger till datum-elementet i artikel-elementet
@@ -129,7 +136,7 @@ function displayNews(response) {
     newsArticle.appendChild(favoriteButton);
 
     // Lägger till hela artikel-elementet i newsFeed
-    newsFeed.appendChild(newsArticle); 
+    newsFeed.appendChild(newsArticle);
 
     // Lägger till en eventlyssnare för att hantera favoritmarkering
     favoriteButton.addEventListener("click", () => {
@@ -163,6 +170,7 @@ function pagination() {
       currentPage = i;
       // displayNews();
       fetchNews(currentPage);
+      document.documentElement.scrollTop = 0;
     });
     pagination.appendChild(button);
   }
@@ -187,7 +195,10 @@ function populateSourceFilter() {
     sourceFilter.appendChild(option);
   });
 
-  sourceFilter.addEventListener("change", filterBySource);
+  sourceFilter.addEventListener("change", (event) => {
+    searchInput.value = "";
+    filterBySource(event);
+  });
 }
 
 // Filtrerar artiklar baserat på källa
@@ -209,12 +220,14 @@ document.querySelectorAll(".categoryButton").forEach((button) => {
   button.addEventListener("click", (event) => {
     const category = event.target.dataset.category;
     categoryNews(category);
+
+    searchInput.value = "";
   });
 });
 
 function handleFavorite(article, favoriteButton) {
   console.log(article); // Loggar den aktuella artikeln till konsolen för felsökning
-  
+
   // Kontrollerar om artikeln redan finns i listan över favoriter
   if (favoriteNews.includes(article)) {
     // Om artikeln är en favorit, ta bort den från listan
