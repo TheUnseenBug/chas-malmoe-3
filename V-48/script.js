@@ -55,6 +55,10 @@ let weatherData = null;
 // retrieves user's location
 // fetches weather data from API based on location
 // parses & logs weather data
+
+document.getElementById("getWeatherButton").addEventListener("click", fetchWeather);
+
+
 async function fetchWeather() {
   try {
     const position = await getPosition();
@@ -67,7 +71,15 @@ async function fetchWeather() {
     const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=${weatherAPIkey}`;
     // fetching weather url
     const response = await fetch(weatherUrl);
+
     // parsing data
+
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+
     const data = await response.json();
 
     weatherData = data;
@@ -98,21 +110,33 @@ async function fetchAll(page, category) {
   }
 }
 
+
 fetchAll();
 
 // gets users current position if their location is avavilable then the promise is resolved
 // if user doesn't allows access to location then the promise is rejected 
+
 function getPosition() {
   return new Promise((resolve, reject) => {
     navigator.geolocation.getCurrentPosition(resolve, reject);
   });
 }
 
+fetchWeather();
+
+
+
 function displayWeather(weatherData) {
   if (!weatherData) return;
   const weatherDisplay = document.getElementById("weatherDisplay");
   console.log(weatherData);
   weatherDisplay.innerHTML = `
+
+   const currentWeather = document.getElementById('currentWeather');
+   const weatherDisplay = document.getElementById('weatherDisplay');
+
+   console.log(weatherData);
+   weatherDisplay.innerHTML = `
     <h3>Current Weather</h3>
     <p>Temperature: ${Math.round(weatherData.main.temp)}°C</p>
     <p>Condition: ${weatherData.weather[0].main}</p>
