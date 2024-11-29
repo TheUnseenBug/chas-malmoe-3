@@ -49,16 +49,27 @@ async function fetchNews(page, category) {
 
 fetchNews();
 
+// declaring variables
+// weatherData is initialized to null until a successful API call
 const weatherAPIkey = 'f5d21086c0e96fb934d7912aa22ea60e';
 let weatherData = null;
 
+// retrieves user's location
+// fetches weather data from API based on location
+// parses & logs weather data
 async function fetchWeather() {
   try {
     const position = await getPosition();
+    // uses object destructuring to extract lat & long
+    // which is part of the object position
+    // position.coords is an object containing the lat & long info
+    // const latitude = position.coords.latitude;
+    // const longitude = position.coords.longitude;
     const { latitude, longitude } = position.coords;
-
     const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=${weatherAPIkey}`;
+    // fetching weather url
     const response = await fetch(weatherUrl);
+    // parsing data
     const data = await response.json();
     weatherData = data;
     console.log(weatherData);
@@ -70,6 +81,8 @@ async function fetchWeather() {
 
 fetchWeather();
 
+// gets users current position if their location is avavilable then the promise is resolved
+// if user doesn't allows access to location then the promise is rejected 
 function getPosition() {
   return new Promise((resolve, reject) => {
     navigator.geolocation.getCurrentPosition(resolve, reject);
