@@ -86,7 +86,7 @@ fetchWeather();
 
 
 function displayWeather(weatherData) {
-  if (!weatherData) return;
+  // if (!weatherData) return;
    const currentWeather = document.getElementById('currentWeather');
    const weatherDisplay = document.getElementById('weatherDisplay');
 
