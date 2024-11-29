@@ -50,9 +50,28 @@ header nav button:hover {
   background-color: #004c99;
 }
 
-#weatherButton {
-  background-color: rgb(23, 183, 114);
+#getWeatherButton {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  background-color: green;
+  border-radius: 50%;
+  height: 5rem;
+  width: 5rem;
 }
+
+/* #weatherSection {
+  position: absolute;
+  padding: 3rem;
+  bottom: 50%;
+  left: 50%;
+  z-index: 1000;
+  background-color: #0066cc;
+  width: 50%;
+  height: 50%;
+  border-radius: 50px;
+  
+} */
 
 
 .wrapper {

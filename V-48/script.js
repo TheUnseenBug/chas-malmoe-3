@@ -52,6 +52,8 @@ fetchNews();
 const weatherAPIkey = 'f5d21086c0e96fb934d7912aa22ea60e';
 let weatherData = null;
 
+document.getElementById("getWeatherButton").addEventListener("click", fetchWeather);
+
 async function fetchWeather() {
   try {
     const position = await getPosition();
@@ -59,6 +61,11 @@ async function fetchWeather() {
 
     const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=${weatherAPIkey}`;
     const response = await fetch(weatherUrl);
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
     const data = await response.json();
     weatherData = data;
     console.log(weatherData);
@@ -68,17 +75,21 @@ async function fetchWeather() {
   }
 }
 
-fetchWeather();
-
 function getPosition() {
   return new Promise((resolve, reject) => {
     navigator.geolocation.getCurrentPosition(resolve, reject);
   });
 }
 
+fetchWeather();
+
+
+
 function displayWeather(weatherData) {
   if (!weatherData) return;
+   const currentWeather = document.getElementById('currentWeather');
    const weatherDisplay = document.getElementById('weatherDisplay');
+
    console.log(weatherData);
    weatherDisplay.innerHTML = `
     <h3>Current Weather</h3>
