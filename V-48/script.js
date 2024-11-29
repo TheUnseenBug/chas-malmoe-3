@@ -10,11 +10,11 @@ const articlesPerPage = 10;
 async function fetchNews(page, category) {
   try {
     // const apiKey = "e1e4efc08e2f4a1dbcd2f0e42102139c"; // Key 1
-    // const apiKey = "db6c1d2353eb42528700f136fd8899fb"; // Key 2
-    // const url = `https://newsapi.org/v2/top-headlines?country=us${
-    //   category ? `&category=${category}` : ""
-    // }&page=${page}&apiKey=${apiKey}`;
-    const url = "test.json";
+    const apiKey = "db6c1d2353eb42528700f136fd8899fb"; // Key 2
+    const url = `https://newsapi.org/v2/top-headlines?country=us${
+      category ? `&category=${category}` : ""
+    }&page=${page}&apiKey=${apiKey}`;
+    // const url = "test.json";
     const data = await fetch(url);
     const response = await data.json();
 
@@ -47,33 +47,74 @@ async function fetchNews(page, category) {
   }
 }
 
-fetchNews();
-
-const weatherAPIkey = 'f5d21086c0e96fb934d7912aa22ea60e';
+// declaring variables
+// weatherData is initialized to null until a successful API call
+const weatherAPIkey = "f5d21086c0e96fb934d7912aa22ea60e";
 let weatherData = null;
 
+// retrieves user's location
+// fetches weather data from API based on location
+// parses & logs weather data
+
 document.getElementById("getWeatherButton").addEventListener("click", fetchWeather);
+
 
 async function fetchWeather() {
   try {
     const position = await getPosition();
+    // uses object destructuring to extract lat & long
+    // which is part of the object position
+    // position.coords is an object containing the lat & long info
+    // const latitude = position.coords.latitude;
+    // const longitude = position.coords.longitude;
     const { latitude, longitude } = position.coords;
-
     const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=${weatherAPIkey}`;
+    // fetching weather url
     const response = await fetch(weatherUrl);
+
+    // parsing data
+
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
+
     const data = await response.json();
+
     weatherData = data;
+
+    if (!response.ok) {
+      throw new Error(`API Error: ${data.status} ${data.statusText}`);
+    }
     console.log(weatherData);
     return data;
   } catch (error) {
-    console.error('Error fetching weather:', error);
+    console.error("Error fetching weather:", error);
+    weatherDisplay.innerHTML = `
+      <div class="message-container">
+        <h3 class="status-message">Ops, something went wrong: ${error.message}</h3>
+      </div>
+    `;
   }
 }
+
+async function fetchAll(page, category) {
+  try {
+    const [newsData, weatherData] = await Promise.all([
+      fetchNews(page, category),
+      fetchWeather(),
+    ]);
+  } catch (error) {
+    console.error("Error", error);
+  }
+}
+
+
+fetchAll();
+
+// gets users current position if their location is avavilable then the promise is resolved
+// if user doesn't allows access to location then the promise is rejected 
 
 function getPosition() {
   return new Promise((resolve, reject) => {
@@ -87,6 +128,10 @@ fetchWeather();
 
 function displayWeather(weatherData) {
   if (!weatherData) return;
+  const weatherDisplay = document.getElementById("weatherDisplay");
+  console.log(weatherData);
+  weatherDisplay.innerHTML = `
+
    const currentWeather = document.getElementById('currentWeather');
    const weatherDisplay = document.getElementById('weatherDisplay');
 
@@ -96,7 +141,7 @@ function displayWeather(weatherData) {
     <p>Temperature: ${Math.round(weatherData.main.temp)}°C</p>
     <p>Condition: ${weatherData.weather[0].main}</p>
     <p>Location: ${weatherData.name}</p>
-   `
+   `;
 }
 
 displayWeather();
