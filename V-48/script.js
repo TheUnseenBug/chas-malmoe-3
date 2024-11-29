@@ -34,107 +34,36 @@ async function fetchNews(page, category) {
 fetchNews();
 
 function displayNews(response) {
-  // Hämtar newsFeed-elementet där artiklarna ska visas
-  const newsFeed = document.getElementById("newsFeed"); 
-  // Tömmer containern innan några artiklar läggs till
-  newsFeed.innerHTML = ""; 
+  const newsFeed = document.getElementById("newsFeed"); // Hämtar elementet där nyheterna ska visas
+  newsFeed.innerHTML = ""; // Rensar tidigare innehåll i nyhetsflödet
 
-  // Beräknar start- och slutindex för att hämta rätt artiklar baserat på aktuell sida
-  const startIndex = (currentPage - 1) * articlesPerPage;
-  const endIndex = startIndex + articlesPerPage;
-  // Hämtar de aktuella artiklarna från svaret baserat på beräknade index
-  const responseCurrentArticles = response.articles.slice(startIndex, endIndex);
+  const startIndex = (currentPage - 1) * articlesPerPage; // Beräknar startindex för artiklar på aktuell sida
+  const endIndex = startIndex + articlesPerPage; // Beräknar slutindex för artiklar på aktuell sida
+  const responseCurrentArticles = response.articles.slice(startIndex, endIndex); // Skapar en lista med artiklar för aktuell sida
 
-  // Loopar igenom varje artikel i den aktuella artikellistan
-  responseCurrentArticles.forEach((article) => {
-    // Skapar ett nytt artikel-element
-    const newsArticle = document.createElement("article"); 
-    // Lägger till klassen "newsArticle" för styling
-    newsArticle.classList.add("newsArticle"); 
+  responseCurrentArticles.forEach((article) => { // Itererar över varje artikel i den aktuella sidan
+    const publishedDate = new Date(article.publishedAt).toLocaleString("en-US", {
+      year: "numeric", month: "long", day: "numeric", hour: "2-digit", minute: "2-digit", timeZone: "Europe/Stockholm"
+    }); // Formaterar publiceringsdatumet för artikeln
 
-    // Skapar och lägger till publiceringsdatum och tid
-    const dateElement = document.createElement("p");
-    // Skapar ett Date-objekt från publiceringsdatumet
-    const publishedDate = new Date(article.publishedAt); 
-    // Definierar formatinställningar för datum och tid
-    const options = {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-      timeZone: "Europe/Stockholm",
-    }; 
-    // Formaterar datum och tid på engelska och sätter textinnehållet
-    dateElement.textContent = publishedDate.toLocaleString("en-US", options); 
-    // Lägger till klassen "newsDate" för styling
-    dateElement.classList.add("newsDate");
-    // Lägger till datum-elementet i artikel-elementet
-    newsArticle.appendChild(dateElement);
+    const newsArticle = document.createElement("article"); // Skapar ett nytt artikel-element
+    newsArticle.classList.add("newsArticle"); // Lägger till en CSS-klass för styling
+    newsArticle.innerHTML = `
+      <p class="newsDate">${publishedDate}</p> // Visar publiceringsdatumet
+      <h3 class="newsTitle">${article.title}</h3> // Visar artikelns titel
+      <img src="${article.urlToImage}" class="newsImg" style="width: 100%; height: auto;" /> // Visar artikelns bild
+      <p class="newsDescription">${article.description}</p> // Visar artikelns beskrivning
+      <section class="source-container">
+        <p class="newsSource">Published on: ${article.source.name}</p> // Visar artikelns källa
+        <p class="newsAuthor">Written by: ${article.author}</p> // Visar artikelns författare
+      </section>
+      <button class="favoriteButton">Favorite ❤️</button> // Lägger till en knapp för att markera som favorit
+    `;
 
-    // Skapar och lägger till titeln för artikeln
-    const titleElement = document.createElement("h3");
-    titleElement.textContent = article.title; // Sätter titeln
-    titleElement.classList.add("newsTitle"); // Lägger till klassen "newsTitle"
-    // Lägger till titeln i artikel-elementet
-    newsArticle.appendChild(titleElement);
+    newsArticle.querySelector("img").addEventListener("click", () => window.open(article.url, "_blank")); // Lägger till en händelse för att öppna artikeln i en ny flik när bilden klickas
+    newsArticle.querySelector(".favoriteButton").addEventListener("click", () => handleFavorite(article, newsArticle.querySelector(".favoriteButton"))); // Lägger till en händelse för att hantera favoritmarkering
 
-    // Skapar och lägger till en bild för artikeln
-    const imgElement = document.createElement("img");
-    imgElement.src = article.urlToImage; // Sätter bildens källa
-    imgElement.classList.add("newsImg"); // Lägger till klassen "newsImg"
-    imgElement.style.width = "100%"; // Sätter bredden till 100%
-    imgElement.style.height = "auto"; // Sätter höjden till automatisk
-    // Lägger till bilden i artikel-elementet
-    newsArticle.appendChild(imgElement);
-
-    // Gör bilden klickbar och leder till den fullständiga artikeln
-    imgElement.addEventListener("click", (event) => {
-      window.open(article.url, "_blank"); // Öppnar artikeln i en ny flik
-    });
-
-    // Skapar och lägger till en kort beskrivning av artikeln
-    const descriptionElement = document.createElement("p");
-    descriptionElement.textContent = article.description; // Sätter beskrivningen
-    descriptionElement.classList.add("newsDescription"); // Lägger till klassen "newsDescription"
-    // Lägger till beskrivningen i artikel-elementet
-    newsArticle.appendChild(descriptionElement);
-
-    // Skapar en container för källinformation
-    const sourceContainer = document.createElement("section");
-    sourceContainer.className = "source-container"; // Lägger till klassen "source-container"
-    // Lägger till källcontainern i artikel-elementet
-    newsArticle.appendChild(sourceContainer);
-
-    // Skapar och lägger till författarens namn
-    const sourceElement = document.createElement("p");
-    sourceElement.textContent = "Published on: " + article.source.name; // Sätter källan
-    sourceElement.classList.add("newsSource"); // Lägger till klassen "newsSource"
-    // Lägger till källan i källcontainern
-    sourceContainer.appendChild(sourceElement);
-
-    // Skapar och lägger till författarens namn
-    const authorElement = document.createElement("p");
-    authorElement.textContent = "Written by: " + article.author; // Sätter författarens namn
-    authorElement.classList.add("newsAuthor"); // Lägger till klassen "newsAuthor"
-    // Lägger till författarens namn i källcontainern
-    sourceContainer.appendChild(authorElement);
-
-    // Skapar en knapp för att markera artikeln som favorit
-    const favoriteButton = document.createElement("button");
-    favoriteButton.textContent = "Favorite ❤️"; // Sätter texten på knappen
-    favoriteButton.classList.add("favoriteButton"); // Lägger till klassen "favoriteButton"
-
-    // Lägger till favoritknappen i artikel-elementet
-    newsArticle.appendChild(favoriteButton);
-
-    // Lägger till hela artikel-elementet i newsFeed
-    newsFeed.appendChild(newsArticle); 
-
-    // Lägger till en eventlyssnare för att hantera favoritmarkering
-    favoriteButton.addEventListener("click", () => {
-      handleFavorite(article, favoriteButton); // Anropar handleFavorite-funktionen
-    });
+    newsFeed.appendChild(newsArticle); // Lägger till artikel-elementet i nyhetsflödet
   });
 }
 
