@@ -56,15 +56,15 @@ function displayNews(response) {
     const newsArticle = document.createElement("article"); // Skapar ett nytt artikel-element
     newsArticle.classList.add("newsArticle"); // Lägger till en CSS-klass för styling
     newsArticle.innerHTML = `
-      <p class="newsDate">${publishedDate}</p> // Visar publiceringsdatumet
-      <h3 class="newsTitle">${article.title}</h3> // Visar artikelns titel
-      <img src="${article.urlToImage}" class="newsImg" style="width: 100%; height: auto;" /> // Visar artikelns bild
-      <p class="newsDescription">${article.description}</p> // Visar artikelns beskrivning
+      <p class="newsDate">${publishedDate}</p>
+      <h3 class="newsTitle">${article.title}</h3>
+      <img src="${article.urlToImage}" class="newsImg" style="width: 100%; height: auto;" />
+      <p class="newsDescription">${article.description}</p>
       <section class="source-container">
-        <p class="newsSource">Published on: ${article.source.name}</p> // Visar artikelns källa
-        <p class="newsAuthor">Written by: ${article.author}</p> // Visar artikelns författare
+        <p class="newsSource">Published on: ${article.source.name}</p>
+        <p class="newsAuthor">Written by: ${article.author}</p>
       </section>
-      <button class="favoriteButton">Favorite ❤️</button> // Lägger till en knapp för att markera som favorit
+      <button class="favoriteButton">Favorite ❤️</button>
     `;
 
     newsArticle.querySelector("img").addEventListener("click", () => window.open(article.url, "_blank")); // Lägger till en händelse för att öppna artikeln i en ny flik när bilden klickas
