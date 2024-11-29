@@ -50,6 +50,10 @@ header nav button:hover {
   background-color: #004c99;
 }
 
+#weatherButton {
+  background-color: rgb(23, 183, 114);
+}
+
 
 .wrapper {
   max-width: 1200px;
