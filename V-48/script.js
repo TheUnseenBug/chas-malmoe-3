@@ -55,10 +55,6 @@ let weatherData = null;
 // retrieves user's location
 // fetches weather data from API based on location
 // parses & logs weather data
-
-document.getElementById("getWeatherButton").addEventListener("click", fetchWeather);
-
-
 async function fetchWeather() {
   try {
     const position = await getPosition();
@@ -71,15 +67,7 @@ async function fetchWeather() {
     const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=${weatherAPIkey}`;
     // fetching weather url
     const response = await fetch(weatherUrl);
-
     // parsing data
-
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-
     const data = await response.json();
 
     weatherData = data;
@@ -112,45 +100,61 @@ async function fetchAll(page, category) {
   }
 }
 
-
 fetchAll();
 
 // gets users current position if their location is avavilable then the promise is resolved
 // if user doesn't allows access to location then the promise is rejected 
-
 function getPosition() {
   return new Promise((resolve, reject) => {
     navigator.geolocation.getCurrentPosition(resolve, reject);
   });
 }
 
-fetchWeather();
-
-
-
 function displayWeather(weatherData) {
-<<<<<<< HEAD
-  // if (!weatherData) return;
-=======
   if (!weatherData) return;
   const weatherDisplay = document.getElementById("weatherDisplay");
   console.log(weatherData);
   weatherDisplay.innerHTML = `
-
->>>>>>> 758bff8938ee8e85297c4223b36a072be2b72445
-   const currentWeather = document.getElementById('currentWeather');
-   const weatherDisplay = document.getElementById('weatherDisplay');
-
-   console.log(weatherData);
-   weatherDisplay.innerHTML = `
     <h3>Current Weather</h3>
     <p>Temperature: ${Math.round(weatherData.main.temp)}°C</p>
     <p>Condition: ${weatherData.weather[0].main}</p>
     <p>Location: ${weatherData.name}</p>
    `;
+   //Visar väderdata som text på väder-knappen
+   const weatherDisplayButton = document.getElementById("getWeatherButton");
+   weatherDisplayButton.innerText = `${weatherData.weather[0].main} and ${Math.round(weatherData.main.temp)}°C in ${weatherData.name}. 🌦️`
 }
 
 displayWeather();
+
+
+//Öppnar "väderappen" när man klickar på väderknappen
+document.getElementById('getWeatherButton').addEventListener('click', function() {
+  const weatherSection = document.getElementById('weatherSection');
+  weatherSection.style.display = (weatherSection.style.display === 'none' || weatherSection.style.display === '') ? 'flex' : 'none';
+});
+
+// if (weatherSection.style.display === 'flex') {
+  
+// }
+
+// if (weatherSection.style.display === 'flex' => 
+
+//   this.textContent = weatherSection.style.display === 'flex' ? 'Hide Weather' : 'Show Weather';
+// });
+
+// Ändrar väderknappens text när man hovrar över den
+document.addEventListener('DOMContentLoaded', function() {
+  const weatherButton = document.getElementById('getWeatherButton');
+
+  weatherButton.addEventListener('mouseover', function() {
+    weatherButton.textContent = 'Get more weather updates 🌦️';
+  });
+
+  weatherButton.addEventListener('mouseout', function() {
+    weatherButton.textContent = `${weatherData.weather[0].main} and ${Math.round(weatherData.main.temp)}°C in ${weatherData.name}. 🌦️`;
+  });
+});
 
 function displayNews(response) {
   const newsFeed = document.getElementById("newsFeed"); // Hämtar elementet där nyheterna ska visas
