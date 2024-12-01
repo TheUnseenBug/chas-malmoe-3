@@ -129,9 +129,26 @@ displayWeather();
 
 
 //Öppnar "väderappen" när man klickar på väderknappen
+
 document.getElementById('getWeatherButton').addEventListener('click', function() {
   const weatherSection = document.getElementById('weatherSection');
-  weatherSection.style.display = (weatherSection.style.display === 'none' || weatherSection.style.display === '') ? 'flex' : 'none';
+  const weatherButton = document.getElementById('getWeatherButton');
+  const closeWeatherButton = document.getElementById('closeWeatherButton');
+  const isWeatherSectionVisible = (weatherSection.style.display === 'none' || weatherSection.style.display === '');
+  
+  weatherSection.style.display = isWeatherSectionVisible ? 'flex' : 'none';
+  weatherButton.style.display = isWeatherSectionVisible ? 'none' : 'flex';
+  closeWeatherButton.style.display = isWeatherSectionVisible ? 'block' : 'none';
+});
+
+document.getElementById('closeWeatherButton').addEventListener('click', function() {
+  const weatherSection = document.getElementById('weatherSection');
+  const weatherButton = document.getElementById('getWeatherButton');
+  const closeWeatherButton = document.getElementById('closeWeatherButton');
+  
+  weatherSection.style.display = 'none';
+  weatherButton.style.display = 'flex';
+  closeWeatherButton.style.display = 'none';
 });
 
 // if (weatherSection.style.display === 'flex') {

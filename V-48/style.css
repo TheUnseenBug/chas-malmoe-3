@@ -71,8 +71,8 @@ nav button:hover {
   z-index: 1001;
   font-size: 1rem;
   border: 0;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Lägg till skugga */
-  transition: background-color 0.3s ease, transform 0.3s ease; /* Övergångseffekt */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.3s ease, transform 0.3s ease;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -82,7 +82,7 @@ nav button:hover {
 
 #getWeatherButton:hover {
   background-color: #004c99;
-  transform: scale(1.05);
+  transform: scale(1.005);
 }
 
 #weatherSection {
@@ -101,17 +101,36 @@ nav button:hover {
   z-index: 1000;
   background-color: rgba(0, 102, 204, 0.95);
   color: white;
+  font-size: 2.5rem;
 }
 
 #weatherSection h2 {
   text-align: center;
 }
 
-/* #forecast {
-  width: 50%;
-  height: auto;
+#closeWeatherButton {
+  background-color: #004c99;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+#closeWeatherButton:hover {
+  background-color: #0d3d6e;
+}
+
+#forecast {
   aspect-ratio: 16 / 9;
-} */
+  margin: 0 auto;
+}
 
 
 .wrapper {
