@@ -120,9 +120,41 @@ function displayWeather(weatherData) {
     <p>Condition: ${weatherData.weather[0].main}</p>
     <p>Location: ${weatherData.name}</p>
    `;
+   //Visar väderdata som text på väder-knappen
+   const weatherDisplayButton = document.getElementById("getWeatherButton");
+   weatherDisplayButton.innerText = `${weatherData.weather[0].main} and ${Math.round(weatherData.main.temp)}°C in ${weatherData.name}. 🌦️`
 }
 
 displayWeather();
+
+
+//Öppnar "väderappen" när man klickar på väderknappen
+document.getElementById('getWeatherButton').addEventListener('click', function() {
+  const weatherSection = document.getElementById('weatherSection');
+  weatherSection.style.display = (weatherSection.style.display === 'none' || weatherSection.style.display === '') ? 'flex' : 'none';
+});
+
+// if (weatherSection.style.display === 'flex') {
+  
+// }
+
+// if (weatherSection.style.display === 'flex' => 
+
+//   this.textContent = weatherSection.style.display === 'flex' ? 'Hide Weather' : 'Show Weather';
+// });
+
+// Ändrar väderknappens text när man hovrar över den
+document.addEventListener('DOMContentLoaded', function() {
+  const weatherButton = document.getElementById('getWeatherButton');
+
+  weatherButton.addEventListener('mouseover', function() {
+    weatherButton.textContent = 'Get more weather updates 🌦️';
+  });
+
+  weatherButton.addEventListener('mouseout', function() {
+    weatherButton.textContent = `${weatherData.weather[0].main} and ${Math.round(weatherData.main.temp)}°C in ${weatherData.name}. 🌦️`;
+  });
+});
 
 function displayNews(response) {
   const newsFeed = document.getElementById("newsFeed"); // Hämtar elementet där nyheterna ska visas
