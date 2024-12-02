@@ -10,9 +10,9 @@ const articleLimit = 99;
 
 async function fetchNews(page, category) {
   try {
-    // const apiKey = "e1e4efc08e2f4a1dbcd2f0e42102139c"; // Key 1
+    const apiKey = "e1e4efc08e2f4a1dbcd2f0e42102139c"; // Key 1
     // const apiKey = "db6c1d2353eb42528700f136fd8899fb"; // Key 2 
-    const apiKey = "229f493442cf427fbd7b29e1adbb39e1" // Key 3
+    // const apiKey = "229f493442cf427fbd7b29e1adbb39e1" // Key 3
     const url = `https://newsapi.org/v2/top-headlines?country=us${
       category ? `&category=${category}` : ""
     }&page=${page}&apiKey=${apiKey}`;
@@ -140,15 +140,16 @@ document.getElementById("getWeatherButton").addEventListener("click", function (
 
   console.log("Get Weather Button clicked");
 
-  // Kontrollera om weatherSection är dold
+  // checks if weather section is hidden or visible
   const isWeatherSectionVisible = weatherSection.style.display === "none" || weatherSection.style.display === "";
 
-  // Ändra display-stil baserat på nuvarande status
+  // changes display style based on current status
   weatherSection.style.display = isWeatherSectionVisible ? "flex" : "none";
   weatherButton.style.display = isWeatherSectionVisible ? "none" : "flex";
   closeWeatherButton.style.display = isWeatherSectionVisible ? "block" : "none";
 });
 
+// function for showing a exc button when the weather section is visible instead of weather button
 document.getElementById("closeWeatherButton").addEventListener("click", function () {
   const weatherSection = document.getElementById("weatherSection");
   const weatherButton = document.getElementById("getWeatherButton");
@@ -174,17 +175,6 @@ document.addEventListener("DOMContentLoaded", function () {
       weatherData.weather[0].main
     } and ${Math.round(weatherData.main.temp)}°C in ${weatherData.name}. 🌦️`;
   });
-});
-
-
-document.getElementById("closeWeatherButton").addEventListener("click", function () {
-  const weatherSection = document.getElementById("weatherSection");
-  const weatherButton = document.getElementById("getWeatherButton");
-  const closeWeatherButton = document.getElementById("closeWeatherButton");
-
-  weatherSection.style.display = "none";
-  weatherButton.style.display = "flex";
-  closeWeatherButton.style.display = "none";
 });
 
 
