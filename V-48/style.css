@@ -5,14 +5,13 @@
 }
 
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   line-height: 1.6;
   background-color: #f4f4f9;
   color: #333;
   padding: 0;
   margin: 0;
 }
-
 
 header {
   display: flex;
@@ -23,7 +22,8 @@ header {
   margin: 0;
   width: 100%;
   height: 30vh; /* Ändra till viewport height */
-  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)), url(images/header-image.jpg);
+  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)),
+    url(images/header-image.jpg);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -133,7 +133,6 @@ nav button:hover {
   margin: 0 auto;
 }
 
-
 .wrapper {
   max-width: 1200px;
   margin: 0 auto;
@@ -142,7 +141,6 @@ nav button:hover {
   gap: 20px;
   padding: 20px;
 }
-
 
 .search-container {
   display: flex;
@@ -181,7 +179,7 @@ nav button:hover {
   border: none;
   border-radius: 5px;
   border: solid 2px #004c99;
-  padding: 10px 20px;
+  padding: 1rem;
   font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
@@ -192,7 +190,6 @@ nav button:hover {
   background-color: #004c99;
   color: white;
 }
-
 
 main {
   display: flex;
@@ -238,7 +235,8 @@ main {
   color: #999;
 }
 
-.newsSource, .newsAuthor {
+.newsSource,
+.newsAuthor {
   font-size: 0.9rem;
   color: #444;
 }
@@ -257,7 +255,6 @@ main {
 .favoriteButton:hover {
   background-color: #004c99;
 }
-
 
 aside {
   background-color: #fff;
@@ -300,7 +297,6 @@ aside {
 .favoriteArticle button:hover {
   background-color: #990000;
 }
-
 
 .pagination {
   display: flex;
@@ -363,5 +359,4 @@ footer {
   .newsArticle {
     padding: 10px;
   }
-
 }
