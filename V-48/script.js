@@ -10,11 +10,11 @@ const articlesPerPage = 10;
 async function fetchNews(page, category) {
   try {
     // const apiKey = "e1e4efc08e2f4a1dbcd2f0e42102139c"; // Key 1
-    // const apiKey = "db6c1d2353eb42528700f136fd8899fb"; // Key 2
-    // const url = `https://newsapi.org/v2/top-headlines?country=us${
-    //   category ? `&category=${category}` : ""
-    // }&page=${page}&apiKey=${apiKey}`;
-    const url = "test.json";
+    const apiKey = "db6c1d2353eb42528700f136fd8899fb"; // Key 2
+    const url = `https://newsapi.org/v2/top-headlines?country=us${
+      category ? `&category=${category}` : ""
+    }&page=${page}&apiKey=${apiKey}`;
+    // const url = "test.json";
     const data = await fetch(url);
     const response = await data.json();
 
@@ -47,7 +47,6 @@ async function fetchNews(page, category) {
   }
 }
 
-fetchNews();
 // declaring variables
 // weatherData is initialized to null until a successful API call
 const weatherAPIkey = "f5d21086c0e96fb934d7912aa22ea60e";
@@ -76,7 +75,7 @@ async function fetchWeather() {
     if (!response.ok) {
       throw new Error(`API Error: ${data.status} ${data.statusText}`);
     }
-    console.log(weatherData);
+    displayWeather(data);
     return data;
   } catch (error) {
     console.error("Error fetching weather:", error);
@@ -88,7 +87,20 @@ async function fetchWeather() {
   }
 }
 
-fetchWeather();
+setInterval(fetchWeather, 120000);
+
+async function fetchAll(page, category) {
+  try {
+    const [newsData, weatherData] = await Promise.all([
+      fetchNews(page, category),
+      fetchWeather(),
+    ]);
+  } catch (error) {
+    console.error("Error", error);
+  }
+}
+
+fetchAll();
 
 // gets users current position if their location is avavilable then the promise is resolved
 // if user doesn't allows access to location then the promise is rejected
@@ -108,9 +120,124 @@ function displayWeather(weatherData) {
     <p>Condition: ${weatherData.weather[0].main}</p>
     <p>Location: ${weatherData.name}</p>
    `;
+  //Visar väderdata som text på väder-knappen
+  const weatherDisplayButton = document.getElementById("getWeatherButton");
+  weatherDisplayButton.innerText = `${
+    weatherData.weather[0].main
+  } and ${Math.round(weatherData.main.temp)}°C in ${weatherData.name}. 🌦️`;
 }
 
 displayWeather();
+
+//Öppnar "väderappen" när man klickar på väderknappen
+
+document
+  .getElementById("getWeatherButton")
+  .addEventListener("click", function () {
+    const weatherSection = document.getElementById("weatherSection");
+    const weatherButton = document.getElementById("getWeatherButton");
+    const closeWeatherButton = document.getElementById("closeWeatherButton");
+    const isWeatherSectionVisible =
+      weatherSection.style.display === "none" ||
+      weatherSection.style.display === "";
+
+    weatherSection.style.display = isWeatherSectionVisible ? "flex" : "none";
+    weatherButton.style.display = isWeatherSectionVisible ? "none" : "flex";
+    closeWeatherButton.style.display = isWeatherSectionVisible
+      ? "block"
+      : "none";
+  });
+
+document
+  .getElementById("closeWeatherButton")
+  .addEventListener("click", function () {
+    const weatherSection = document.getElementById("weatherSection");
+    const weatherButton = document.getElementById("getWeatherButton");
+    const closeWeatherButton = document.getElementById("closeWeatherButton");
+
+    weatherSection.style.display = "none";
+    weatherButton.style.display = "flex";
+    closeWeatherButton.style.display = "none";
+  });
+
+// if (weatherSection.style.display === 'flex') {
+
+// }
+
+// if (weatherSection.style.display === 'flex' =>
+
+//   this.textContent = weatherSection.style.display === 'flex' ? 'Hide Weather' : 'Show Weather';
+// });
+
+// Ändrar väderknappens text när man hovrar över den
+document.addEventListener("DOMContentLoaded", function () {
+  const weatherButton = document.getElementById("getWeatherButton");
+
+  weatherButton.addEventListener("mouseover", function () {
+    weatherButton.textContent = "Get more weather updates 🌦️";
+  });
+
+  weatherButton.addEventListener("mouseout", function () {
+    weatherButton.textContent = `${
+      weatherData.weather[0].main
+    } and ${Math.round(weatherData.main.temp)}°C in ${weatherData.name}. 🌦️`;
+  });
+});
+
+//Öppnar "väderappen" när man klickar på väderknappen
+
+document
+  .getElementById("getWeatherButton")
+  .addEventListener("click", function () {
+    const weatherSection = document.getElementById("weatherSection");
+    const weatherButton = document.getElementById("getWeatherButton");
+    const closeWeatherButton = document.getElementById("closeWeatherButton");
+    const isWeatherSectionVisible =
+      weatherSection.style.display === "none" ||
+      weatherSection.style.display === "";
+
+    weatherSection.style.display = isWeatherSectionVisible ? "flex" : "none";
+    weatherButton.style.display = isWeatherSectionVisible ? "none" : "flex";
+    closeWeatherButton.style.display = isWeatherSectionVisible
+      ? "block"
+      : "none";
+  });
+
+document
+  .getElementById("closeWeatherButton")
+  .addEventListener("click", function () {
+    const weatherSection = document.getElementById("weatherSection");
+    const weatherButton = document.getElementById("getWeatherButton");
+    const closeWeatherButton = document.getElementById("closeWeatherButton");
+
+    weatherSection.style.display = "none";
+    weatherButton.style.display = "flex";
+    closeWeatherButton.style.display = "none";
+  });
+
+// if (weatherSection.style.display === 'flex') {
+
+// }
+
+// if (weatherSection.style.display === 'flex' =>
+
+//   this.textContent = weatherSection.style.display === 'flex' ? 'Hide Weather' : 'Show Weather';
+// });
+
+// Ändrar väderknappens text när man hovrar över den
+document.addEventListener("DOMContentLoaded", function () {
+  const weatherButton = document.getElementById("getWeatherButton");
+
+  weatherButton.addEventListener("mouseover", function () {
+    weatherButton.textContent = "Get more weather updates 🌦️";
+  });
+
+  weatherButton.addEventListener("mouseout", function () {
+    weatherButton.textContent = `${
+      weatherData.weather[0].main
+    } and ${Math.round(weatherData.main.temp)}°C in ${weatherData.name}. 🌦️`;
+  });
+});
 
 //feed determines where the news will be displayed
 function displayNews(response, feed) {

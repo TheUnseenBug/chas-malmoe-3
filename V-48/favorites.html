@@ -10,16 +10,17 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
-    <title>News Aggregator</title>
+    <title>YOUR FAVORITE NEWS | THE NEWS</title>
   </head>
   <body>
     <header>
-      <h1>Welcome to your news:</h1>
-      <nav>
-        <button><a href="index.html">Latest news</a></button>
-        <button><a href="favorites.html">Favorite news</a></button>
-      </nav>
+      <h1>THE NEWS</h1>
+      <button id="getWeatherButton"></button>
     </header>
+    <nav>
+      <button><a href="index.html">Latest news</a></button>
+      <button><a href="favorites.html">Favorite news</a></button>
+    </nav>
     <div class="wrapper">
       <section class="search-container">
         <input
@@ -52,7 +53,16 @@
           <div id="pagination"></div>
       </main>
     </div>
-
+    <aside>
+      <section id="weatherSection">
+        <div id="weatherDisplay"></div>
+        <figure>
+          <iframe src="https://www.youtube.com/embed/bvpMD5wSFsg?autoplay=1&mute=1" frameborder="0" allow="autoplay; encrypted-media" id="forecast" allowfullscreen width="560" height="315"></iframe>
+          <button id="closeWeatherButton" style="display: none;">Close ❌</button>
+        </figure>
+      </section>
+    </aside>
+  <footer>&copy; THE NEWS 2024</footer> 
     <footer></footer>    
 <script src="favorites.js"></script>
   </body>
