@@ -6,6 +6,7 @@ let favoriteNews = [];
 let news = [];
 let currentPage = 1;
 const articlesPerPage = 10;
+const articleLimit = 99;
 
 async function fetchNews(page, category) {
   try {
@@ -36,6 +37,7 @@ async function fetchNews(page, category) {
     // console.log(response);
     displayNews(response);
     pagination();
+    infiniteScrolling();
     populateSourceFilter();
   } catch (error) {
     console.error("Error:", error);
@@ -252,6 +254,66 @@ function pagination() {
     pagination.appendChild(button);
   }
 }
+
+function infiniteScrolling() {
+  const articleContainer = document.getElementById("newsFeed")
+  const articleCount = document.getElementById("article-count")
+  const articleTotal = document.getElementById("article-total")
+  const loader = document.getElementById("loader")
+
+  const articleLimit = 99;
+  const articleIncrease = 9;
+  const pageCount = Math.ceil(articleLimit / articleIncrease)
+  let currentPage = 1;
+
+  articleTotal.innerHTML = articleLimit;
+
+  const addArticles = (pageIndex) => {
+    currentPage = pageIndex;
+
+    const startRange = (pageIndex - 1) * articleIncrease;
+    const endRange = Math.min(pageIndex * articleIncrease, articleLimit);
+
+    articleCount.innerHTML = endRange;
+
+    for (let i = startRange + 1; i <= endRange; i++) {
+      fetchNews(i);
+
+    }
+  };
+
+  const handleInfiniteScroll = () => {
+  throttle(() => {
+    const endOfPage = window.innerHeight + window.pageYOffset >= document.body.offsetHeight;
+    if (endOfPage) {
+      addArticles(currentPage + 1);
+    }
+    }, 5000);
+  };
+
+  window.addEventListener("scroll", handleInfiniteScroll);
+
+  let throttleTimer;
+
+  const throttle = (callback, time) => {
+    if (throttleTimer) return;
+
+    throttleTimer = true;
+
+    setTimeout(() => {
+      callback();
+      throttleTimer = false;
+
+    }, time);
+  };
+
+
+}
+
+window.onload = function () {
+  addArticles(currentPage);
+}
+
 
 // Funktion för att hämta sources från API och rendera de i dropdown menyn
 function populateSourceFilter() {
