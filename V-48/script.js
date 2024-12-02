@@ -12,7 +12,8 @@ async function fetchNews(page, category) {
   try {
     // const apiKey = "e1e4efc08e2f4a1dbcd2f0e42102139c"; // Key 1
     // const apiKey = "db6c1d2353eb42528700f136fd8899fb"; // Key 2 
-    const apiKey = "229f493442cf427fbd7b29e1adbb39e1" // Key 3
+    // const apiKey = "229f493442cf427fbd7b29e1adbb39e1" // Key 3
+    const apiKey = "19c80bc6968d4e1c9f372fc646c19d07"; // Key 4
     const url = `https://newsapi.org/v2/top-headlines?country=us${
       category ? `&category=${category}` : ""
     }&page=${page}&apiKey=${apiKey}`;
