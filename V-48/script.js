@@ -11,7 +11,8 @@ const articleLimit = 99;
 async function fetchNews(page, category) {
   try {
     // const apiKey = "e1e4efc08e2f4a1dbcd2f0e42102139c"; // Key 1
-    const apiKey = "db6c1d2353eb42528700f136fd8899fb"; // Key 2
+    // const apiKey = "db6c1d2353eb42528700f136fd8899fb"; // Key 2 
+    const apiKey = "229f493442cf427fbd7b29e1adbb39e1" // Key 3
     const url = `https://newsapi.org/v2/top-headlines?country=us${
       category ? `&category=${category}` : ""
     }&page=${page}&apiKey=${apiKey}`;
@@ -112,6 +113,7 @@ function getPosition() {
   });
 }
 
+// Creates html elements from the weather data and displays it on a widget-like button
 function displayWeather(weatherData) {
   if (!weatherData) return;
   const weatherDisplay = document.getElementById("weatherDisplay");
@@ -122,7 +124,6 @@ function displayWeather(weatherData) {
     <p>Condition: ${weatherData.weather[0].main}</p>
     <p>Location: ${weatherData.name}</p>
    `;
-  //Visar väderdata som text på väder-knappen
   const weatherDisplayButton = document.getElementById("getWeatherButton");
   weatherDisplayButton.innerText = `${
     weatherData.weather[0].main
@@ -131,8 +132,7 @@ function displayWeather(weatherData) {
 
 displayWeather();
 
-//Öppnar "väderappen" när man klickar på väderknappen
-
+// changing the appearance of the weather button and the weather section depending on its display settings
 document
   .getElementById("getWeatherButton")
   .addEventListener("click", function () {
@@ -162,16 +162,7 @@ document
     closeWeatherButton.style.display = "none";
   });
 
-// if (weatherSection.style.display === 'flex') {
-
-// }
-
-// if (weatherSection.style.display === 'flex' =>
-
-//   this.textContent = weatherSection.style.display === 'flex' ? 'Hide Weather' : 'Show Weather';
-// });
-
-// Ändrar väderknappens text när man hovrar över den
+// Changing content of weather button when hovering
 document.addEventListener("DOMContentLoaded", function () {
   const weatherButton = document.getElementById("getWeatherButton");
 
@@ -186,8 +177,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-//Öppnar "väderappen" när man klickar på väderknappen
-
+//Opens full screen weather section when clicking the weather button
 document
   .getElementById("getWeatherButton")
   .addEventListener("click", function () {
@@ -205,6 +195,7 @@ document
       : "none";
   });
 
+//Closes full screen weather section when clicking the close weather button
 document
   .getElementById("closeWeatherButton")
   .addEventListener("click", function () {
@@ -217,29 +208,8 @@ document
     closeWeatherButton.style.display = "none";
   });
 
-// if (weatherSection.style.display === 'flex') {
 
-// }
 
-// if (weatherSection.style.display === 'flex' =>
-
-//   this.textContent = weatherSection.style.display === 'flex' ? 'Hide Weather' : 'Show Weather';
-// });
-
-// Ändrar väderknappens text när man hovrar över den
-document.addEventListener("DOMContentLoaded", function () {
-  const weatherButton = document.getElementById("getWeatherButton");
-
-  weatherButton.addEventListener("mouseover", function () {
-    weatherButton.textContent = "Get more weather updates 🌦️";
-  });
-
-  weatherButton.addEventListener("mouseout", function () {
-    weatherButton.textContent = `${
-      weatherData.weather[0].main
-    } and ${Math.round(weatherData.main.temp)}°C in ${weatherData.name}. 🌦️`;
-  });
-});
 
 //feed determines where the news will be displayed
 function displayNews(response, feed) {
