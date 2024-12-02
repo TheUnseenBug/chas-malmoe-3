@@ -121,6 +121,7 @@ nav button:hover {
   top: 30px;
   right: 30px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  display: none;
 }
 
 #closeWeatherButton:hover {
@@ -329,6 +330,22 @@ aside {
   background-color: #004c99;
 }
 
+.article-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transform: translateX(-100%);
+  animation: load 1s infinite;
+}
+
+@keyframes load {
+  100% {
+    transform: translateX(100%);
+  }
+}
 
 footer {
   text-align: center;
