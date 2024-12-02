@@ -35,7 +35,7 @@ async function fetchNews(page, category) {
 
     news = response;
     // console.log(response);
-    displayNews(response);
+    displayNews(response, "newsFeed");
     pagination();
     infiniteScrolling();
     populateSourceFilter();
@@ -105,7 +105,7 @@ async function fetchAll(page, category) {
 fetchAll();
 
 // gets users current position if their location is avavilable then the promise is resolved
-// if user doesn't allows access to location then the promise is rejected 
+// if user doesn't allows access to location then the promise is rejected
 function getPosition() {
   return new Promise((resolve, reject) => {
     navigator.geolocation.getCurrentPosition(resolve, reject);
@@ -122,61 +122,128 @@ function displayWeather(weatherData) {
     <p>Condition: ${weatherData.weather[0].main}</p>
     <p>Location: ${weatherData.name}</p>
    `;
-   //Visar väderdata som text på väder-knappen
-   const weatherDisplayButton = document.getElementById("getWeatherButton");
-   weatherDisplayButton.innerText = `${weatherData.weather[0].main} and ${Math.round(weatherData.main.temp)}°C in ${weatherData.name}. 🌦️`
+  //Visar väderdata som text på väder-knappen
+  const weatherDisplayButton = document.getElementById("getWeatherButton");
+  weatherDisplayButton.innerText = `${
+    weatherData.weather[0].main
+  } and ${Math.round(weatherData.main.temp)}°C in ${weatherData.name}. 🌦️`;
 }
 
 displayWeather();
 
-
 //Öppnar "väderappen" när man klickar på väderknappen
 
-document.getElementById('getWeatherButton').addEventListener('click', function() {
-  const weatherSection = document.getElementById('weatherSection');
-  const weatherButton = document.getElementById('getWeatherButton');
-  const closeWeatherButton = document.getElementById('closeWeatherButton');
-  const isWeatherSectionVisible = (weatherSection.style.display === 'none' || weatherSection.style.display === '');
-  
-  weatherSection.style.display = isWeatherSectionVisible ? 'flex' : 'none';
-  weatherButton.style.display = isWeatherSectionVisible ? 'none' : 'flex';
-  closeWeatherButton.style.display = isWeatherSectionVisible ? 'block' : 'none';
-});
+document
+  .getElementById("getWeatherButton")
+  .addEventListener("click", function () {
+    const weatherSection = document.getElementById("weatherSection");
+    const weatherButton = document.getElementById("getWeatherButton");
+    const closeWeatherButton = document.getElementById("closeWeatherButton");
+    const isWeatherSectionVisible =
+      weatherSection.style.display === "none" ||
+      weatherSection.style.display === "";
 
-document.getElementById('closeWeatherButton').addEventListener('click', function() {
-  const weatherSection = document.getElementById('weatherSection');
-  const weatherButton = document.getElementById('getWeatherButton');
-  const closeWeatherButton = document.getElementById('closeWeatherButton');
-  
-  weatherSection.style.display = 'none';
-  weatherButton.style.display = 'flex';
-  closeWeatherButton.style.display = 'none';
-});
+    weatherSection.style.display = isWeatherSectionVisible ? "flex" : "none";
+    weatherButton.style.display = isWeatherSectionVisible ? "none" : "flex";
+    closeWeatherButton.style.display = isWeatherSectionVisible
+      ? "block"
+      : "none";
+  });
+
+document
+  .getElementById("closeWeatherButton")
+  .addEventListener("click", function () {
+    const weatherSection = document.getElementById("weatherSection");
+    const weatherButton = document.getElementById("getWeatherButton");
+    const closeWeatherButton = document.getElementById("closeWeatherButton");
+
+    weatherSection.style.display = "none";
+    weatherButton.style.display = "flex";
+    closeWeatherButton.style.display = "none";
+  });
 
 // if (weatherSection.style.display === 'flex') {
-  
+
 // }
 
-// if (weatherSection.style.display === 'flex' => 
+// if (weatherSection.style.display === 'flex' =>
 
 //   this.textContent = weatherSection.style.display === 'flex' ? 'Hide Weather' : 'Show Weather';
 // });
 
 // Ändrar väderknappens text när man hovrar över den
-document.addEventListener('DOMContentLoaded', function() {
-  const weatherButton = document.getElementById('getWeatherButton');
+document.addEventListener("DOMContentLoaded", function () {
+  const weatherButton = document.getElementById("getWeatherButton");
 
-  weatherButton.addEventListener('mouseover', function() {
-    weatherButton.textContent = 'Get more weather updates 🌦️';
+  weatherButton.addEventListener("mouseover", function () {
+    weatherButton.textContent = "Get more weather updates 🌦️";
   });
 
-  weatherButton.addEventListener('mouseout', function() {
-    weatherButton.textContent = `${weatherData.weather[0].main} and ${Math.round(weatherData.main.temp)}°C in ${weatherData.name}. 🌦️`;
+  weatherButton.addEventListener("mouseout", function () {
+    weatherButton.textContent = `${
+      weatherData.weather[0].main
+    } and ${Math.round(weatherData.main.temp)}°C in ${weatherData.name}. 🌦️`;
   });
 });
 
-function displayNews(response) {
-  const newsFeed = document.getElementById("newsFeed"); // Hämtar elementet där nyheterna ska visas
+//Öppnar "väderappen" när man klickar på väderknappen
+
+document
+  .getElementById("getWeatherButton")
+  .addEventListener("click", function () {
+    const weatherSection = document.getElementById("weatherSection");
+    const weatherButton = document.getElementById("getWeatherButton");
+    const closeWeatherButton = document.getElementById("closeWeatherButton");
+    const isWeatherSectionVisible =
+      weatherSection.style.display === "none" ||
+      weatherSection.style.display === "";
+
+    weatherSection.style.display = isWeatherSectionVisible ? "flex" : "none";
+    weatherButton.style.display = isWeatherSectionVisible ? "none" : "flex";
+    closeWeatherButton.style.display = isWeatherSectionVisible
+      ? "block"
+      : "none";
+  });
+
+document
+  .getElementById("closeWeatherButton")
+  .addEventListener("click", function () {
+    const weatherSection = document.getElementById("weatherSection");
+    const weatherButton = document.getElementById("getWeatherButton");
+    const closeWeatherButton = document.getElementById("closeWeatherButton");
+
+    weatherSection.style.display = "none";
+    weatherButton.style.display = "flex";
+    closeWeatherButton.style.display = "none";
+  });
+
+// if (weatherSection.style.display === 'flex') {
+
+// }
+
+// if (weatherSection.style.display === 'flex' =>
+
+//   this.textContent = weatherSection.style.display === 'flex' ? 'Hide Weather' : 'Show Weather';
+// });
+
+// Ändrar väderknappens text när man hovrar över den
+document.addEventListener("DOMContentLoaded", function () {
+  const weatherButton = document.getElementById("getWeatherButton");
+
+  weatherButton.addEventListener("mouseover", function () {
+    weatherButton.textContent = "Get more weather updates 🌦️";
+  });
+
+  weatherButton.addEventListener("mouseout", function () {
+    weatherButton.textContent = `${
+      weatherData.weather[0].main
+    } and ${Math.round(weatherData.main.temp)}°C in ${weatherData.name}. 🌦️`;
+  });
+});
+
+//feed determines where the news will be displayed
+function displayNews(response, feed) {
+  const newsFeed = document.getElementById(feed); // Hämtar elementet där nyheterna ska visas
   newsFeed.innerHTML = ""; // Rensar tidigare innehåll i nyhetsflödet
 
   const startIndex = (currentPage - 1) * articlesPerPage; // Beräknar startindex för artiklar på aktuell sida
@@ -347,7 +414,7 @@ function filterBySource() {
     ? news.articles.filter((article) => article.source.name === selectedSource)
     : news.articles;
 
-  displayNews({ articles: filteredNews });
+  displayNews({ articles: filteredNews }, "newsFeed");
 }
 
 // Byter ut URL mot kategorin som användaren klickar på
@@ -373,25 +440,21 @@ function handleFavorite(article, favoriteButton) {
     favoriteNews = favoriteNews.filter((a) => a !== article); // Filtrerar bort artikeln från favoriteNews
     favoriteButton.classList.remove("active"); // Tar bort den aktiva klassen från knappen
     favoriteButton.textContent = "Favorite ❤️"; // Återställer texten på knappen
+    removeFromLocalStorage(article.url);
   } else {
     // Om artikeln inte är en favorit, lägg till den i listan
     favoriteNews.push(article); // Lägger till artikeln i favoriteNews
     favoriteButton.classList.add("active"); // Lägger till den aktiva klassen på knappen
     favoriteButton.textContent = "Remove from favorites ❌"; // Ändrar texten på knappen
+    addToLocalStorage(article.url, article);
   }
   updateFavoritesFeed(); // Anropar funktionen för att uppdatera visningen av favoriter
 }
 
 // Ny funktion för att uppdatera favoritesFeed
 function updateFavoritesFeed() {
-  const favoritesFeed = document.getElementById("favoritesFeed"); // Hämtar elementet där favoriter ska visas
-  favoritesFeed.innerHTML = ""; // Rensar tidigare innehåll i favoritesFeed
-  // Loopar igenom varje artikel i favoriteNews
-  favoriteNews.forEach((article) => {
-    const articleElement = document.createElement("div"); // Skapar ett nytt div-element för artikeln
-    articleElement.textContent = article; // Sätter textinnehållet till artikelns namn eller identifierare
-    favoritesFeed.appendChild(articleElement); // Lägger till artikel-elementet i favoritesFeed
-  });
+  const items = getAllFromLocalStorage();
+  displayNews(items, "favoritesFeed");
 }
 
 // search news by title
@@ -420,7 +483,7 @@ function searchNews() {
 
   // If search is empty, show all news
   if (!searchInput) {
-    displayNews(news);
+    displayNews(news, "newsFeed");
     return;
   }
 
@@ -443,9 +506,29 @@ function searchNews() {
   // Display filtered articles using the existing displayNews function
   // object literal, the object has one property which is: articles
   // articles is also the key and filteredArticles is its value
-  displayNews({ articles: filteredArticles });
+  displayNews({ articles: filteredArticles }, "newsFeed");
 }
 
 // Add event listener to search input, when a user writes in the input
 // field that triggers the searchNews function
 document.getElementById("search-input").addEventListener("input", searchNews);
+
+function addToLocalStorage(key, value) {
+  try {
+    // Convert value to JSON string (in case it's an object or array)
+    const serializedValue = JSON.stringify(value);
+    localStorage.setItem(key, serializedValue);
+    console.log(`Data added to localStorage: ${key} =`, value);
+  } catch (error) {
+    console.error("Failed to add to localStorage", error);
+  }
+}
+
+function removeFromLocalStorage(key) {
+  try {
+    localStorage.removeItem(key);
+    console.log(`Key "${key}" removed from localStorage.`);
+  } catch (error) {
+    console.error(`Failed to remove key "${key}" from localStorage`, error);
+  }
+}
