@@ -1,5 +1,6 @@
 import "./App.css";
 import CardOne from "./components/CardOne";
+import Footer from "./components/Footer";
 import Page from "./components/Pagination";
 
 function App() {
@@ -7,6 +8,7 @@ function App() {
     <>
       <CardOne />
       <Page />
+      <Footer />
     </>
   );
 }
