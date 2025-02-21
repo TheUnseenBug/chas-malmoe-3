@@ -7,7 +7,6 @@ function App() {
     <>
       <h1 className="bg-red-500">hello</h1>
       <CardOne />
-      <Button text="Jag är en knapp" />
     </>
   );
 }
