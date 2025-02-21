@@ -1,10 +1,11 @@
 import "./App.css";
 import CardOne from "./components/CardOne";
 import Footer from "./components/Footer";
+import Header from "./components/Header";
 function App() {
   return (
     <>
-      <h1 className="bg-red-500">hello</h1>
+      <Header />
       <CardOne />
       <Footer />
     </>
