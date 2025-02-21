@@ -2,6 +2,7 @@ interface FooterItem {
   icon?: string;
   text?: string;
   href: string;
+  className?: string;
 }
 
 interface FooterSection {
@@ -13,7 +14,11 @@ const footerLinks: FooterSection[] = [
   {
     title: "Contact",
     items: [
-      { icon: "fa fa-phone", text: "0731234567", href: "#" },
+      {
+        icon: "fa fa-phone",
+        text: "0731234567",
+        href: "#",
+      },
       { icon: "fa fa-envelope", text: "malmoe3@gmail.com", href: "#" },
     ],
   },
@@ -36,12 +41,12 @@ const footerLinks: FooterSection[] = [
 ];
 
 const FooterColumn = ({ title, items }: FooterSection) => (
-  <div className="flex flex-col">
-    <h2 className="bold">{title}</h2>
+  <div className="flex flex-col text-center">
+    <h2 className="font-bold text-xl mb-2">{title}</h2>
     <ul>
       {items.map((item, index) => (
         <li key={index}>
-          <a href={item.href}>
+          <a href={item.href} className="hover:text-white transition-colors">
             {item.icon && <i className={item.icon}></i>}
             {item.text && ` ${item.text}`}
           </a>
@@ -53,7 +58,7 @@ const FooterColumn = ({ title, items }: FooterSection) => (
 
 export default function Footer() {
   return (
-    <footer className="w-full">
+    <footer className="w-full bg-[#9F9A9A]">
       <div className="flex items-top justify-around">
         {footerLinks.map((column, index) => (
           <FooterColumn key={index} {...column} />
