@@ -1,3 +1,19 @@
+## Kort projektbeskrivning.
+
+## Vilket UI-ramverk ni använde och varför.
+
+Vi valde Tailwind för att vi redan börjat kika på det förra veckan i vårt Reseplanerarprojekt. Nu ville vi gärna jobba vidare med det då det är en del att sätta sig in i och lära sig. Vi har också installerat Shadcd eftersom att det är ett komponentbibliotekt baserat på Tailwind så tyckte vi att det passade att kika lite på det också.
+
+## Hur man startar projektet (t.ex. npm install och npm run dev).
+
+Klona repot, öppna det i vs code och kör npm install och npm run dev.
+
+## Gruppmedlemmar.
+
+Malmö grupp 3 är: Anton, Dennis, Rhiannon, Alice och Abbas (som ej närvarade idag).
+
+---
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
@@ -18,11 +34,11 @@ export default tseslint.config({
   languageOptions: {
     // other options...
     parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
+      project: ["./tsconfig.node.json", "./tsconfig.app.json"],
       tsconfigRootDir: import.meta.dirname,
     },
   },
-})
+});
 ```
 
 - Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
@@ -31,11 +47,11 @@ export default tseslint.config({
 
 ```js
 // eslint.config.js
-import react from 'eslint-plugin-react'
+import react from "eslint-plugin-react";
 
 export default tseslint.config({
   // Set the react version
-  settings: { react: { version: '18.3' } },
+  settings: { react: { version: "18.3" } },
   plugins: {
     // Add the react plugin
     react,
@@ -44,7 +60,7 @@ export default tseslint.config({
     // other rules...
     // Enable its recommended rules
     ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
+    ...react.configs["jsx-runtime"].rules,
   },
-})
+});
 ```
