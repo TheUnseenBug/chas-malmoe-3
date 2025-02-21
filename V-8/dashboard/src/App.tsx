@@ -4,8 +4,10 @@ import Footer from "./components/Footer";
 function App() {
   return (
     <>
-      <h1 className="bg-red-500">hello</h1>
-      <CardOne />
+      <main>
+        <h1 className="bg-red-500">hello</h1>
+        <CardOne />
+      </main>
       <Footer />
     </>
   );
