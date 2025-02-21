@@ -4,7 +4,7 @@ import CardOne from "./components/CardOne";
 function App() {
   return (
     <>
-      <div className="bg-red-500">hello</div>
+      <h1 className="bg-red-500">hello</h1>
       <CardOne />
     </>
   );
