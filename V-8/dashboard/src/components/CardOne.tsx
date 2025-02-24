@@ -3,7 +3,7 @@ import Button from "./Button";
 
 export default function CardOne() {
   return (
-    <div className="rounded-sm border-2 border-black h-100 w-100 m-2 p-2 content-center bg-gray-500">
+    <div className="rounded-sm border-2 border-black h-100 w-80 m-2 p-2 content-center bg-gray-500">
       <section className=" flex flex-row">
         <img
           src={blueDog}

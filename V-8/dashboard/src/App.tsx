@@ -8,7 +8,12 @@ function App() {
   return (
     <>
       <Header />
-      <CardOne />
+      <section className="flex flex-wrap content-center justify-center">
+        <CardOne />
+        <CardOne />
+        <CardOne />
+        <CardOne />
+      </section>
       <Page />
       <Footer />
     </>
