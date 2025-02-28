@@ -1,7 +1,11 @@
+import Header from "@/components/layouts/Header";
+import SearchBar from "@/components/SearchBar";
 export default function Home() {
   return (
-    <main>
-      <p>Hello and welcome to spotify 2.1</p>
-    </main>
+    <>
+      <Header />
+      <h1>Search for a song</h1>
+      <SearchBar />
+    </>
   );
 }
