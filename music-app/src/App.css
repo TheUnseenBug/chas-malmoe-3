@@ -1,6 +1,14 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap");
+
 #root {
-  max-width: 1280px;
+  font-family: "DM Sans", serif;
+  width: 100vw;
+  height: 100vh;
   margin: 0;
   padding: 0;
   text-align: center;
+  background: #3669ee;
+  h1 {
+    font-weight: 700;
+  }
 }

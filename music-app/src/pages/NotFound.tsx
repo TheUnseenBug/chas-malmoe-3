@@ -5,7 +5,7 @@ export default function NotFound() {
     <main>
       <h3>Ops! Something went wrong. Try again later.</h3>
       <p>
-        Go back to <NavLink to="/">home</NavLink>
+        Go back to <NavLink to="/">homepage</NavLink>
       </p>
     </main>
   );
