@@ -1,3 +1,9 @@
 export default function Header() {
-  return <h1>daara.</h1>;
+  return (
+    <header className="p-2">
+      <h1 className="text-white text-left text-5xl">
+        daara<span className="text-pink-500">.</span>
+      </h1>
+    </header>
+  );
 }
