@@ -1,10 +1,13 @@
+import { RouterProvider } from "react-router-dom";
 import "./App.css";
+
+import router from "./router/Router";
 
 function App() {
   return (
-    <>
-      <div>Hello and welcome to spotify 2.1</div>
-    </>
+    <main>
+      <RouterProvider router={router} />
+    </main>
   );
 }
 
