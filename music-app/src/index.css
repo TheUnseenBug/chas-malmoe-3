@@ -6,7 +6,7 @@
 
 @layer base {
   :root {
-    --background: #3669ee;
+    --background: "customBlue";
     --foreground: 0 0% 3.9%;
     --card: 0 0% 100%;
     --card-foreground: 0 0% 3.9%;

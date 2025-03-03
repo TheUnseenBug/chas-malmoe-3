@@ -5,11 +5,9 @@ import SearchBar from "@/components/SearchBar";
 export default function Home() {
   return (
     <>
-      <Header />
       <h1>Search for a song</h1>
       <SearchBar />
       <ListContainer />
     </>
-
   );
 }
