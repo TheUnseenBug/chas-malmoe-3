@@ -2,8 +2,10 @@ import { Button } from "../ui/button";
 
 export default function Header() {
   return;
-  <header>
-    <h1>daara.</h1>
+  <header className="p-3">
+      <h1 className="text-white text-left text-5xl">
+        daara<span className="text-pink-500">.</span>
+    </h1>
     <Button size="lg" />
+    
   </header>;
-}
