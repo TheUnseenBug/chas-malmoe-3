@@ -1,4 +1,4 @@
-import { Button } from "../ui/button";
+import Login from "../Login";
 
 export default function Header() {
   return (
@@ -6,7 +6,7 @@ export default function Header() {
       <h1 className="text-white text-left text-5xl">
         daara<span className="text-pink-500">.</span>
       </h1>
-      <Button size="lg" />
+      <Login />
     </header>
   );
 }
