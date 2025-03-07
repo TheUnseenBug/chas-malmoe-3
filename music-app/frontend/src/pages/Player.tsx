@@ -1,3 +1,5 @@
+import { PlayerComponent } from "@/components/PlayerComponent";
+
 export default function Player() {
-  return <p>Player Page</p>;
+  return <PlayerComponent />;
 }
