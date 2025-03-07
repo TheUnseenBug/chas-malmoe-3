@@ -4,7 +4,7 @@ import { Slider } from "@radix-ui/react-slider";
 export default function Player() {
   return (
     <>
-      <div className="rounded-md border-4 border-[#EEBB36] bg-colors-customYellow m-5 z-50">
+      <div className="rounded-md border-4 border-[#EEBB36] bg-colors-customYellow m-5">
         <div>
           <img src="" alt="" />
         </div>
