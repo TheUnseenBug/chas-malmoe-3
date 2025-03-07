@@ -1,4 +1,4 @@
-import getAccess from "@/helpers/getAccess";
+import useAccessStore from "@/store/store";
 import axios from "axios";
 import ArtistList from "./ArtistList";
 import { useState, useEffect } from "react";
@@ -14,7 +14,9 @@ export default function ListContainer() {
 
   useEffect(() => {
   async function getTopArtists() {
-    const accessToken = getAccess();
+    const accessToken = useAccessStore().accessToken;
+
+    console.log(accessToken);
     if (accessToken) {
       try {
         const response = await axios.get<{ items: Artist[] }>(

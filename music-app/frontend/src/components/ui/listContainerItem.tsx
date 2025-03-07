@@ -7,7 +7,7 @@ import {
   CardFooter,
 } from "./card";
 
-const listContainerItem = () => {
+const listContainerItem = ({ artist }) => {
   return (
     <>
       <Card>
