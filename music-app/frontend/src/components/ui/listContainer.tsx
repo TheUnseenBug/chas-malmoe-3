@@ -1,15 +1,10 @@
+import getAccess from "@/helpers/getAccess";
 import useAuth from "@/helpers/useAuth";
 import axios from "axios";
 
 export default function ListContainer() {
-  function getCodeFromUrl(url: string) {
-    const urlParams = new URLSearchParams(url.split("?")[1]);
-    return urlParams.get("code");
-  }
-  const code = getCodeFromUrl(window.location.href);
-  const accessToken = useAuth(code);
-  console.log(accessToken);
   async function getTopArtists() {
+    const accessToken = getAccess();
     if (accessToken) {
       try {
         const response = await axios.get(
@@ -20,8 +15,8 @@ export default function ListContainer() {
             },
           }
         );
-        console.log(response.data);
-        return response.data; // Optionally return the data
+        console.log(response.data.items);
+        return response.data.items; // Optionally return the data
       } catch (error) {
         console.error("Error fetching top artists:", error);
         throw error; // Re-throw the error to be handled by the caller, if needed
