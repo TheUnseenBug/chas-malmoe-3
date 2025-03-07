@@ -1,10 +1,11 @@
-import getAccess from "@/helpers/getAccess";
-import useAuth from "@/helpers/useAuth";
+import useAccessStore from "@/store/store";
 import axios from "axios";
 
 export default function ListContainer() {
   async function getTopArtists() {
-    const accessToken = getAccess();
+    const accessToken = useAccessStore().accessToken;
+
+    console.log(accessToken);
     if (accessToken) {
       try {
         const response = await axios.get(
