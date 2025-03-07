@@ -42,7 +42,7 @@ export default function ListContainer() {
   },[accessToken])
   // getTopArtists();
   return (
-    <div className="rounded-md border-4 border-black bg-colors-customYellow m-5 p-4 lg:w-1/2 md:w-2/3 sm:w-3/4">
+    <div className="rounded-md border-4 border-black bg-colors-customYellow m-2 p-4 lg:w-1/2 md:w-2/3 sm:w-3/4 w-3/4">
        <h2 className="text-lg font-bold mb-4 bg-colors-customYellow">Top Artists</h2>
        <ArtistList artists={artists} />
     </div>
