@@ -38,7 +38,7 @@ export default function ListContainer() {
   }
   
     getTopArtists();
-  })
+  },[])
   // getTopArtists();
   return (
     <div className="rounded-md border-4 border-black bg-colors-customYellow m-5 p-4">
