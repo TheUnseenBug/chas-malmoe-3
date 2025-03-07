@@ -11,10 +11,11 @@ interface Artist {
 
 export default function ListContainer() {
   const [artists, setArtists] = useState<Artist[]>([]);
+  const accessToken = useAccessStore().accessToken;
 
   useEffect(() => {
   async function getTopArtists() {
-    const accessToken = useAccessStore().accessToken;
+    // const accessToken = useAccessStore().accessToken;
 
     console.log(accessToken);
     if (accessToken) {
@@ -38,7 +39,7 @@ export default function ListContainer() {
   }
   
     getTopArtists();
-  })
+  },[accessToken])
   // getTopArtists();
   return (
     <div className="rounded-md border-4 border-black bg-colors-customYellow m-5 p-4">
