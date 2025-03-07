@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Card,
   CardHeader,
@@ -8,7 +7,7 @@ import {
   CardFooter,
 } from "./card";
 
-const listContainerItem = ({ artist }) => {
+const listContainerItem = ({}) => {
   return (
     <>
       <Card>

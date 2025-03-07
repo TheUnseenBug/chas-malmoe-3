@@ -1,8 +1,8 @@
 import { Slider } from "@radix-ui/react-slider";
 
-export default function PlayerComponent() {
+function PlayerComponent() {
   return (
-    <div>
+    <div className="rounded-md border-4 border-[#EEBB36] bg-colors-customYellow m-5">
       <div>
         <img src="" alt="" />
       </div>
@@ -19,3 +19,5 @@ export default function PlayerComponent() {
     </div>
   );
 }
+
+export default PlayerComponent;
