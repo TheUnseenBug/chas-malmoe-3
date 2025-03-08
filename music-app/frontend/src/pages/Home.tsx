@@ -10,7 +10,7 @@ export default function Home() {
   const token = useAccessStore();
   console.log(token);
   return (
-    <div className="w-screen">
+    <div>
       {code ? (
         <div>
           {" "}
