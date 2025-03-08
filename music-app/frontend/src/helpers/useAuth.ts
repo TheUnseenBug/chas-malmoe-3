@@ -1,11 +1,15 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, use } from "react";
 import axios from "axios";
+import getCodeFromUrl from "./getUrl";
+import useAccessStore from "@/store/store";
 
-export default function useAuth(code: string) {
+export default function useAuth() {
   const [accessToken, setAccessToken] = useState<string>();
   const [refreshToken, setRefreshToken] = useState<string>();
   const [expiresIn, setExpiresIn] = useState<number>();
-
+  const addAccessToken = useAccessStore((state) => state.addAccessToken);
+  console.log("useAth runs");
+  const code = getCodeFromUrl(window.location.href);
   useEffect(() => {
     if (accessToken) return;
     axios
@@ -20,10 +24,11 @@ export default function useAuth(code: string) {
             expiresIn: number;
           };
         }) => {
+          addAccessToken(res.data.accessToken);
+          console.log(res.data);
           setAccessToken(res.data.accessToken);
           setRefreshToken(res.data.refreshToken);
           setExpiresIn(res.data.expiresIn);
-          window.history.pushState({}, "null", "/");
         }
       );
   }, [code, accessToken]);
