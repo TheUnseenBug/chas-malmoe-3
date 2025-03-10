@@ -14,7 +14,7 @@ export default function Home() {
 
   console.log("accesstoken:", token);
   return (
-    <div className="w-screen">
+    <div>
       {code ? (
         <div>
           {" "}

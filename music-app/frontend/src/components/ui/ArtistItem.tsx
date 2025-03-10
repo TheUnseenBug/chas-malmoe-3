@@ -1,5 +1,6 @@
 import { Link } from "react-router";
 
+
 interface Artist {
   id: string;
   name: string;
@@ -26,3 +27,4 @@ export default function ArtistItem({ artist }: ArtistItemProps) {
     </li>
   );
 }
+
