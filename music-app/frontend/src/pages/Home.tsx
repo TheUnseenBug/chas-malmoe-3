@@ -4,6 +4,7 @@ import SearchBar from "@/components/SearchBar";
 import Login from "./Login";
 import useAccessStore from "@/store/store";
 import useAuth from "@/helpers/useAuth";
+import Player from "@/components/Player";
 
 export default function Home() {
   const [searchParams] = useSearchParams();
@@ -13,22 +14,27 @@ export default function Home() {
   console.log(token);
 
   return (
-    <div>
-      {code ? (
-        <div>
-          {" "}
-          <h1>Search for a song</h1>
-          <SearchBar />
-          <section className="flex align-middle justify-center">
-            <ListContainer />{" "}
-          </section>
-        </div>
-      ) : (
-        <div>
-          {" "}
-          <Login />{" "}
-        </div>
-      )}
-    </div>
+    <>
+      <div>
+        {code ? (
+          <div>
+            {" "}
+            <h1>Search for a song</h1>
+            <SearchBar />
+            <section className="flex align-middle justify-center">
+              <ListContainer />{" "}
+            </section>
+          </div>
+        ) : (
+          <div>
+            {" "}
+            <Login />{" "}
+          </div>
+        )}
+      </div>
+      <div>
+        <Player />
+      </div>
+    </>
   );
 }
