@@ -1,10 +1,20 @@
-import { Slider } from "@radix-ui/react-slider";
-import Image from "@/assets/billie.jpg";
+// import { Slider } from "@radix-ui/react-slider";
+// import Image from "@/assets/billie.jpg";
+import SpotifyPlayer from "react-spotify-web-playback";
 
-export default function Player() {
+export default function Player(accessToken: any, trackUri: any) {
+  if (!accessToken) return null;
   return (
-    <>
-      <div className="p-6 rounded-md border-4 border-black bg-colors-customYellow m-5 flex flex-row place-content-between max-w-1/2">
+    <SpotifyPlayer
+      token={accessToken}
+      showSaveIcon
+      uris={trackUri ? [trackUri] : []}
+    />
+  );
+}
+
+{
+  /* <div className="p-6 rounded-md border-4 border-black bg-colors-customYellow m-5 flex flex-row place-content-between max-w-1/2">
         <div>
           <img src={Image} alt="Billie Holiday" className="size-" />
         </div>
@@ -18,7 +28,5 @@ export default function Player() {
           <Slider defaultValue={[33]} max={100} step={1} />
           <Slider defaultValue={[33]} max={100} step={1} />
         </div>
-      </div>
-    </>
-  );
+      </div> */
 }

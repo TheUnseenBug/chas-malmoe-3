@@ -19,7 +19,6 @@ export default function Home() {
           <section className="flex align-middle justify-center">
             <ListContainer />{" "}
           </section>
-          
         </div>
       ) : (
         <div>
