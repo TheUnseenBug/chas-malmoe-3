@@ -16,7 +16,6 @@
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "helmet": "^8.0.0",
-    "lyrics-finder": "^21.7.0",
     "spotify-web-api-node": "^5.0.2"
   },
   "devDependencies": {

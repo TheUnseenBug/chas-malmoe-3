@@ -1,4 +1,4 @@
-import { useState, useEffect, use } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import getCodeFromUrl from "./getUrl";
 import useAccessStore from "@/store/store";
@@ -43,9 +43,6 @@ export default function useAuth() {
         .then((res) => {
           setAccessToken(res.data.accessToken);
           setExpiresIn(res.data.expiresIn);
-        })
-        .catch(() => {
-          window.location = "/";
         });
     }, (expiresIn - 60) * 1000);
 
