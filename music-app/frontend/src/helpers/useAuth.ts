@@ -11,29 +11,29 @@ export default function useAuth(code: string) {
   //FIXME lägg till koll om redan inloggad returnera bara
   console.log("useAth runs, code:", code);
   console.log("token:", token);
-  if (token) return console.log("already logged in");
-  useEffect(() => {
-    if (accessToken) return;
-    axios
-      .post("http://localhost:3001/login", {
-        code,
-      })
-      .then(
-        (res: {
-          data: {
-            accessToken: string;
-            refreshToken: string;
-            expiresIn: number;
-          };
-        }) => {
-          addAccessToken(res.data.accessToken);
-          console.log(res.data);
-          setAccessToken(res.data.accessToken);
-          setRefreshToken(res.data.refreshToken);
-          setExpiresIn(res.data.expiresIn);
-        }
-      );
-  }, [code, accessToken]);
+  if (!token) {
+    if (code) {
+      axios
+        .post("http://localhost:3001/login", {
+          code,
+        })
+        .then(
+          (res: {
+            data: {
+              accessToken: string;
+              refreshToken: string;
+              expiresIn: number;
+            };
+          }) => {
+            addAccessToken(res.data.accessToken);
+            console.log(res.data);
+            setAccessToken(res.data.accessToken);
+            setRefreshToken(res.data.refreshToken);
+            setExpiresIn(res.data.expiresIn);
+          }
+        );
+    }
+  }
 
   useEffect(() => {
     if (!refreshToken || !expiresIn) return;
