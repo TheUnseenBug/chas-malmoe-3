@@ -4,7 +4,7 @@ import SocialIcons from "../components/SocialButtons";
 
 export default function SignIn() {
   return (
-    <main className="h-screen w-screen flex items-center justify-center p-4">
+    <main className="h-full w-full flex items-center justify-center p-4">
       <div className="bg-white rounded-3xl p-8 w-full max-w-md border-2 border-[#EEBB36] mx-auto">
         <h2 className="bg-white text-center text-[140%] font-bold mb-6 whitespace-nowrap">
           Sign in with your Spotify account
