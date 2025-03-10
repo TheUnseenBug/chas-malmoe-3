@@ -16,7 +16,10 @@ export default function Home() {
           {" "}
           <h1>Search for a song</h1>
           <SearchBar />
-          <ListContainer />{" "}
+          <section className="flex align-middle justify-center">
+            <ListContainer />{" "}
+          </section>
+          
         </div>
       ) : (
         <div>
