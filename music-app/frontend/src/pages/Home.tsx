@@ -6,9 +6,13 @@ import useAuth from "@/helpers/useAuth";
 
 export default function Home() {
   const code = new URLSearchParams(window.location.search).get("code");
-  useAuth();
-  const token = useAccessStore();
-  console.log(token);
+  console.log("code:", code);
+  const token = useAccessStore().accessToken;
+  if (code) {
+    useAuth(code);
+  }
+
+  console.log("accesstoken:", token);
   return (
     <div>
       {code ? (
@@ -19,7 +23,6 @@ export default function Home() {
           <section className="flex align-middle justify-center">
             <ListContainer />{" "}
           </section>
-          
         </div>
       ) : (
         <div>

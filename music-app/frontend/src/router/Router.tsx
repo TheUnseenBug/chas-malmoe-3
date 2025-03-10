@@ -4,7 +4,8 @@ import Home from "../pages/Home";
 import Player from "../pages/Player";
 import SignIn from "../pages/SignIn";
 import NotFound from "../pages/NotFound";
-import ArtistPage from "../pages/ArtistPage";
+import ArtistId from "@/pages/Artist:id";
+
 
 const router = createBrowserRouter([
   {
@@ -21,7 +22,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/artist/:id",
-    element: <ArtistPage />,
+    element: <ArtistId />,
   },
   {
     path: "*",

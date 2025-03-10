@@ -1,37 +1,39 @@
-import { useState, useEffect, use } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
-import getCodeFromUrl from "./getUrl";
 import useAccessStore from "@/store/store";
 
-export default function useAuth() {
+export default function useAuth(code: string) {
+  const token = useAccessStore().accessToken;
   const [accessToken, setAccessToken] = useState<string>();
   const [refreshToken, setRefreshToken] = useState<string>();
   const [expiresIn, setExpiresIn] = useState<number>();
   const addAccessToken = useAccessStore((state) => state.addAccessToken);
-  console.log("useAth runs");
-  const code = getCodeFromUrl(window.location.href);
-  useEffect(() => {
-    if (accessToken) return;
-    axios
-      .post("http://localhost:3001/login", {
-        code,
-      })
-      .then(
-        (res: {
-          data: {
-            accessToken: string;
-            refreshToken: string;
-            expiresIn: number;
-          };
-        }) => {
-          addAccessToken(res.data.accessToken);
-          console.log(res.data);
-          setAccessToken(res.data.accessToken);
-          setRefreshToken(res.data.refreshToken);
-          setExpiresIn(res.data.expiresIn);
-        }
-      );
-  }, [code, accessToken]);
+  //FIXME lägg till koll om redan inloggad returnera bara
+  console.log("useAth runs, code:", code);
+  console.log("token:", token);
+  if (!token) {
+    if (code) {
+      axios
+        .post("http://localhost:3001/login", {
+          code,
+        })
+        .then(
+          (res: {
+            data: {
+              accessToken: string;
+              refreshToken: string;
+              expiresIn: number;
+            };
+          }) => {
+            addAccessToken(res.data.accessToken);
+            console.log(res.data);
+            setAccessToken(res.data.accessToken);
+            setRefreshToken(res.data.refreshToken);
+            setExpiresIn(res.data.expiresIn);
+          }
+        );
+    }
+  }
 
   useEffect(() => {
     if (!refreshToken || !expiresIn) return;
@@ -43,9 +45,6 @@ export default function useAuth() {
         .then((res) => {
           setAccessToken(res.data.accessToken);
           setExpiresIn(res.data.expiresIn);
-        })
-        .catch(() => {
-          window.location = "/";
         });
     }, (expiresIn - 60) * 1000);
 
