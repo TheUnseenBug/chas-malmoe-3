@@ -1,15 +1,17 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import getCodeFromUrl from "./getUrl";
 import useAccessStore from "@/store/store";
 
-export default function useAuth() {
+export default function useAuth(code: string) {
+  const token = useAccessStore().accessToken;
   const [accessToken, setAccessToken] = useState<string>();
   const [refreshToken, setRefreshToken] = useState<string>();
   const [expiresIn, setExpiresIn] = useState<number>();
   const addAccessToken = useAccessStore((state) => state.addAccessToken);
-  console.log("useAth runs");
-  const code = getCodeFromUrl(window.location.href);
+  //FIXME lägg till koll om redan inloggad returnera bara
+  console.log("useAth runs, code:", code);
+  console.log("token:", token);
+  if (token) return console.log("already logged in");
   useEffect(() => {
     if (accessToken) return;
     axios
