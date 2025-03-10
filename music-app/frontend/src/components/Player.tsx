@@ -128,15 +128,17 @@ const Player: React.FC<PlayerProps> = ({ accessToken, trackUri }) => {
   };
 
   return (
-    <div className="player-container">
-      <div className="now-playing">
+    <div className="player-container p-6 rounded-md border-4 border-black bg-colors-customYellow m-5 lg:w-1/2 md:w-2/3 sm:w-3/4 w-3/4">
+      <div className="now-playing flex flex-row place-content-between max-w-1/2">
         {currentTrack ? (
           <>
-            <img
-              src={currentTrack.album.images[0]?.url}
-              alt={currentTrack.name}
-              style={{ width: 60, height: 60 }}
-            />
+            <div className="border-black border-4 rounded-md bg-colors-customPink m-5 p-6 text-left max-w-1/2">
+              <img
+                src={currentTrack.album.images[0]?.url}
+                alt={currentTrack.name}
+                style={{ width: 60, height: 60 }}
+              />
+            </div>
             <div>
               <h3>{currentTrack.name}</h3>
               <p>
@@ -145,15 +147,13 @@ const Player: React.FC<PlayerProps> = ({ accessToken, trackUri }) => {
             </div>
           </>
         ) : (
-          <p>Ingen låt spelas just nu.</p>
+          <p>No song is playing at the moment :(</p>
         )}
       </div>
       <div className="controls">
-        <button onClick={handlePreviousTrack}>Föregående</button>
-        <button onClick={handleTogglePlay}>
-          {isPaused ? "Spela" : "Pausa"}
-        </button>
-        <button onClick={handleNextTrack}>Nästa</button>
+        <button onClick={handlePreviousTrack}>Previous</button>
+        <button onClick={handleTogglePlay}>{isPaused ? "Play" : "Paus"}</button>
+        <button onClick={handleNextTrack}>Next</button>
       </div>
     </div>
   );

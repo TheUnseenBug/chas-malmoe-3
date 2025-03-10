@@ -32,8 +32,8 @@ export default function Home() {
           </div>
         )}
       </div>
-      <div>
-        <Player />
+      <div className="justify-center">
+        <Player accessToken={token} />
       </div>
     </>
   );
