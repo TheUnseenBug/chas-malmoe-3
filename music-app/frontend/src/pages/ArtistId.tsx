@@ -1,12 +1,15 @@
+import ArtistCard from "@/components/ui/ArtistCard";
 import useAccessStore from "@/store/store";
 import axios from "axios";
-import React, { useEffect } from "react";
+import { release } from "os";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router";
 
 const ArtistId = () => {
+  const [artist, setArtist] = useState();
   const location = useLocation();
   const path = location.pathname;
-  const artistData = path.startsWith("/artist/") ? path.substring(8) : null;
+  const artistUri = path.startsWith("/artist/") ? path.substring(8) : null;
   const accessToken = useAccessStore().accessToken;
   console.log("accessToken:", accessToken);
 
@@ -15,7 +18,7 @@ const ArtistId = () => {
       if (accessToken) {
         try {
           const response = await axios.get(
-            `https://api.spotify.com/v1/artists/${artistData}/top-tracks`,
+            `https://api.spotify.com/v1/artists/${artistUri}/top-tracks`,
             {
               headers: {
                 Authorization: `Bearer ${accessToken}`,
@@ -34,7 +37,7 @@ const ArtistId = () => {
       if (accessToken) {
         try {
           const response = await axios.get(
-            `https://api.spotify.com/v1/artists/${artistData}`,
+            `https://api.spotify.com/v1/artists/${artistUri}`,
             {
               headers: {
                 Authorization: `Bearer ${accessToken}`,
@@ -49,11 +52,36 @@ const ArtistId = () => {
         }
       }
     }
-
-    getTopTracks();
-    getArtistInfo();
+    async function updateArtist() {
+      const artistInfo = await getArtistInfo();
+      const topTracks = await getTopTracks();
+      const combinedData = {
+        name: artistInfo.name,
+        popularity: artistInfo.popularity,
+        external_urls: artistInfo.external_urls,
+        images: artistInfo.images[0].url,
+        topTracks: topTracks.map((track) => ({
+          album: {
+            image: track.album.url,
+            name: track.album.name,
+            release_date: track.album.release_date,
+          },
+          artists: {
+            name: track.artists[0].name,
+          },
+          duration_ms: track.duration_ms,
+          name: track.name,
+          uri: track.uri,
+        })),
+      };
+      if (combinedData) {
+        setArtist(combinedData);
+      }
+    }
+    updateArtist();
   }, [accessToken]);
-  return <div>ArtistId</div>;
+  console.log("artist:", artist);
+  return <main>{artist && <ArtistCard artist={artist} />}</main>;
 };
 
 export default ArtistId;

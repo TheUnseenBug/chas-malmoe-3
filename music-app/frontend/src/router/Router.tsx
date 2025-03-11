@@ -6,7 +6,6 @@ import SignIn from "../pages/SignIn";
 import NotFound from "../pages/NotFound";
 import ArtistId from "@/pages/ArtistId";
 
-
 const router = createBrowserRouter([
   {
     path: "/",
