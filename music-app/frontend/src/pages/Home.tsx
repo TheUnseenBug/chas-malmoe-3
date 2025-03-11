@@ -7,12 +7,14 @@ import useAuth from "@/helpers/useAuth";
 import Player from "@/components/Player";
 
 export default function Home() {
-  const [searchParams] = useSearchParams();
-  const code = searchParams.get("code");
-  useAuth();
-  const token = useAccessStore();
-  console.log(token);
+  const code = new URLSearchParams(window.location.search).get("code");
+  console.log("code:", code);
+  const token = useAccessStore().accessToken;
+  if (code) {
+    useAuth(code);
+  }
 
+  console.log("accesstoken:", token);
   return (
     <>
       <div>
