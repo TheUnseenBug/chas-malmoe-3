@@ -3,7 +3,11 @@ import { Input } from "./ui/input";
 export default function SearchBar() {
   return (
     <div className="w-full max-w-md">
-      <Input type="text" placeholder="Search for a song..." className="p-2" />
+      <Input
+        type="text"
+        placeholder="Search for a song..."
+        className="p-2 text-white  placeholder:text-white "
+      />
     </div>
   );
 }
