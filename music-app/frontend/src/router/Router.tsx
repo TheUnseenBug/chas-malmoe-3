@@ -4,7 +4,7 @@ import Home from "../pages/Home";
 import Player from "../pages/Player";
 import SignIn from "../pages/SignIn";
 import NotFound from "../pages/NotFound";
-import ArtistId from "@/pages/Artist:id";
+import ArtistId from "@/pages/ArtistId";
 
 
 const router = createBrowserRouter([
