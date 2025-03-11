@@ -14,6 +14,7 @@ export default function Home() {
   }
 
   console.log("accesstoken:", token);
+
   return (
     <div>
       {code ? (
