@@ -3,6 +3,7 @@ import SearchBar from "@/components/SearchBar";
 import Login from "./Login";
 import useAccessStore from "@/store/store";
 import useAuth from "@/helpers/useAuth";
+import SongListContainer from "@/components/ui/SongListContainer";
 
 export default function Home() {
   const code = new URLSearchParams(window.location.search).get("code");
@@ -22,6 +23,7 @@ export default function Home() {
           <SearchBar />
           <section className="flex align-middle justify-center">
             <ListContainer />{" "}
+            <SongListContainer />{" "}
           </section>
         </div>
       ) : (
