@@ -6,6 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "./card";
+import timeConverter from "@/helpers/timeConverter";
 
 type Props = {
   artist: {
@@ -15,7 +16,7 @@ type Props = {
     image: string;
     topTracks: {
       album: {
-        images: string;
+        image: string;
         name: string;
         release_date: string;
       };
@@ -31,34 +32,47 @@ type Props = {
 
 const ArtistCard: FC<Props> = ({ artist }) => {
   return (
-    <>
+    <section className="max-w-4xl m-auto">
       <Card>
         <CardHeader>
           <CardTitle>{artist.name}</CardTitle>
           <CardDescription>Popularity: {artist.popularity}</CardDescription>
-          <CardDescription className="flex justify-center">
-            <img src={artist.image} alt="artist image" />
-          </CardDescription>
         </CardHeader>
+        <CardContent className="flex justify-center">
+          <img src={artist.image} alt="artist image" />
+        </CardContent>
+
         <CardContent>
-          {artist.topTracks.map((track) => (
-            <Card>
-              <CardHeader>
-                <CardTitle>{track.name}</CardTitle>
-                <CardDescription>Duration: {track.duration_ms}</CardDescription>
-                <CardDescription>
-                  Album: {track.album.name} ({track.album.release_date})
-                </CardDescription>
-                <CardDescription>Artist: {track.artists.name}</CardDescription>
+          <article className="grid grid-cols-4 gap-3 justify-center items-center">
+            {artist.topTracks.map((track) => (
+              <Card className=" cursor-pointer hover:bg-white/60 hover:text-blue-500">
+                <CardHeader>
+                  <CardTitle>{track.name}</CardTitle>
+                  <img src={track.album.image} alt="Album image" />
+                </CardHeader>
+                <CardContent className="text-xs">
+                  <CardDescription className="font-semibold text-sm">
+                    Artist: {track.artists.name}
+                  </CardDescription>
+                  <CardDescription className="">
+                    Album: {track.album.name}
+                  </CardDescription>
+                  <CardDescription>
+                    Release Date: {track.album.release_date}
+                  </CardDescription>
+                  <CardDescription>
+                    Duration: {timeConverter(track.duration_ms)}
+                  </CardDescription>
+                </CardContent>
                 <CardDescription>
                   <a href={track.uri}>Listen on Spotify</a>
                 </CardDescription>
-              </CardHeader>
-            </Card>
-          ))}
+              </Card>
+            ))}
+          </article>
         </CardContent>
       </Card>
-    </>
+    </section>
   );
 };
 
