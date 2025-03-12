@@ -4,7 +4,7 @@ import SearchBar from "@/components/SearchBar";
 import Login from "./Login";
 import useAccessStore from "@/store/store";
 import useAuth from "@/helpers/useAuth";
-import Player from "@/components/Player";
+import PlayerComponent from "@/components/PlayerComponent";
 
 export default function Home() {
   const code = new URLSearchParams(window.location.search).get("code");
@@ -33,9 +33,6 @@ export default function Home() {
             <Login />{" "}
           </div>
         )}
-      </div>
-      <div className="justify-center">
-        <Player accessToken={token} />
       </div>
     </>
   );

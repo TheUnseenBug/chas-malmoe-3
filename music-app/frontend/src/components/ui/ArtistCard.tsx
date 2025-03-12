@@ -1,4 +1,6 @@
-import React, { FC } from "react";
+import { FC } from "react";
+import { usePlayerStore } from "@/store/playerStore";
+import PlayerComponent from "../PlayerComponent";
 import {
   Card,
   CardContent,
@@ -15,13 +17,11 @@ type Props = {
     image: string;
     topTracks: {
       album: {
-        images: string;
+        images: { url: string }[];
         name: string;
         release_date: string;
       };
-      artists: {
-        name: string;
-      };
+      artists: { name: string }[]; // FIXAT! Tog bort artists: { artists: ... }
       duration_ms: number;
       name: string;
       uri: string;
@@ -30,6 +30,13 @@ type Props = {
 };
 
 const ArtistCard: FC<Props> = ({ artist }) => {
+  const setTrack = usePlayerStore((state) => state.setTrack);
+
+  const handlePlayTrack = (uri: string) => {
+    console.log("🎵 Clicked track URI:", uri); // Ser vi detta i Console?
+    setTrack(uri); // Uppdaterar Zustand-store
+  };
+
   return (
     <>
       <Card>
@@ -42,14 +49,24 @@ const ArtistCard: FC<Props> = ({ artist }) => {
         </CardHeader>
         <CardContent>
           {artist.topTracks.map((track) => (
-            <Card>
+            <Card key={track.uri}>
               <CardHeader>
-                <CardTitle>{track.name}</CardTitle>
+                <CardTitle
+                  onClick={() => handlePlayTrack(track.uri)}
+                  className="cursor-pointer text-blue-500 hover:underline"
+                >
+                  {track.name}
+                </CardTitle>
                 <CardDescription>Duration: {track.duration_ms}</CardDescription>
                 <CardDescription>
                   Album: {track.album.name} ({track.album.release_date})
                 </CardDescription>
-                <CardDescription>Artist: {track.artists.name}</CardDescription>
+                <CardDescription>
+                  Artist:{" "}
+                  {Array.isArray(track.artists)
+                    ? track.artists.map((artist) => artist.name).join(", ")
+                    : track.artists.name}
+                </CardDescription>
                 <CardDescription>
                   <a href={track.uri}>Listen on Spotify</a>
                 </CardDescription>
@@ -58,6 +75,7 @@ const ArtistCard: FC<Props> = ({ artist }) => {
           ))}
         </CardContent>
       </Card>
+      <PlayerComponent />
     </>
   );
 };
