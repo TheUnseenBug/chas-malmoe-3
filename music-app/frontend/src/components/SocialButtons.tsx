@@ -1,4 +1,4 @@
-import AppleIcon from "../assets/svg/icons8-apple-30.svg";
+import AppleIcon from "../assets/svg/icons8-apple.svg";
 import FacebookIcon from "../assets/svg/icons8-facebook.svg";
 import GoogleIcon from "../assets/svg/icons8-google.svg";
 
