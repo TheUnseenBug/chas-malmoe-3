@@ -1,5 +1,4 @@
 import { FC } from "react";
-import { usePlayerStore } from "@/store/playerStore";
 import PlayerComponent from "../PlayerComponent";
 import {
   Card,
@@ -74,7 +73,7 @@ const ArtistCard: FC<Props> = ({ artist, handlePlayTrack }) => {
         </CardContent>
       </Card>
       <PlayerComponent />
-    </>
+    </section>
   );
 };
 
