@@ -20,7 +20,7 @@ export default function Home() {
       {code ? (
         <div>
           {" "}
-          <h1>Search for a song</h1>
+          <h1 className="text-white">Search for a song</h1>
           <SearchBar />
           <section className="flex align-middle justify-center">
             <ListContainer /> <SongListContainer />{" "}
