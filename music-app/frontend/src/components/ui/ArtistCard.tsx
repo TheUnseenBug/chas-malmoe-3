@@ -21,22 +21,16 @@ type Props = {
         name: string;
         release_date: string;
       };
-      artists: { name: string }[]; // FIXAT! Tog bort artists: { artists: ... }
+      artists: { name: string }[];
       duration_ms: number;
       name: string;
       uri: string;
     }[];
+    handlePlayTrack: (uri: string) => void; // 🔹 Ta emot funktionen som en prop
   };
 };
 
-const ArtistCard: FC<Props> = ({ artist }) => {
-  const setTrack = usePlayerStore((state) => state.setTrack);
-
-  const handlePlayTrack = (uri: string) => {
-    console.log("🎵 Clicked track URI:", uri); // Ser vi detta i Console?
-    setTrack(uri); // Uppdaterar Zustand-store
-  };
-
+const ArtistCard: FC<Props> = ({ artist, handlePlayTrack }) => {
   return (
     <>
       <Card>
@@ -52,7 +46,7 @@ const ArtistCard: FC<Props> = ({ artist }) => {
             <Card key={track.uri}>
               <CardHeader>
                 <CardTitle
-                  onClick={() => handlePlayTrack(track.uri)}
+                  onClick={() => handlePlayTrack(track.uri)} // 🔹 Använd `handlePlayTrack()`
                   className="cursor-pointer text-blue-500 hover:underline"
                 >
                   {track.name}

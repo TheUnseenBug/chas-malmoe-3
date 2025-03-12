@@ -1,5 +1,6 @@
 import ArtistCard from "@/components/ui/ArtistCard";
 import useAccessStore from "@/store/store";
+import { usePlayerStore } from "@/store/playerStore";
 import axios from "axios";
 import { release } from "os";
 import { useEffect, useState } from "react";
@@ -11,7 +12,13 @@ const ArtistId = () => {
   const path = location.pathname;
   const artistUri = path.startsWith("/artist/") ? path.substring(8) : null;
   const accessToken = useAccessStore().accessToken;
+  const setTrack = usePlayerStore((state) => state.setTrack);
   console.log("accessToken:", accessToken);
+
+  const handlePlayTrack = (uri: string) => {
+    console.log("🎵 Clicked track URI from ArtistId:", uri);
+    setTrack(uri); // Uppdatera Zustand-store
+  };
 
   useEffect(() => {
     async function getTopTracks() {
@@ -81,7 +88,13 @@ const ArtistId = () => {
     updateArtist();
   }, [accessToken]);
   console.log("artist:", artist);
-  return <main>{artist && <ArtistCard artist={artist} />}</main>;
+  return (
+    <main>
+      {artist && (
+        <ArtistCard artist={artist} handlePlayTrack={handlePlayTrack} />
+      )}
+    </main>
+  );
 };
 
 export default ArtistId;
