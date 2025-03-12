@@ -1,9 +1,9 @@
-import { useSearchParams } from "react-router-dom";
 import ListContainer from "@/components/ui/listContainer";
 import SearchBar from "@/components/SearchBar";
 import Login from "./Login";
 import useAccessStore from "@/store/store";
 import useAuth from "@/helpers/useAuth";
+import SongListContainer from "@/components/ui/SongListContainer";
 import PlayerComponent from "@/components/PlayerComponent";
 
 export default function Home() {
@@ -15,6 +15,7 @@ export default function Home() {
   }
 
   console.log("accesstoken:", token);
+
   return (
     <>
       <div>
@@ -24,13 +25,13 @@ export default function Home() {
             <h1>Search for a song</h1>
             <SearchBar />
             <section className="flex align-middle justify-center">
-              <ListContainer />{" "}
+              <ListContainer />
+              <SongListContainer />
             </section>
           </div>
         ) : (
           <div>
-            {" "}
-            <Login />{" "}
+            <Login />
           </div>
         )}
       </div>
