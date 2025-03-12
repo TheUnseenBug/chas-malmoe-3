@@ -8,7 +8,7 @@ export default function useAuth(code: string) {
   const [refreshToken, setRefreshToken] = useState<string>();
   const [expiresIn, setExpiresIn] = useState<number>();
   const addAccessToken = useAccessStore((state) => state.addAccessToken);
-  //FIXME lägg till koll om redan inloggad returnera bara
+  //FIXME refreshToken funkar inte
   console.log("useAth runs, code:", code);
   console.log("token:", token);
   if (!token) {

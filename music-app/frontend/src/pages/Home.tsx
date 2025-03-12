@@ -17,24 +17,22 @@ export default function Home() {
   console.log("accesstoken:", token);
 
   return (
-    <>
-      <div>
-        {code ? (
-          <div>
-            {" "}
-            <h1>Search for a song</h1>
-            <SearchBar />
-            <section className="flex align-middle justify-center">
-              <ListContainer />
-              <SongListContainer />
-            </section>
-          </div>
-        ) : (
-          <div>
-            <Login />
-          </div>
-        )}
-      </div>
-    </>
+    <div>
+      {code ? (
+        <div>
+          {" "}
+          <h1 className="text-white">Search for a song</h1>
+          <SearchBar />
+          <section className="flex align-middle justify-center">
+            <ListContainer /> <SongListContainer />{" "}
+          </section>
+        </div>
+      ) : (
+        <div>
+          {" "}
+          <Login />{" "}
+        </div>
+      )}
+    </div>
   );
 }
