@@ -76,7 +76,7 @@ export default function SearchBar() {
         placeholder="Search..."
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
-        className="placeholder:text-white"
+        className="placeholder:text-white caret-white"
       />
 
       {searchTerm && (
