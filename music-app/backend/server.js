@@ -33,7 +33,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.post("/refresh", (req, res) => {
+  console.log("refresh server");
   const refreshToken = req.body.refreshToken;
+  console.log("refreshToken:", refreshToken);
   const spotifyApi = new SpotifyWebApi({
     redirectUri: process.env.REDIRECT_URI,
     clientId: process.env.CLIENT_ID,
