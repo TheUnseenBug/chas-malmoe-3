@@ -17,7 +17,7 @@ export default function SongList({ songs }: SongListProps) {
         songs.map((song) => <SongItem key={song.id} song={song} />)
       ) : (
         
-        <p className="bg-colors-customGreen rounded-md border-4 border-black p-4">No songs found.</p>
+        <p className="bg-colors-customPink rounded-md border-4 border-black p-4">No songs found.</p>
     
       )}
     </ul>
