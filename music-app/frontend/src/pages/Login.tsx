@@ -7,6 +7,10 @@ export default function Login() {
       className="flex justify-center items-center"
       style={{ minHeight: "100vh" }}
     >
+      <h1 className="text-white text-left text-5xl">
+        dara
+        <span className="text-pink-500">.</span>
+      </h1>
       <button
         className="border-black border-4 text-green px-8 py-4 bg-colors-customGreen hover:bg-colors-customBlue hover:text-white rounded-md text-3xl font-semibold"
         onClick={() => window.location.assign(AUTH_URL)}
