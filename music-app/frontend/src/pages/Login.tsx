@@ -8,10 +8,10 @@ export default function Login() {
       style={{ minHeight: "100vh" }}
     >
       <button
-        className="border-black border-4 text-green px-5 py-2.5 bg-colors-customGreen rounded-md"
+        className="border-black border-4 text-green px-8 py-4 bg-colors-customGreen rounded-md text-3xl font-semibold"
         onClick={() => window.location.assign(AUTH_URL)}
       >
-        Login With Spotify
+        Log in with Spotify
       </button>
     </div>
   );
