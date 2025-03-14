@@ -10,6 +10,7 @@ import Reset from "@/pages/Reset";
 
 const router = createBrowserRouter([
   {
+    // Huvudlayout som omsluter alla routes
     element: <RootLayout />,
     children: [
       {
