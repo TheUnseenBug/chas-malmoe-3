@@ -43,7 +43,7 @@ const ArtistCard: FC<Props> = ({ artist }) => {
         </CardContent>
 
         <CardContent>
-          <article className="grid grid-cols-4 gap-3 justify-center items-center">
+          <article className="grid md:grid-cols-4 grid-cols-2 gap-3 justify-center items-center">
             {artist.topTracks.map((track) => (
               <Card className=" cursor-pointer hover:bg-white/60 hover:text-blue-500">
                 <CardHeader>

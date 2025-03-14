@@ -1,15 +1,46 @@
-// import { Slider } from "@radix-ui/react-slider";
-// import Image from "@/assets/billie.jpg";
+import { Slider } from "@radix-ui/react-slider";
+import Image from "@/assets/billie.jpg";
 import SpotifyPlayer from "react-spotify-web-playback";
+import {
+  PlayButton,
+  PauseButton,
+  PreviousButton,
+  NextButton,
+} from "@/components/ui/PlayerButtons";
 
 export default function Player(accessToken: any, trackUri: any) {
   if (!accessToken) return null;
   return (
-    <SpotifyPlayer
-      token={accessToken}
-      showSaveIcon
-      uris={trackUri ? [trackUri] : []}
-    />
+    <div className="flex flex-col align-center gap-5">
+      <SpotifyPlayer
+        token={accessToken}
+        showSaveIcon
+        uris={trackUri ? [trackUri] : []}
+      />
+      <div className="flex items-stretch gap-3 self-center bg-colors-customYellow border-4 border-black rounded-md p-4 w-3/4">
+        <img
+          src={Image}
+          alt="Album Cover"
+          className="rounded-md border-4 border-black w-1/3 self-center object-cover"
+        />
+        <div className="rounded-md border-4 border-black w-2/3 p-4 bg-colors-customPink text-left">
+          <h2 className="text-3xl text-strong">
+            I'm a Fool to Want You (with Ray Ellis & His Orchestra)
+          </h2>
+          <h3 className="text-2xl">
+            Billie Holiday, Ray Ellis And His Orchestra
+          </h3>
+          <p>Album Name</p>ß
+          <Slider />
+          <div className="flex gap-3 justify-center">
+            <PreviousButton />
+            <PlayButton />
+            <PauseButton />
+            <NextButton />
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 

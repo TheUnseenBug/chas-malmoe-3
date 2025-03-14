@@ -4,7 +4,6 @@ import Login from "./Login";
 import useAccessStore from "@/store/store";
 import useAuth from "@/helpers/useAuth";
 import SongListContainer from "@/components/ui/SongListContainer";
-import Header from "@/components/layouts/Header";
 
 export default function Home() {
   const code = new URLSearchParams(window.location.search).get("code");
@@ -18,7 +17,6 @@ export default function Home() {
 
   return (
     <div>
-      <Header />
       {code ? (
         <div>
           {" "}

@@ -1,8 +1,10 @@
+import useAccessStore from "@/store/store";
 import { NavLink } from "react-router-dom";
 
 export default function Header() {
+  const addAccessToken = useAccessStore((state) => state.addAccessToken);
   return (
-    <header className="p-3">
+    <header className="p-3 ">
       <h1 className="text-white text-left text-5xl">
         <NavLink
           to="/"
@@ -12,6 +14,12 @@ export default function Header() {
           <span className="text-pink-500">.</span>
         </NavLink>
       </h1>
+      <button
+        className="bg-black text-white py-1.5 px-3 rounded-md "
+        onClick={() => addAccessToken(null)}
+      >
+        Log out
+      </button>
     </header>
   );
 }
