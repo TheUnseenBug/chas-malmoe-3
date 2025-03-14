@@ -16,26 +16,20 @@ const LogoutModal: React.FC<LogoutModalProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed top-16 right-10 flex items-start justify-end z-50">
-      <div className="bg-zinc-900 p-4 rounded-lg shadow-lg w-64 border border-zinc-700">
-        <h2 className="text-white text-lg mb-2 font-semibold">
-          Confirm Logout
-        </h2>
-        <p className="text-zinc-300 text-sm mb-4">
-          Are you sure you want to log out?
-        </p>
-        <div className="flex justify-end gap-2">
-          <button
-            onClick={onCancel}
-            className="px-3 py-1.5 text-sm rounded-md bg-zinc-700 text-white hover:bg-zinc-600 transition-colors duration-200"
-          >
-            Cancel
-          </button>
+    <div className="fixed top-3 right-12 flex items-center justify-center z-50">
+      <div className="">
+        <div className="flex flex-col-reverse md:flex-row justify-center gap-2">
           <button
             onClick={onConfirm}
-            className="px-3 py-1.5 text-sm rounded-md bg-white text-black hover:opacity-80 transition-opacity duration-200"
+            className="border-4 border-black bg-red-500 hover:opacity-80 text-black py-1.5 px-3 rounded-md transition-opacity duration-200 ease-in-out"
           >
             Logout
+          </button>
+          <button
+            onClick={onCancel}
+            className="border-4 border-black bg-white hover:opacity-80 text-black py-1.5 px-3 rounded-md transition-opacity duration-200 ease-in-out"
+          >
+            Cancel
           </button>
         </div>
       </div>
