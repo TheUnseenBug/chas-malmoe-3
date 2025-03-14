@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 interface Song {
   id: string;
   name: string;
-  images: { url: string }[]; 
+  images: { url: string }[];
 }
 
 export default function SongListContainer() {
@@ -30,23 +30,25 @@ export default function SongListContainer() {
 
         console.log("Top Tracks Response:", response.data.items);
         const formattedSongs: Song[] = response.data.items.map((track) => ({
-            id: track.id,
-            name: track.name,
-            images: track.album.images, // Extract images from album
-          }));
-  
-          setSongs(formattedSongs);
-        } catch (error) {
-          console.error("Error fetching top tracks:", error);
-        }
+          id: track.id,
+          name: track.name,
+          images: track.album.images, // Extract images from album
+        }));
+
+        setSongs(formattedSongs);
+      } catch (error) {
+        console.error("Error fetching top tracks:", error);
       }
+    }
 
     getTopTracks();
   }, [accessToken]); // useEffect only runs when accessToken changes
 
   return (
     <div className="rounded-md border-4 border-black bg-colors-customGreen m-4 p-4 sm:w-full md:w-1/2 lg:w-1/3 h-[70vh] sm:h-[70vh] md:h-[80vh] lg:h-[90vh] overflow-y-auto">
-      <h2 className="text-4xl font-bold mb-4 bg-colors-customGreen">Top Tracks</h2>
+      <h2 className="text-4xl font-bold mb-4 bg-colors-customGreen">
+        Top Tracks
+      </h2>
       <SongList songs={songs} />
     </div>
   );
