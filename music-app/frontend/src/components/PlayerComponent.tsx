@@ -64,6 +64,18 @@ const PlayerComponent = () => {
     spotifyPlayer.addListener("ready", ({ device_id }) => {
       console.log("✅ Spotify Player is ready with Device ID:", device_id);
       setDeviceId(device_id);
+      axios.put(
+        "https://api.spotify.com/v1/me/player",
+        {
+          device_ids: [device_id],
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
     });
 
     spotifyPlayer.addListener("player_state_changed", (state) => {
