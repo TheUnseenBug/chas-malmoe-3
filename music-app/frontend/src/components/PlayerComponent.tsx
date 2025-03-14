@@ -2,16 +2,25 @@ import { useEffect, useState } from "react";
 import { usePlayerStore } from "@/store/playerStore";
 import useAccessStore from "@/store/store.ts";
 import axios from "axios";
+import { Slider } from "@radix-ui/react-slider";
+import {
+  PreviousButton,
+  PlayButton,
+  PauseButton,
+  NextButton,
+} from "./ui/PlayerButtons";
+import { Track } from "@/types";
 
 const PlayerComponent = () => {
   const { accessToken } = useAccessStore();
   const { trackUri, isPlaying, deviceId, setDeviceId, togglePlay } =
     usePlayerStore();
   const [player, setPlayer] = useState<Spotify.Player | null>(null);
-  const [currentTrack, setCurrentTrack] = useState<any>(null);
+  const [currentTrack, setCurrentTrack] = useState<Track>();
 
   // 🔹 Lägg till denna för att se när `trackUri` ändras
   useEffect(() => {
+    //startar automatiskt låt
     console.log("🎵 Current track URI from Zustand:", trackUri);
     try {
       axios.put(
@@ -97,74 +106,59 @@ const PlayerComponent = () => {
     if (!player) return;
     console.log(isPlaying);
     if (isPlaying) {
-      try {
-        axios.put(
-          "https://api.spotify.com/v1/me/player/pause",
-          {
-            device_id: deviceId, // Optional: Specify the device to play on
-          },
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${accessToken}`,
-            },
-          }
-        );
-        console.log("Playback started successfully.");
-      } catch (error) {
-        console.error("Error starting playback:", error);
-      }
+      player.pause();
       togglePlay(false);
     } else {
-      try {
-        axios.put(
-          "https://api.spotify.com/v1/me/player/play",
-          {
-            uris: [trackUri], // Spotify track URIs to play (array)
-            device_id: deviceId, // Optional: Specify the device to play on
-          },
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${accessToken}`,
-            },
-          }
-        );
-        console.log("Playback started successfully.");
-      } catch (error) {
-        console.error("Error starting playback:", error);
-      }
+      player.resume();
       togglePlay(true);
     }
   };
 
   return (
-    <div className="player-container p-6 rounded-md border-4 border-black bg-yellow-400 m-5">
+    <div className="player-container p-6 flex justify-center rounded-md border-4 border-black bg-yellow-400 ">
       {currentTrack ? (
-        <div className="flex items-center">
+        <div className="flex items-stretch  gap-3 self-center bg-colors-customYellow border-4 border-black rounded-md p-4 w-3/4">
           <img
             src={currentTrack.album.images[0]?.url}
-            alt={currentTrack.name}
-            className="w-16 h-16 mr-4"
+            alt="Album Cover"
+            className="rounded-md border-4 border-black w-1/3 self-center object-cover"
           />
-          <div>
-            <h3 className="text-lg font-bold">{currentTrack.name}</h3>
-            <p className="text-sm text-gray-700">
+          <div className="rounded-md border-4 border-black w-2/3 p-4 bg-colors-customPink text-left">
+            <h2 className="text-3xl text-strong">{currentTrack.name}</h2>
+            <h3 className="text-2xl">
               {currentTrack.artists.map((artist) => artist.name).join(", ")}
-            </p>
+            </h3>
+            <p>{currentTrack.album.name}</p>
+            <Slider />
+            <div className="flex gap-3 justify-center">
+              <PreviousButton onClick={() => player?.previousTrack()} />
+              {isPlaying ? (
+                <PauseButton onClick={() => handlePlayPause()} />
+              ) : (
+                <PlayButton onClick={() => handlePlayPause()} />
+              )}
+              <NextButton onClick={() => player?.nextTrack()} />
+            </div>
           </div>
         </div>
       ) : (
         <p>No song is playing...</p>
       )}
-      <button
-        onClick={handlePlayPause}
-        className="mt-2 px-4 py-2 bg-green-500 rounded-md"
-      >
-        {isPlaying ? "Pause" : "Play"}
-      </button>
     </div>
   );
 };
 
 export default PlayerComponent;
+// <div className="flex items-center">
+//   <img
+//     src={currentTrack.album.images[0]?.url}
+//     alt={currentTrack.name}
+//     className="w-16 h-16 mr-4"
+//   />
+//   <div>
+//     <h3 className="text-lg font-bold">{currentTrack.name}</h3>
+//     <p className="text-sm text-gray-700">
+//       {currentTrack.artists.map((artist) => artist.name).join(", ")}
+//     </p>
+//   </div>
+// </div>
