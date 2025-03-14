@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { usePlayerStore } from "@/store/playerStore";
 import useAccessStore from "@/store/store.ts";
+import axios from "axios";
 
 const PlayerComponent = () => {
   const { accessToken } = useAccessStore();
@@ -11,6 +12,24 @@ const PlayerComponent = () => {
   // 🔹 Lägg till denna för att se när `trackUri` ändras
   useEffect(() => {
     console.log("🎵 Current track URI from Zustand:", trackUri);
+    try {
+      axios.put(
+        "https://api.spotify.com/v1/me/player/play",
+        {
+          uris: [trackUri], // Spotify track URIs to play (array)
+          device_id: deviceId, // Optional: Specify the device to play on
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+      console.log("Playback started successfully.");
+    } catch (error) {
+      console.error("Error starting playback:", error);
+    }
   }, [trackUri]); // Logga varje gång `trackUri` ändras
 
   useEffect(() => {
@@ -63,7 +82,7 @@ const PlayerComponent = () => {
 
   const handlePlayPause = async () => {
     if (!player) return;
-
+    console.log(isPlaying);
     if (isPlaying) {
       await player.pause();
     } else {

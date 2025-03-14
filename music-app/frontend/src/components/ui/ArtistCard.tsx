@@ -8,6 +8,7 @@ import {
   CardTitle,
 } from "./card";
 import timeConverter from "@/helpers/timeConverter";
+import { usePlayerStore } from "@/store/playerStore";
 
 type Props = {
   artist: {
@@ -26,11 +27,12 @@ type Props = {
       name: string;
       uri: string;
     }[];
-    handlePlayTrack: (uri: string) => void; // 🔹 Ta emot funktionen som en prop
   };
+  handlePlayTrack: (uri: string) => void; // 🔹 Ta emot funktionen som en prop
 };
 
 const ArtistCard: FC<Props> = ({ artist, handlePlayTrack }) => {
+  const togglePlay = usePlayerStore((state) => state.togglePlay);
   return (
     <section className="max-w-4xl m-auto">
       <Card>
@@ -45,7 +47,14 @@ const ArtistCard: FC<Props> = ({ artist, handlePlayTrack }) => {
         <CardContent>
           <article className="grid grid-cols-4 gap-3 justify-center items-center">
             {artist.topTracks.map((track) => (
-              <Card className=" cursor-pointer hover:bg-white/60 hover:text-blue-500">
+              <Card
+                onClick={() => {
+                  console.log("play");
+                  handlePlayTrack(track.uri);
+                  togglePlay();
+                }}
+                className=" cursor-pointer hover:bg-white/60 hover:text-blue-500"
+              >
                 <CardHeader>
                   <CardTitle>{track.name}</CardTitle>
                   <img src={track.album.image} alt="Album image" />
