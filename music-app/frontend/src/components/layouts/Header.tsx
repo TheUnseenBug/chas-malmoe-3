@@ -10,17 +10,17 @@ const Header: React.FC = () => {
   const accessToken = useAccessStore((state) => state.accessToken);
   const navigate = useNavigate();
   // State för att kontrollera om utloggningsmodalen är öppen
-  const [isModalOpen, setModalOpen] = useState(false);
+  const [shouldCancel, setShouldCancel] = useState(false);
 
   // Öppna utloggningsmodalen
   const handleLogout = () => {
-    setModalOpen(true);
+    setShouldCancel(true);
   };
 
   // Hantera bekräftad utloggning
   const confirmLogout = () => {
     addAccessToken("");
-    setModalOpen(false);
+    setShouldCancel(false);
     navigate("/");
   };
 
@@ -35,7 +35,24 @@ const Header: React.FC = () => {
           <span className="text-pink-500">.</span>
         </NavLink>
       </h1>
-      {!isModalOpen && accessToken && (
+
+      {shouldCancel && accessToken && (
+        <div className="flex flex-col-reverse md:flex-row justify-center gap-2">
+          <button
+            onClick={confirmLogout}
+            className="border-4 border-black bg-red-500 hover:opacity-80 text-black py-1.5 px-3 rounded-md transition-opacity duration-200 ease-in-out"
+          >
+            Logout
+          </button>
+          <button
+            onClick={() => setShouldCancel(false)}
+            className="border-4 border-black bg-white hover:opacity-80 text-black py-1.5 px-3 rounded-md transition-opacity duration-200 ease-in-out"
+          >
+            Cancel
+          </button>
+        </div>
+      )}
+      {!shouldCancel && accessToken && (
         <button
           className="border-4 border-black bg-white hover:opacity-80 text-black py-1.5 px-3 rounded-md transition-opacity duration-200 ease-in-out"
           onClick={handleLogout}
@@ -43,12 +60,6 @@ const Header: React.FC = () => {
           Log out
         </button>
       )}
-
-      <LogoutModal
-        isOpen={isModalOpen}
-        onConfirm={confirmLogout}
-        onCancel={() => setModalOpen(false)}
-      />
     </header>
   );
 };
