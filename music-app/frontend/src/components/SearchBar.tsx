@@ -30,6 +30,7 @@ interface SearchResults {
 }
 
 export default function SearchBar() {
+  // State för sökterm och sökresultat
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState<SearchResults>({
     tracks: { items: [] },
@@ -37,6 +38,7 @@ export default function SearchBar() {
   });
   const accessToken = useAccessStore().accessToken;
 
+  // Sök med fördröjning när användaren skriver
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
       async function performSearch() {
@@ -52,11 +54,12 @@ export default function SearchBar() {
       }
 
       performSearch();
-    }, 500);
+    }, 500); // 500ms fördröjning
 
     return () => clearTimeout(delayDebounceFn);
   }, [searchTerm, accessToken]);
 
+  // Formatera sökresultaten för visning
   const formattedSongs = searchResults.tracks.items.map((track) => ({
     id: track.id,
     name: track.name,
