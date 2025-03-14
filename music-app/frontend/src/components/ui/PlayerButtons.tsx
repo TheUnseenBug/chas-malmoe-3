@@ -15,7 +15,8 @@ const buttonSizes = {
 };
 
 const buttonVariants = {
-  primary: "bg-green-500 hover:bg-green-600 text-white",
+  primary:
+    "bg-colors-customGreen hover:bg-colors-customBlue text-black border-4 border-black",
   secondary: "bg-gray-200 hover:bg-gray-300 text-black",
   ghost: "bg-transparent hover:bg-gray-100 text-black",
 };

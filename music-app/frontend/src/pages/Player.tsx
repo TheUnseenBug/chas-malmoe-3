@@ -17,47 +17,41 @@ export default function Player(accessToken: any, trackUri: any) {
         showSaveIcon
         uris={trackUri ? [trackUri] : []}
       />
-      <div className="flex items-stretch gap-3 self-center bg-colors-customYellow border-4 border-black rounded-md p-4 w-3/4">
-        <img
-          src={Image}
-          alt="Album Cover"
-          className="rounded-md border-4 border-black w-1/3 self-center object-cover"
-        />
-        <div className="rounded-md border-4 border-black w-2/3 p-4 bg-colors-customPink text-left">
-          <h2 className="text-3xl text-strong">
-            I'm a Fool to Want You (with Ray Ellis & His Orchestra)
-          </h2>
-          <h3 className="text-2xl">
-            Billie Holiday, Ray Ellis And His Orchestra
-          </h3>
-          <p>Album Name</p>ß
-          <Slider />
-          <div className="flex gap-3 justify-center">
-            <PreviousButton />
-            <PlayButton />
-            <PauseButton />
-            <NextButton />
+
+      <div className="gap-3 self-center bg-colors-customYellow border-4 border-black rounded-md p-4 flex flex-col lg:flex-col w-3/4">
+        {/* Album + Info */}
+        <div className="flex flex-col lg:flex-row gap-3 w-full">
+          {/* Album cover */}
+          <div className="self-center w-full lg:w-1/2">
+            <img
+              src={Image}
+              alt="Album Cover"
+              className="rounded-md border-4 border-black w-full"
+            />
           </div>
+
+          {/* Info container */}
+          <div className="rounded-md border-4 border-black p-4 bg-colors-customPink text-left w-full lg:w-1/2 self-stretch">
+            <h2 className="font-bold sm:text-lg md:text-2xl lg:text-4xl">
+              I'm a Fool to Want You (with Ray Ellis & His Orchestra)
+            </h2>
+            <h3 className="sm:text-lg md:text-2xl lg:text-4xl">
+              Billie Holiday, Ray Ellis And His Orchestra
+            </h3>
+            <p className="italic sm:text-lg md:text-2xl lg:text-3xl">
+              Album Name
+            </p>
+          </div>
+        </div>
+
+        {/* Button controls */}
+        <div className="flex flex-row gap-3 justify-center w-full order-3 mt-4">
+          <PreviousButton />
+          <PlayButton />
+          <PauseButton />
+          <NextButton />
         </div>
       </div>
     </div>
   );
-}
-
-{
-  /* <div className="p-6 rounded-md border-4 border-black bg-colors-customYellow m-5 flex flex-row place-content-between max-w-1/2">
-        <div>
-          <img src={Image} alt="Billie Holiday" className="size-" />
-        </div>
-        <div className="border-black border-4 rounded-md bg-colors-customPink m-5 p-6 text-left max-w-1/2">
-          <h2>Favourite Song</h2>
-          <h3>Billie Holiday</h3>
-          <p>Album Name</p>
-          <button>Previous</button>
-          <button>Play/Pause</button>
-          <button>Next</button>
-          <Slider defaultValue={[33]} max={100} step={1} />
-          <Slider defaultValue={[33]} max={100} step={1} />
-        </div>
-      </div> */
 }
