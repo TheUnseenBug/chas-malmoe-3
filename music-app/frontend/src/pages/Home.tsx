@@ -23,7 +23,7 @@ export default function Home() {
           {" "}
           <h1 className="text-white">Search for a song</h1>
           <SearchBar />
-          <section className="flex align-middle justify-center">
+          <section className="p-2 flex align-middle justify-center flex-col md:flex-row lg:flex-row">
             <ListContainer /> <SongListContainer />{" "}
           </section>
         </div>

@@ -32,7 +32,7 @@ export default function SongListContainer() {
         const formattedSongs: Song[] = response.data.items.map((track) => ({
             id: track.id,
             name: track.name,
-            images: track.album.images, // ✅ Extract images from album
+            images: track.album.images, // Extract images from album
           }));
   
           setSongs(formattedSongs);
@@ -42,11 +42,11 @@ export default function SongListContainer() {
       }
 
     getTopTracks();
-  }, [accessToken]); // ✅ Fix: useEffect only runs when accessToken changes
+  }, [accessToken]); // useEffect only runs when accessToken changes
 
   return (
-    <div className="rounded-md border-4 border-black bg-colors-customGreen m-2 p-4 w-1/2">
-      <h2 className="text-lg font-bold mb-4 bg-colors-customGreen">Top Tracks</h2>
+    <div className="rounded-md border-4 border-black bg-colors-customGreen m-4 p-4 sm:w-full md:w-1/2 lg:w-1/3 h-[70vh] sm:h-[70vh] md:h-[80vh] lg:h-[90vh] overflow-y-auto">
+      <h2 className="text-4xl font-bold mb-4 bg-colors-customGreen">Top Tracks</h2>
       <SongList songs={songs} />
     </div>
   );

@@ -33,6 +33,7 @@ type Props = {
 
 const ArtistCard: FC<Props> = ({ artist, handlePlayTrack }) => {
   const togglePlay = usePlayerStore((state) => state.togglePlay);
+  const isPlaying = usePlayerStore((state) => state.isPlaying);
   return (
     <section className="max-w-4xl m-auto">
       <Card>
@@ -45,13 +46,15 @@ const ArtistCard: FC<Props> = ({ artist, handlePlayTrack }) => {
         </CardContent>
 
         <CardContent>
-          <article className="grid grid-cols-4 gap-3 justify-center items-center">
+          <article className="grid md:grid-cols-4 grid-cols-2 gap-3 justify-center items-center">
             {artist.topTracks.map((track) => (
               <Card
                 onClick={() => {
                   console.log("play");
                   handlePlayTrack(track.uri);
-                  togglePlay();
+                  console.log(isPlaying);
+                  togglePlay(true);
+                  console.log(isPlaying);
                 }}
                 className=" cursor-pointer hover:bg-white/60 hover:text-blue-500"
               >

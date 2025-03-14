@@ -29,3 +29,25 @@ body {
   background: #3669ee;
   /* width: 100%; */
 }
+
+/* width */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #81a1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #EE36C5;
+  border-radius: 5px;
+  border: solid black 3px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #3669ee;
+}

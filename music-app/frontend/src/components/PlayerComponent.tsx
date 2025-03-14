@@ -5,7 +5,8 @@ import axios from "axios";
 
 const PlayerComponent = () => {
   const { accessToken } = useAccessStore();
-  const { trackUri, isPlaying, deviceId, setDeviceId } = usePlayerStore();
+  const { trackUri, isPlaying, deviceId, setDeviceId, togglePlay } =
+    usePlayerStore();
   const [player, setPlayer] = useState<Spotify.Player | null>(null);
   const [currentTrack, setCurrentTrack] = useState<any>(null);
 
@@ -84,9 +85,44 @@ const PlayerComponent = () => {
     if (!player) return;
     console.log(isPlaying);
     if (isPlaying) {
-      await player.pause();
+      try {
+        axios.put(
+          "https://api.spotify.com/v1/me/player/pause",
+          {
+            device_id: deviceId, // Optional: Specify the device to play on
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+        console.log("Playback started successfully.");
+      } catch (error) {
+        console.error("Error starting playback:", error);
+      }
+      togglePlay(false);
     } else {
-      await player.resume();
+      try {
+        axios.put(
+          "https://api.spotify.com/v1/me/player/play",
+          {
+            uris: [trackUri], // Spotify track URIs to play (array)
+            device_id: deviceId, // Optional: Specify the device to play on
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+        console.log("Playback started successfully.");
+      } catch (error) {
+        console.error("Error starting playback:", error);
+      }
+      togglePlay(true);
     }
   };
 
