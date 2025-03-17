@@ -139,6 +139,7 @@ const PlayerComponent = () => {
               className="w-full"
               aria-label="Volume"
             />
+            {/*
             <div className="flex items-center space-x-2">
               <label
                 htmlFor="volume"
@@ -158,6 +159,7 @@ const PlayerComponent = () => {
               />
               <span className="text-sm text-gray-500">{value}</span>
             </div>
+            */}
             <div className="flex gap-3 justify-center">
               <PreviousButton onClick={() => player?.previousTrack()} />
               {isPlaying ? (
