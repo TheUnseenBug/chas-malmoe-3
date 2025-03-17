@@ -28,11 +28,11 @@ export default function Home() {
     <div>
       {code || token ? (
         <div>
-          <h1 className="text-white text-4xl">
+          <h1 className="text-4xl text-white">
             Search for a song or an artist
           </h1>
           <SearchBar />
-          <section className="p-2 flex align-middle justify-center flex-col md:flex-row lg:flex-row">
+          <section className="flex flex-col justify-center p-2 align-middle md:flex-row lg:flex-row">
             <ListContainer />
             <SongListContainer />
           </section>
