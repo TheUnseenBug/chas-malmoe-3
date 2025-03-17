@@ -22,6 +22,7 @@ export type TopTrack = {
 };
 export type Track = {
   name: string;
+  duration_ms: number;
   artists: {
     name: string;
   }[];

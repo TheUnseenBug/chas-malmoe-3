@@ -10,6 +10,7 @@ import {
   NextButton,
 } from "./ui/PlayerButtons";
 import { Track } from "@/types";
+import timeConverter from "@/helpers/timeConverter";
 
 const PlayerComponent = () => {
   const { accessToken } = useAccessStore();
@@ -17,6 +18,7 @@ const PlayerComponent = () => {
     usePlayerStore();
   const [player, setPlayer] = useState<Spotify.Player | null>(null);
   const [currentTrack, setCurrentTrack] = useState<Track>();
+  const [value, setValue] = useState<number>(0);
 
   // 🔹 Lägg till denna för att se när `trackUri` ändras
   useEffect(() => {
@@ -129,7 +131,33 @@ const PlayerComponent = () => {
               {currentTrack.artists.map((artist) => artist.name).join(", ")}
             </h3>
             <p>{currentTrack.album.name}</p>
-            <Slider />
+            <Slider
+              min={0}
+              max={currentTrack.duration_ms}
+              defaultValue={[1]}
+              step={1}
+              className="w-full"
+              aria-label="Volume"
+            />
+            <div className="flex items-center space-x-2">
+              <label
+                htmlFor="volume"
+                className="text-sm font-medium text-gray-700"
+              >
+                Volume:
+              </label>
+              <input
+                type="range"
+                id="volume"
+                min={0}
+                max={timeConverter(currentTrack.duration_ms)}
+                value={value}
+                step={1}
+                onChange={(e) => setValue(Number(e.target.value))}
+                className="w-48 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+              <span className="text-sm text-gray-500">{value}</span>
+            </div>
             <div className="flex gap-3 justify-center">
               <PreviousButton onClick={() => player?.previousTrack()} />
               {isPlaying ? (
@@ -149,16 +177,3 @@ const PlayerComponent = () => {
 };
 
 export default PlayerComponent;
-// <div className="flex items-center">
-//   <img
-//     src={currentTrack.album.images[0]?.url}
-//     alt={currentTrack.name}
-//     className="w-16 h-16 mr-4"
-//   />
-//   <div>
-//     <h3 className="text-lg font-bold">{currentTrack.name}</h3>
-//     <p className="text-sm text-gray-700">
-//       {currentTrack.artists.map((artist) => artist.name).join(", ")}
-//     </p>
-//   </div>
-// </div>
