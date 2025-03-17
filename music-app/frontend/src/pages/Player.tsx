@@ -22,30 +22,47 @@ import SpotifyPlayer from "react-spotify-web-playback";
 export default function Player(accessToken: any, trackUri: any) {
   if (!accessToken) return null;
   return (
-    <div className="flex flex-col align-center gap-5">
+    <div className="flex flex-col gap-5 align-center">
       <SpotifyPlayer
         token={accessToken}
         showSaveIcon
         uris={trackUri ? [trackUri] : []}
       />
+
+      <div className="flex flex-col self-center w-3/4 gap-3 p-4 border-4 border-black rounded-md bg-colors-customYellow lg:flex-col">
+        {/* Album + Info */}
+        <div className="flex flex-col w-full gap-3 lg:flex-row">
+          {/* Album cover */}
+          <div className="self-center w-full lg:w-1/2">
+            <img
+              src={Image}
+              alt="Album Cover"
+              className="w-full border-4 border-black rounded-md"
+            />
+          </div>
+
+          {/* Info container */}
+          <div className="self-stretch w-full p-4 text-left border-4 border-black rounded-md bg-colors-customPink lg:w-1/2">
+            <h2 className="font-bold sm:text-lg md:text-2xl lg:text-4xl">
+              I'm a Fool to Want You (with Ray Ellis & His Orchestra)
+            </h2>
+            <h3 className="sm:text-lg md:text-2xl lg:text-4xl">
+              Billie Holiday, Ray Ellis And His Orchestra
+            </h3>
+            <p className="italic sm:text-lg md:text-2xl lg:text-3xl">
+              Album Name
+            </p>
+          </div>
+        </div>
+
+        {/* Button controls */}
+        <div className="flex flex-row justify-center order-3 w-full gap-3 mt-4">
+          <PreviousButton />
+          <PlayButton />
+          <PauseButton />
+          <NextButton />
+        </div>
+      </div>
     </div>
   );
-}
-
-{
-  /* <div className="p-6 rounded-md border-4 border-black bg-colors-customYellow m-5 flex flex-row place-content-between max-w-1/2">
-        <div>
-          <img src={Image} alt="Billie Holiday" className="size-" />
-        </div>
-        <div className="border-black border-4 rounded-md bg-colors-customPink m-5 p-6 text-left max-w-1/2">
-          <h2>Favourite Song</h2>
-          <h3>Billie Holiday</h3>
-          <p>Album Name</p>
-          <button>Previous</button>
-          <button>Play/Pause</button>
-          <button>Next</button>
-          <Slider defaultValue={[33]} max={100} step={1} />
-          <Slider defaultValue={[33]} max={100} step={1} />
-        </div>
-      </div> */
 }
