@@ -28,7 +28,9 @@ export default function Home() {
     <div>
       {code || token ? (
         <div>
-          <h1 className="text-white">Search for a song</h1>
+          <h1 className="text-white text-4xl">
+            Search for a song or an artist
+          </h1>
           <SearchBar />
           <section className="p-2 flex align-middle justify-center flex-col md:flex-row lg:flex-row">
             <ListContainer />

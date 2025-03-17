@@ -7,6 +7,7 @@ import LogoutModal from "./LogoutModal";
 const Header: React.FC = () => {
   // Hämta funktion för att uppdatera access token
   const addAccessToken = useAccessStore((state) => state.addAccessToken);
+  const accessToken = useAccessStore((state) => state.accessToken);
   const navigate = useNavigate();
   // State för att kontrollera om utloggningsmodalen är öppen
   const [isModalOpen, setModalOpen] = useState(false);
@@ -34,9 +35,9 @@ const Header: React.FC = () => {
           <span className="text-pink-500">.</span>
         </NavLink>
       </h1>
-      {!isModalOpen && (
+      {!isModalOpen && accessToken && (
         <button
-          className="bg-white hover:opacity-80 text-black py-1.5 px-3 rounded-md transition-opacity duration-200 ease-in-out"
+          className="border-4 border-black bg-white hover:opacity-80 text-black py-1.5 px-3 rounded-md transition-opacity duration-200 ease-in-out"
           onClick={handleLogout}
         >
           Log out
